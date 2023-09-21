@@ -28,19 +28,19 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
     }
 }
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" class="no-focus">
 
 <head>
-    <title>Event Handler Platform - manage services</title>
+    <title>Event Handler Platform - Manage Services</title>
     <link rel="stylesheet" id="css-main" href="assets/css/codebase.min.css">
     <style>
         .expired-event {
             color: red;
         }
 
-        .event-status {
-            font-weight: bold;
+        .active-event {
+            color: green;
         }
     </style>
 </head>
@@ -53,11 +53,9 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
         <main id="main-container">
             <!-- Page Content -->
             <div class="content">
-                <!-- Register Forms -->
                 <h2 class="content-heading">Admin Profile</h2>
                 <div class="row">
                     <div class="col-md-12">
-                        <!-- Bootstrap Register -->
                         <div class="block block-themed">
                             <div class="block-header bg-gd-emerald">
                                 <h3 class="block-title">Admin Profile</h3>
@@ -85,16 +83,17 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                             foreach ($results as $row) {
                                                 $eventDate = $row->ServiceDate; // Assuming your event date is in a format like "Y-m-d"
                                                 $isExpired = strtotime($eventDate) < strtotime(date('Y-m-d'));
-                                                $expiredClass = $isExpired ? 'expired-event' : ''; // Add the expired class
+                                                $statusClass = $isExpired ? 'expired-event' : 'active-event'; // Class for status text color
+                                                $statusIcon = $isExpired ? 'fa-close' : 'fa-check'; // Icon for status
                                                 ?>
-                                                <div class="form-group row <?php echo $expiredClass; ?>">
+                                                <div class="form-group row">
                                                     <label class="col-form-label col-md-4">Event Name:</label>
                                                     <div class="col-md-12">
                                                         <input type="text" value="<?php echo $row->ServiceName; ?>" name="sername"
                                                             required="true" class="form-control">
                                                     </div>
                                                 </div>
-                                                <div class="form-group row <?php echo $expiredClass; ?>">
+                                                <div class="form-group row">
                                                     <label class="col-form-label col-md-4">Event price</label>
                                                     <div class="col-md-12">
                                                         <input type="text" name="serprice" class="form-control" required="true"
@@ -102,32 +101,36 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                                             value="<?php echo $row->ServicePrice; ?>">
                                                     </div>
                                                 </div>
-                                                <div class="form-group row <?php echo $expiredClass; ?>">
+                                                <div class="form-group row ">
                                                     <label class="col-form-label col-md-4">Event Date:</label>
                                                     <div class="col-md-12">
                                                         <input type="date" value="<?php echo $row->ServiceDate; ?>" name="serdate"
                                                             required="true" class="form-control">
                                                     </div>
                                                 </div>
-                                                <div class="form-group row <?php echo $expiredClass; ?>">
+                                                <div class="form-group row ">
                                                     <label class="col-form-label col-md-4">Event Time:</label>
                                                     <div class="col-md-12">
                                                         <input type="time" value="<?php echo $row->ServiceTime; ?>" name="sertime"
                                                             required="true" class="form-control">
                                                     </div>
                                                 </div>
-                                                <div class="form-group row <?php echo $expiredClass; ?>">
+                                                <div class="form-group row ">
                                                     <label class="col-form-label col-md-4">Event Location:</label>
                                                     <div class="col-md-12">
                                                         <input type="text" value="<?php echo $row->Location; ?>" name="location"
                                                             required="true" class="form-control">
                                                     </div>
                                                 </div>
-                                                <div class="form-group row <?php echo $expiredClass; ?>">
-                                                    <label class="col-form-label col-md-4">Event Status:</label>
+                                                <div class="form-group row">
+                                                    <label class="col-form-label col-md-4" style="color: black;">Event
+                                                        Status:</label>
                                                     <div class="col-md-12">
-                                                        <span class="event-status">
+                                                        <span class="<?php echo $statusClass; ?>">
                                                             <?php echo $isExpired ? 'Expired' : 'Active'; ?>
+                                                            <span class="mx-10" style="font-size: 20px;"><i
+                                                                    class="fa <?php echo $statusIcon; ?>"
+                                                                    aria-hidden="true"></i></span>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -143,11 +146,9 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                 </div>
                             </form>
                         </div>
-                        <!-- END Bootstrap Register -->
                     </div>
                 </div>
             </div>
-            <!-- END Page Content -->
         </main>
         <!-- END Main Container -->
         <?php include_once('includes/footer.php'); ?>

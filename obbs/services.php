@@ -1,32 +1,35 @@
 <?php
 session_start();
 error_reporting(0);
-
 include('includes/dbconnection.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-	<title>Event Handler Platform|| Service </title>
+	<title>Event Handler Platform || Service</title>
 
-	<script
-		type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-	<!-- bootstrap-css -->
+	<script type="application/x-javascript">
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<!-- Bootstrap CSS -->
 	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-	<!--// bootstrap-css -->
-	<!-- css -->
+	<!-- Custom CSS -->
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
-	<!--// css -->
-	<!-- font-awesome icons -->
+	<!-- Font Awesome Icons -->
 	<link href="css/font-awesome.css" rel="stylesheet">
-	<!-- //font-awesome icons -->
-	<!-- font -->
-	<link href="//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i"
-		rel="stylesheet">
+	<!-- Google Fonts -->
+	<link href='//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i'
+		rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300'
 		rel='stylesheet' type='text/css'>
-	<!-- //font -->
+	<!-- JavaScript -->
 	<script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script type="text/javascript">
@@ -38,12 +41,12 @@ include('includes/dbconnection.php');
 		});
 	</script>
 	<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-<![endif]-->
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<![endif]-->
 </head>
 
 <body>
-	<!-- banner -->
+	<!-- Banner -->
 	<div class="banner jarallax">
 		<div class="agileinfo-dot">
 			<?php include_once('includes/header.php'); ?>
@@ -52,44 +55,43 @@ include('includes/dbconnection.php');
 			</div>
 		</div>
 	</div>
-	<!-- //banner -->
-	<!-- about -->
-	<!-- about-top -->
+	<!-- End Banner -->
+
+	<!-- About Section -->
 	<div class="about-top">
 		<div class="container">
 			<div class="wthree-services-bottom-grids">
-
-				<p class="wow fadeInUp animated" data-wow-delay=".5s">List of services which is prvided by us.</p>
 				<div class="bs-docs-example wow fadeInUp animated" data-wow-delay=".5s">
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Event Name</th>
-								<th>Description</th>
-								<th>Price</th>
-								<th>Date</th>
-								<th>Time</th>
-								<th>Location</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
+					<?php
+					$currentDate = date('Y-m-d');
+					$sql = "SELECT * FROM tblservice WHERE ServiceDate > '$currentDate'";
+					$query = $dbh->prepare($sql);
+					$query->execute();
+					$results = $query->fetchAll(PDO::FETCH_OBJ);
 
-							<!-- ... (Previous code) ... -->
-
-							<!-- Loop through the services and create booking links -->
-							<?php
-							$currentDate = date('y:m:d');
-							$sql = "SELECT * FROM tblservice WHERE ServiceDate > '$currentDate'";
-							$query = $dbh->prepare($sql);
-							$query->execute();
-							$results = $query->fetchAll(PDO::FETCH_OBJ);
-							$cnt = 1;
-							if ($query->rowCount() > 0) {
+					if ($query->rowCount() > 0) {
+						?>
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<!-- Table headers -->
+									<th>#</th>
+									<th>Event Name</th>
+									<th>Description</th>
+									<th>Price</th>
+									<th>Date</th>
+									<th>Time</th>
+									<th>Location</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+								$cnt = 1;
 								foreach ($results as $row) {
 									$serviceID = $row->ID;
 									?>
+									<!-- Table rows -->
 									<tr>
 										<td>
 											<?php echo htmlentities($cnt); ?>
@@ -122,56 +124,57 @@ include('includes/dbconnection.php');
 									<?php
 									$cnt = $cnt + 1;
 								}
+								?>
+							</tbody>
+						</table>
+						<?php
+					} else {
+						// Display a red-colored division with "No Event Posted" message and a close button
+						?>
+						<div id="no-events"
+							style="background-color: orangered; color: white; padding: 50px; text-align: center; position: relative;">
+							No Event Posted today !!!
+							<button onclick="closeNoEvents()"
+								style="position: absolute; top: 5px; right: 5px; color: black; padding: 10px;">Close</button>
+						</div>
+						<script>
+							function closeNoEvents() {
+								document.getElementById("no-events").style.display = "none";
 							}
-							?>
-							<!-- ... (Rest of your code) ... -->
-
-						</tbody>
-					</table>
+						</script>
+						<?php
+					}
+					?>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
 		</div>
 	</div>
-	<!-- //about-top -->
+	<!-- End About Section -->
 
-	<!-- //about -->
-	<!-- footer -->
+	<!-- Footer -->
 	<?php include_once('includes/footer.php'); ?>
-	<!-- jarallax -->
+
+	<!-- Jarallax -->
 	<script src="js/jarallax.js"></script>
 	<script src="js/SmoothScroll.min.js"></script>
 	<script type="text/javascript">
-		/* init Jarallax */
 		$('.jarallax').jarallax({
 			speed: 0.5,
 			imgWidth: 1366,
 			imgHeight: 768
 		})
 	</script>
-	<!-- //jarallax -->
+	<!-- End Jarallax -->
 	<script src="js/SmoothScroll.min.js"></script>
 	<script type="text/javascript" src="js/move-top.js"></script>
 	<script type="text/javascript" src="js/easing.js"></script>
-	<!-- here stars scrolling icon -->
 	<script type="text/javascript">
 		$(document).ready(function () {
-			/*
-				var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear' 
-				};
-			*/
-
 			$().UItoTop({ easingType: 'easeOutQuart' });
-
 		});
 	</script>
-	<!-- //here ends scrolling icon -->
 	<script src="js/modernizr.custom.js"></script>
-
 </body>
 
 </html>

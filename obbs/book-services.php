@@ -14,24 +14,36 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 		$nop = $_POST['nop'];
 		$message = $_POST['message'];
 		$bookingid = mt_rand(100000000, 999999999);
-		$sql = "insert into tblbooking(BookingID,ServiceID,UserID,PricePerEvent,TotalPrice,EventType,Numberofguest,Message)values(:bookingid,:bid,:uid,:ppe,:tp,:eventtype,:nop,:message)";
-		$query = $dbh->prepare($sql);
-		$query->bindParam(':bookingid', $bookingid, PDO::PARAM_STR);
-		$query->bindParam(':bid', $bid, PDO::PARAM_STR);
-		$query->bindParam(':uid', $uid, PDO::PARAM_STR);
-		$query->bindParam(':ppe', $ppe, PDO::PARAM_STR);
-		$query->bindParam(':tp', $tp, PDO::PARAM_STR);
-		$query->bindParam(':eventtype', $eventtype, PDO::PARAM_STR);
-		$query->bindParam(':nop', $nop, PDO::PARAM_STR);
-		$query->bindParam(':message', $message, PDO::PARAM_STR);
 
-		$query->execute();
-		$LastInsertId = $dbh->lastInsertId();
-		if ($LastInsertId > 0) {
-			echo '<script>alert("Your Booking Request Has Been Sent. We Will Contact You Soon")</script>';
-			echo "<script>window.location.href ='services.php'</script>";
+		// Validate Number of Guests (only accept numbers and not less than 1)
+		if (!is_numeric($nop) || $nop < 1) {
+			echo '<script>alert("Number of Guests should be a valid number and not less than 1.")</script>';
 		} else {
-			echo '<script>alert("Something Went Wrong. Please try again")</script>';
+			// Validate Message (only characters, special characters, and spaces with minimum length of 3)
+			if (!preg_match("/^[a-zA-Z\s\W]{3,}$/", $message)) {
+				echo '<script>alert("Message should only contain characters, special characters, and spaces (minimum 3 characters).")</script>';
+			} else {
+				// Proceed with inserting the booking record
+				$sql = "insert into tblbooking(BookingID,ServiceID,UserID,PricePerEvent,TotalPrice,EventType,Numberofguest,Message)values(:bookingid,:bid,:uid,:ppe,:tp,:eventtype,:nop,:message)";
+				$query = $dbh->prepare($sql);
+				$query->bindParam(':bookingid', $bookingid, PDO::PARAM_STR);
+				$query->bindParam(':bid', $bid, PDO::PARAM_STR);
+				$query->bindParam(':uid', $uid, PDO::PARAM_STR);
+				$query->bindParam(':ppe', $ppe, PDO::PARAM_STR);
+				$query->bindParam(':tp', $tp, PDO::PARAM_STR);
+				$query->bindParam(':eventtype', $eventtype, PDO::PARAM_STR);
+				$query->bindParam(':nop', $nop, PDO::PARAM_STR);
+				$query->bindParam(':message', $message, PDO::PARAM_STR);
+
+				$query->execute();
+				$LastInsertId = $dbh->lastInsertId();
+				if ($LastInsertId > 0) {
+					echo '<script>alert("Your Booking Request Has Been Sent. We Will Contact You Soon")</script>';
+					echo "<script>window.location.href ='services.php'</script>";
+				} else {
+					echo '<script>alert("Something Went Wrong. Please try again")</script>';
+				}
+			}
 		}
 	}
 }
@@ -60,8 +72,8 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 	<link href="css/font-awesome.css" rel="stylesheet">
 	<!-- //font-awesome icons -->
 	<!-- font -->
-	<link href="//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i"
-		rel="stylesheet">
+	<link href='//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i'
+		rel='stylesheet'>
 	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300'
 		rel='stylesheet' type='text/css'>
 	<!-- //font -->
@@ -106,7 +118,6 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 	<div class="contact">
 		<div class="container">
 			<div class="agile-contact-form">
-
 				<div class="col-md-6 contact-form-right">
 					<div class="contact-form-top">
 						<h3>Book Services</h3>
@@ -143,28 +154,26 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-form-label col-md-4">Number of Guest:</label>
+								<label class="col-form-label col-md-4">Number of Guests:</label>
 								<div class="col-md-10">
-									<input type="text" class="form-control" style="font-size: 20px" required="true"
-										name="nop" id="nop">
+									<input type="text" class="form-control" style="font-size: 20px" name="nop" id="nop"
+										onblur="validateNumberOfGuests(this)">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-form-label col-md-4">Total Price:</label>
 								<div class="col-md-10">
-									<input type="text" class="form-control" style="font-size: 20px" required="true"
-										name="tp" id="tp" readonly>
+									<input type="text" class="form-control" style="font-size: 20px" name="tp" id="tp"
+										readonly>
 								</div>
 							</div>
-
 							<div class="form-group row">
 								<label class="col-form-label col-md-4">Message (if any):</label>
 								<div class="col-md-10">
-									<textarea class="form-control" required="true" name="message"
-										style="font-size: 20px"></textarea>
+									<textarea class="form-control" name="message" style="font-size: 20px"
+										onblur="validateMessage(this)"></textarea>
 								</div>
 							</div>
-
 							<br>
 							<div class="tp">
 								<button type="submit" class="btn btn-primary" name="submit">Book</button>
@@ -172,7 +181,6 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 						</form>
 					</div>
 				</div>
-
 				<div class="clearfix"></div>
 			</div>
 		</div>
@@ -194,6 +202,24 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 	<script src="js/SmoothScroll.min.js"></script>
 	<script type="text/javascript" src="js/move-top.js"></script>
 	<script type="text/javascript" src="js/easing.js"></script>
+	<script>
+		function validateNumberOfGuests(input) {
+			var nop = parseInt(input.value);
+			if (isNaN(nop) || nop < 1) {
+				alert("Number of Guests should be a valid number and not less than 1.");
+				input.value = ''; // Clear the input
+			}
+		}
+
+		function validateMessage(input) {
+			// Regular expression to match characters, special characters, and spaces but not numbers
+			var regex = /^[a-zA-Z\s\W]*$/;
+			if (!regex.test(input.value)) {
+				alert("Message should contain only characters, special characters, and spaces.");
+				input.value = ''; // Clear the input
+			}
+		}
+	</script>
 </body>
 
 </html>
