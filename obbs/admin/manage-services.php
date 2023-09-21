@@ -2,42 +2,43 @@
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
-if (strlen($_SESSION['odmsaid']==0)) {
-  header('location:logout.php');
-  } else{
+if (strlen($_SESSION['odmsaid'] == 0)) {
+    header('location:logout.php');
+} else {
 
-// Code for deleting product from cart
-if(isset($_GET['delid']))
-{
-$rid=intval($_GET['delid']);
-$sql="delete from tblservice where ID=:rid";
-$query=$dbh->prepare($sql);
-$query->bindParam(':rid',$rid,PDO::PARAM_STR);
-$query->execute();
- echo "<script>alert('Data deleted');</script>"; 
-  echo "<script>window.location.href = 'manage-services.php'</script>";     
+    // Code for deleting product from cart
+    if (isset($_GET['delid'])) {
+        $rid = intval($_GET['delid']);
+        $sql = "delete from tblservice where ID=:rid";
+        $query = $dbh->prepare($sql);
+        $query->bindParam(':rid', $rid, PDO::PARAM_STR);
+        $query->execute();
+        echo "<script>alert('Data deleted');</script>";
+        echo "<script>window.location.href = 'manage-services.php'</script>";
 
 
-}
+    }
 
-  ?>
-<!doctype html>
-<html lang="en" class="no-focus"> <!--<![endif]-->
+    ?>
+    <!doctype html>
+    <html lang="en" class="no-focus"> <!--<![endif]-->
+
     <head>
-        <title>Online Banquet Booking System - Manage Services</title>
+        <title>Event Handler Platform - Manage Services</title>
 
         <link rel="stylesheet" href="assets/js/plugins/datatables/dataTables.bootstrap4.min.css">
 
         <link rel="stylesheet" id="css-main" href="assets/css/codebase.min.css">
 
     </head>
-    <body>
-        
-        <div id="page-container" class="sidebar-o sidebar-inverse side-scroll page-header-fixed main-content-narrow">
-           
-           <?php include_once('includes/sidebar.php');?>
 
-          <?php include_once('includes/header.php');?>
+    <body>
+
+        <div id="page-container" class="sidebar-o sidebar-inverse side-scroll page-header-fixed main-content-narrow">
+
+            <?php include_once('includes/sidebar.php'); ?>
+
+            <?php include_once('includes/header.php'); ?>
 
 
             <!-- Main Container -->
@@ -46,7 +47,7 @@ $query->execute();
                 <div class="content">
                     <h2 class="content-heading">Manage Services</h2>
 
-                   
+
 
                     <!-- Dynamic Table Full Pagination -->
                     <div class="block">
@@ -61,35 +62,63 @@ $query->execute();
                                         <th class="text-center"></th>
                                         <th>Service Name</th>
                                         <th class="d-none d-sm-table-cell">Service Price</th>
+                                        <th class="d-none d-sm-table-cell">Service Date</th>
+                                        <th class="d-none d-sm-table-cell">Service Time</th>
+                                        <th class="d-none d-sm-table-cell">Location</th>
                                         <th class="d-none d-sm-table-cell">Creation Date</th>
                                         <th class="d-none d-sm-table-cell" style="width: 15%;">Action</th>
-                                       </tr>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-$sql="SELECT * from tblservice";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
+                                    $sql = "SELECT * from tblservice";
+                                    $query = $dbh->prepare($sql);
+                                    $query->execute();
+                                    $results = $query->fetchAll(PDO::FETCH_OBJ);
 
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $row)
-{               ?>
-                                    <tr>
-                                        <td class="text-center"><?php echo htmlentities($cnt);?></td>
-                                        <td class="font-w600"><?php  echo htmlentities($row->ServiceName);?></td>
-                                        <td class="d-none d-sm-table-cell">$<?php  echo htmlentities($row->ServicePrice);?></td>
-                                        <td class="d-none d-sm-table-cell">
-                                            <span class="badge badge-primary"><?php  echo htmlentities($row->CreationDate);?></span>
-                                        </td>
-                                         <td class="d-none d-sm-table-cell"><a href="manage-services.php?delid=<?php echo ($row->ID);?>" onclick="return confirm('Do you really want to Delete ?');"><i class="fa fa-trash fa-delete" aria-hidden="true"></i></a></td>
-                                    </tr>
-                                    <?php $cnt=$cnt+1;}} ?> 
-                                
-                                
-                                  
+                                    $cnt = 1;
+                                    if ($query->rowCount() > 0) {
+                                        foreach ($results as $row) { ?>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <?php echo htmlentities($cnt); ?>
+                                                </td>
+                                                <td class="font-w600">
+                                                    <?php echo htmlentities($row->ServiceName); ?>
+                                                </td>
+                                                <td class="d-none d-sm-table-cell">Frw
+                                                    <?php echo htmlentities($row->ServicePrice); ?>
+                                                </td>
+                                                <td class="d-none d-sm-table-cell">
+                                                    <?php echo htmlentities($row->ServiceDate); ?>
+                                                </td>
+                                                <td class="d-none d-sm-table-cell">
+                                                    <?php echo htmlentities($row->ServiceTime); ?>
+                                                </td>
+                                                <td class="d-none d-sm-table-cell">
+                                                    <?php echo htmlentities($row->Location); ?>
+                                                </td>
+                                                <td class="d-none d-sm-table-cell">
+                                                    <span class="badge badge-primary">
+                                                        <?php echo htmlentities($row->CreationDate); ?>
+                                                    </span>
+                                                </td>
+                                                <td class="d-none d-sm-table-cell"><a
+                                                        href="manage-services.php?delid=<?php echo ($row->ID); ?>"
+                                                        onclick="return confirm('Do you really want to Delete ?');"><i
+                                                            class="fa fa-trash fa-delete text-danger" aria-hidden="true"></i></a>
+                                                    <span class="mx-20">
+                                                        <a href="manage-service-update.php?upid=<?php echo ($row->ID); ?>"><i
+                                                                class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <?php $cnt = $cnt + 1;
+                                        }
+                                    } ?>
+
+
+
                                 </tbody>
                             </table>
                         </div>
@@ -102,7 +131,7 @@ foreach($results as $row)
             </main>
             <!-- END Main Container -->
 
-           <?php include_once('includes/footer.php');?>
+            <?php include_once('includes/footer.php'); ?>
         </div>
         <!-- END Page Container -->
 
@@ -124,5 +153,6 @@ foreach($results as $row)
         <!-- Page JS Code -->
         <script src="assets/js/pages/be_tables_datatables.js"></script>
     </body>
-</html>
-<?php }  ?>
+
+    </html>
+<?php } ?>

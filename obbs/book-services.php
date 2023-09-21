@@ -2,80 +2,100 @@
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
-if (strlen($_SESSION['obbsuid']==0)) {
-  header('location:logout.php');
-  } else{
-    if(isset($_POST['submit']))
-  {
-  	$bid=$_GET['bookid'];
-  	$uid=$_SESSION['obbsuid'];
- $bookingfrom=$_POST['bookingfrom'];
-  $bookingto=$_POST['bookingto'];
- $eventtype=$_POST['eventtype'];
- $nop=$_POST['nop'];
- $message=$_POST['message'];
- $bookingid=mt_rand(100000000, 999999999);
-$sql="insert into tblbooking(BookingID,ServiceID,UserID,BookingFrom,BookingTo,EventType,Numberofguest,Message)values(:bookingid,:bid,:uid,:bookingfrom,:bookingto,:eventtype,:nop,:message)";
-$query=$dbh->prepare($sql);
-$query->bindParam(':bookingid',$bookingid,PDO::PARAM_STR);
-$query->bindParam(':bid',$bid,PDO::PARAM_STR);
-$query->bindParam(':uid',$uid,PDO::PARAM_STR);
-$query->bindParam(':bookingfrom',$bookingfrom,PDO::PARAM_STR);
-$query->bindParam(':bookingto',$bookingto,PDO::PARAM_STR);
-$query->bindParam(':eventtype',$eventtype,PDO::PARAM_STR);
-$query->bindParam(':nop',$nop,PDO::PARAM_STR);
-$query->bindParam(':message',$message,PDO::PARAM_STR);
+if (strlen($_SESSION['obbsuid'] == 0)) {
+	header('location:logout.php');
+} else {
+	if (isset($_POST['submit'])) {
+		$bid = $_GET['serviceID'];
+		$uid = $_SESSION['obbsuid'];
+		$ppe = $_POST['ppe'];
+		$tp = $_POST['tp'];
+		$eventtype = $_POST['eventtype'];
+		$nop = $_POST['nop'];
+		$message = $_POST['message'];
+		$bookingid = mt_rand(100000000, 999999999);
+		$sql = "insert into tblbooking(BookingID,ServiceID,UserID,PricePerEvent,TotalPrice,EventType,Numberofguest,Message)values(:bookingid,:bid,:uid,:ppe,:tp,:eventtype,:nop,:message)";
+		$query = $dbh->prepare($sql);
+		$query->bindParam(':bookingid', $bookingid, PDO::PARAM_STR);
+		$query->bindParam(':bid', $bid, PDO::PARAM_STR);
+		$query->bindParam(':uid', $uid, PDO::PARAM_STR);
+		$query->bindParam(':ppe', $ppe, PDO::PARAM_STR);
+		$query->bindParam(':tp', $tp, PDO::PARAM_STR);
+		$query->bindParam(':eventtype', $eventtype, PDO::PARAM_STR);
+		$query->bindParam(':nop', $nop, PDO::PARAM_STR);
+		$query->bindParam(':message', $message, PDO::PARAM_STR);
 
- $query->execute();
-   $LastInsertId=$dbh->lastInsertId();
-   if ($LastInsertId>0) {
-    echo '<script>alert("Your Booking Request Has Been Send. We Will Contact You Soon")</script>';
-echo "<script>window.location.href ='services.php'</script>";
-  }
-  else
-    {
-         echo '<script>alert("Something Went Wrong. Please try again")</script>';
-    }
-
+		$query->execute();
+		$LastInsertId = $dbh->lastInsertId();
+		if ($LastInsertId > 0) {
+			echo '<script>alert("Your Booking Request Has Been Sent. We Will Contact You Soon")</script>';
+			echo "<script>window.location.href ='services.php'</script>";
+		} else {
+			echo '<script>alert("Something Went Wrong. Please try again")</script>';
+		}
+	}
 }
-  ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<title>Online Banquet Booking System | Book Services</title>
+	<title>Event Handler Platform | Book Services</title>
+	<script type="application/x-javascript">
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
 
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- bootstrap-css -->
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<!--// bootstrap-css -->
-<!-- css -->
-<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
-<!--// css -->
-<!-- font-awesome icons -->
-<link href="css/font-awesome.css" rel="stylesheet"> 
-<!-- //font-awesome icons -->
-<!-- font -->
-<link href="//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
-<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
-<!-- //font -->
-<script src="js/jquery-1.11.1.min.js"></script>
-<script src="js/bootstrap.js"></script>
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$(".scroll").click(function(event){		
-			event.preventDefault();
-			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<!-- bootstrap-css -->
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<!--// bootstrap-css -->
+	<!-- css -->
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+	<!--// css -->
+	<!-- font-awesome icons -->
+	<link href="css/font-awesome.css" rel="stylesheet">
+	<!-- //font-awesome icons -->
+	<!-- font -->
+	<link href="//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i"
+		rel="stylesheet">
+	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300'
+		rel='stylesheet' type='text/css'>
+	<!-- //font -->
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+				$('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+			});
+
+			// Calculate total price live
+			$("#nop").on("input", function () {
+				var ppe = parseFloat($("#ppe").val()) || 0;
+				var nop = parseInt($(this).val()) || 0;
+				var total = ppe * nop;
+				$("#tp").val(total.toFixed(2));
+			});
+
+			// Set the initial total price
+			var initialPPE = parseFloat($("#ppe").val()) || 0;
+			var initialNOP = parseInt($("#nop").val()) || 0;
+			var initialTotal = initialPPE * initialNOP;
+			$("#tp").val(initialTotal.toFixed(2));
 		});
-	});
-</script> 
-
-
+	</script>
 </head>
+
 <body>
 	<!-- banner -->
 	<div class="banner jarallax">
 		<div class="agileinfo-dot">
-			<?php include_once('includes/header.php');?>
+			<?php include_once('includes/header.php'); ?>
 			<div class="wthree-heading">
 				<h2>Book Services</h2>
 			</div>
@@ -86,76 +106,79 @@ echo "<script>window.location.href ='services.php'</script>";
 	<div class="contact">
 		<div class="container">
 			<div class="agile-contact-form">
-				
+
 				<div class="col-md-6 contact-form-right">
 					<div class="contact-form-top">
-						<h3>Book Services </h3>
+						<h3>Book Services</h3>
 					</div>
 					<div class="agileinfo-contact-form-grid">
 						<form method="post">
-							 <div class="form-group row">
-                                    <label class="col-form-label col-md-4">Booking From:</label>
-                                    <div class="col-md-10">
-                                        <input type="date" class="form-control" style="font-size: 20px" required="true" name="bookingfrom">
-                                    </div>
-                                </div>
-                                               <div class="form-group row">
-                                    <label class="col-form-label col-md-4">Booking To:</label>
-                                    <div class="col-md-10">
-                                        <input type="date" class="form-control" style="font-size: 20px" required="true" name="bookingto">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-form-label col-md-4">Type of Event:</label>
-                                    <div class="col-md-10">
-                                       <select type="text" class="form-control" name="eventtype" required="true" >
-							 	<option value="">Choose Event Type</option>
-							 	<?php 
+							<div class="form-group row">
+								<label class="col-form-label col-md-4">Type of Event:</label>
+								<div class="col-md-10">
+									<select type="text" class="form-control" name="eventtype" required="true">
+										<?php
+										if (isset($_GET['serviceID'])) {
+											$serviceID = $_GET['serviceID'];
+											$sql2 = "SELECT * from tblservice where ID='$serviceID' ";
+											$query2 = $dbh->prepare($sql2);
+											$query2->execute();
+											$result2 = $query2->fetchAll(PDO::FETCH_OBJ);
 
-$sql2 = "SELECT * from   tbleventtype ";
-$query2 = $dbh -> prepare($sql2);
-$query2->execute();
-$result2=$query2->fetchAll(PDO::FETCH_OBJ);
+											foreach ($result2 as $row) {
+												?>
+												<option value="<?php echo htmlentities($row->ServiceName); ?>">
+													<?php echo htmlentities($row->ServiceName); ?>
+												</option>
+											<?php }
+										} ?>
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-form-label col-md-4">Price/Event:</label>
+								<div class="col-md-10">
+									<input type="text" class="form-control" style="font-size: 20px" required="true"
+										name="ppe" value="<?php echo $row->ServicePrice; ?>" id="ppe" readonly>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-form-label col-md-4">Number of Guest:</label>
+								<div class="col-md-10">
+									<input type="text" class="form-control" style="font-size: 20px" required="true"
+										name="nop" id="nop">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-form-label col-md-4">Total Price:</label>
+								<div class="col-md-10">
+									<input type="text" class="form-control" style="font-size: 20px" required="true"
+										name="tp" id="tp" readonly>
+								</div>
+							</div>
 
-foreach($result2 as $row)
-{          
-    ?>  
-<option value="<?php echo htmlentities($row->EventType);?>"><?php echo htmlentities($row->EventType);?></option>
- <?php } ?>
-							 </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-form-label col-md-4">Number of Guest:</label>
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" style="font-size: 20px" required="true" name="nop">
-                                    </div>
-                                </div>
-                                                 <div class="form-group row">
-                                    <label class="col-form-label col-md-4">Message(if any)</label>
-                                    <div class="col-md-10">
-                                        <textarea  class="form-control"  required="true" name="message" style="font-size: 20px"></textarea> 
-                                    </div>
-                                </div>
-                                                
-                                              <br>
-                                                <div class="tp">
-                                                    
-                                                     <button type="submit" class="btn btn-primary" name="submit">Book</button>
-                                                </div>
-                                            </form>
+							<div class="form-group row">
+								<label class="col-form-label col-md-4">Message (if any):</label>
+								<div class="col-md-10">
+									<textarea class="form-control" required="true" name="message"
+										style="font-size: 20px"></textarea>
+								</div>
+							</div>
 
+							<br>
+							<div class="tp">
+								<button type="submit" class="btn btn-primary" name="submit">Book</button>
+							</div>
+						</form>
 					</div>
 				</div>
-				
-				<div class="clearfix"> </div>
+
+				<div class="clearfix"></div>
 			</div>
-			
-		
 		</div>
 	</div>
 	<!-- //contact -->
-	<?php include_once('includes/footer.php');?>
+	<?php include_once('includes/footer.php'); ?>
 	<!-- jarallax -->
 	<script src="js/jarallax.js"></script>
 	<script src="js/SmoothScroll.min.js"></script>
@@ -171,24 +194,6 @@ foreach($result2 as $row)
 	<script src="js/SmoothScroll.min.js"></script>
 	<script type="text/javascript" src="js/move-top.js"></script>
 	<script type="text/javascript" src="js/easing.js"></script>
-	<!-- here stars scrolling icon -->
-	<script type="text/javascript">
-		$(document).ready(function() {
-			/*
-				var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear' 
-				};
-			*/
-								
-			$().UItoTop({ easingType: 'easeOutQuart' });
-								
-			});
-	</script>
-<!-- //here ends scrolling icon -->
-<script src="js/modernizr.custom.js"></script>
+</body>
 
-</body>	
-</html><?php }  ?>
+</html>

@@ -31,7 +31,7 @@ $query->bindParam(':eid',$eid,PDO::PARAM_STR);
 <!doctype html>
  <html lang="en" class="no-focus"> <!--<![endif]-->
     <head>
- <title>Online Banquet Booking System - View Booking</title>
+ <title>Event Handler Platform - View Booking</title>
 <link rel="stylesheet" id="css-main" href="assets/css/codebase.min.css">
 
 </head>
@@ -68,7 +68,7 @@ $query->bindParam(':eid',$eid,PDO::PARAM_STR);
                                     <?php
                   $eid=$_GET['editid'];
 
-$sql="SELECT tbluser.FullName,tbluser.MobileNumber,tbluser.Email,tblbooking.BookingID,tblbooking.BookingDate,tblbooking.BookingFrom,tblbooking.BookingTo,tblbooking.EventType,tblbooking.Numberofguest,tblbooking.Message, tblbooking.Remark,tblbooking.Status,tblbooking.UpdationDate,tblservice.ServiceName,tblservice.SerDes,tblservice.ServicePrice from tblbooking join tblservice on tblbooking.ServiceID=tblservice.ID join tbluser on tbluser.ID=tblbooking.UserID  where tblbooking.ID=:eid";
+$sql="SELECT tbluser.FullName,tbluser.MobileNumber,tbluser.Email,tblbooking.BookingID,tblbooking.BookingDate,tblbooking.PricePerEvent,tblbooking.TotalPrice,tblbooking.EventType,tblbooking.Numberofguest,tblbooking.Message, tblbooking.Remark,tblbooking.Status,tblbooking.UpdationDate,tblservice.ServiceName,tblservice.SerDes,tblservice.ServicePrice,tblservice.Location,tblservice.ServiceDate,tblservice.ServiceTime from tblbooking join tblservice on tblbooking.ServiceID=tblservice.ID join tbluser on tbluser.ID=tblbooking.UserID  where tblbooking.ID=:eid";
 $query = $dbh -> prepare($sql);
 $query-> bindParam(':eid', $eid, PDO::PARAM_STR);
 $query->execute();
@@ -97,16 +97,18 @@ foreach($results as $row)
     
    <th>Email</th>
     <td><?php  echo $row->Email;?></td>
-     <th>Booking From</th>
-    <td><?php  echo $row->BookingFrom;?></td>
-  </tr>
-
-   <tr>
-   <th>Booking To</th>
-    <td><?php  echo $row->BookingTo;?></td>
     <th>Number of Guest</th>
     <td><?php  echo $row->Numberofguest;?></td>
   </tr>
+  <tr>
+    
+   <th>Event Date</th>
+    <td><?php  echo $row->ServiceDate;?></td>
+    <th>Event Time</th>
+    <td><?php  echo $row->ServiceTime;?></td>
+  </tr>
+
+   
  
   <tr>
     
@@ -122,11 +124,21 @@ foreach($results as $row)
     <th>Service Description</th>
     <td><?php  echo $row->SerDes;?></td>
   </tr>
-   <tr>
-    <th>Service Price</th>
-    <td>$<?php  echo $row->ServicePrice;?></td>
+  <tr>
+    
+    
+    <th>Event Location</th>
+    <td><?php  echo $row->Location;?></td>
     <th>Apply Date</th>
     <td><?php  echo $row->BookingDate;?></td>
+  </tr>
+   <tr>
+    <th>Event Price</th>
+    <td><span class="text-danger">Frw</span>
+      <?php  echo $row->ServicePrice;?></td>
+      <th>Total price</th>
+    <td><span class="text-danger">Frw</span>
+      <?php  echo $row->TotalPrice;?></td>
   </tr>
 
   <tr>

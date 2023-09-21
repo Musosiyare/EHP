@@ -115,18 +115,6 @@ foreach($results as $row)
                                     </ul>
                                 </li>
                                 <li>
-                                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-energy"></i><span class="sidebar-mini-hide">Type of Events</span></a>
-                                    <ul>
-                                        <li>
-                                            <a href="add-event-type.php">Add Event Types</a>
-                                        </li>
-                                        <li>
-                                            <a href="manage-event-type.php">Manage Event Types</a>
-                                        </li>
-                                       
-                                    </ul>
-                                </li>
-                                <li>
                                     <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span class="sidebar-mini-hide">Pages</span></a>
                                     <ul>
                                         <li>
