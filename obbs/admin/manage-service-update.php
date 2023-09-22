@@ -2,7 +2,8 @@
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
-if (strlen($_SESSION['odmsaid'] == 0)) {
+
+if (strlen($_SESSION['odmsaid']) == 0) {
     header('location:logout.php');
 } else {
     if (isset($_POST['submit'])) {
@@ -13,21 +14,60 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
         $serTime = $_POST['sertime'];
         $Location = $_POST['location'];
 
-        $sql = "update tblservice set ServiceName=:sername,ServicePrice=:serprice, ServiceDate=:serdate, ServiceTime=:sertime, Location=:location where ID=:upid";
-        $query = $dbh->prepare($sql);
-        $query->bindParam(':sername', $serName, PDO::PARAM_STR);
-        $query->bindParam(':serprice', $serPrice, PDO::PARAM_STR);
-        $query->bindParam(':serdate', $serDate, PDO::PARAM_STR);
-        $query->bindParam(':sertime', $serTime, PDO::PARAM_STR);
-        $query->bindParam(':location', $Location, PDO::PARAM_STR);
-        $query->bindParam(':upid', $upid, PDO::PARAM_STR);
-        $query->execute();
+        // Server-side validation
+        $errors = serverSideValidation($serName, $serPrice, $serDate, $serTime);
 
-        echo '<script>alert("Event has been updated")</script>';
-        echo "<script>window.location.href ='manage-services.php'</script>";
+        if (empty($errors)) {
+            $sql = "UPDATE tblservice SET ServiceName=:sername, ServicePrice=:serprice, ServiceDate=:serdate, ServiceTime=:sertime, Location=:location WHERE ID=:upid";
+            $query = $dbh->prepare($sql);
+            $query->bindParam(':sername', $serName, PDO::PARAM_STR);
+            $query->bindParam(':serprice', $serPrice, PDO::PARAM_STR);
+            $query->bindParam(':serdate', $serDate, PDO::PARAM_STR);
+            $query->bindParam(':sertime', $serTime, PDO::PARAM_STR);
+            $query->bindParam(':location', $Location, PDO::PARAM_STR);
+            $query->bindParam(':upid', $upid, PDO::PARAM_STR);
+            $query->execute();
+
+            echo '<script>alert("Event has been updated")</script>';
+            echo "<script>window.location.href ='manage-services.php'</script>";
+        } else {
+            // Display validation errors
+            foreach ($errors as $field => $error) {
+                echo '<script>alert("' . $error . '")</script>';
+            }
+        }
     }
 }
+
+function serverSideValidation($serName, $serPrice, $serDate, $serTime)
+{
+    $nameRegex = '/^[A-Za-z\s]{3,}$/';
+    $priceRegex = '/^[0-9]+$/';
+    $minPrice = 100;
+
+    $errors = [];
+
+    if (!preg_match($nameRegex, $serName)) {
+        $errors['sername'] = "Event Name must be at least 3 characters and spaces only.";
+    }
+
+    if (!preg_match($priceRegex, $serPrice) || $serPrice < $minPrice) {
+        $errors['serprice'] = "Event Price must be a number not less than 100.";
+    }
+
+    $currentDate = date('Y-m-d');
+    $currentTime = date('H:i');
+
+    if ($serDate < $currentDate) {
+        $errors['serdate'] = "Event Date cannot be in the past.";
+    } elseif ($serDate == $currentDate && $serTime < $currentTime) {
+        $errors['sertime'] = "Event Time cannot be in the past.";
+    }
+
+    return $errors;
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en" class="no-focus">
 
@@ -89,37 +129,41 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                                 <div class="form-group row">
                                                     <label class="col-form-label col-md-4">Event Name:</label>
                                                     <div class="col-md-12">
-                                                        <input type="text" value="<?php echo $row->ServiceName; ?>" name="sername"
-                                                            required="true" class="form-control">
+                                                        <input type="text" id="sername" value="<?php echo $row->ServiceName; ?>"
+                                                            name="sername" class="form-control" minlength="3" pattern="[A-Za-z\s]+">
+                                                        <span id="sername-error" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-form-label col-md-4">Event price</label>
                                                     <div class="col-md-12">
-                                                        <input type="text" name="serprice" class="form-control" required="true"
-                                                            maxlength="10" pattern="[0-9]+"
+                                                        <input type="text" id="serprice" name="serprice" class="form-control"
+                                                            maxlength="10" pattern="[0-9]+" min="100"
                                                             value="<?php echo $row->ServicePrice; ?>">
+                                                        <span id="serprice-error" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row ">
                                                     <label class="col-form-label col-md-4">Event Date:</label>
                                                     <div class="col-md-12">
-                                                        <input type="date" value="<?php echo $row->ServiceDate; ?>" name="serdate"
-                                                            required="true" class="form-control">
+                                                        <input type="date" id="serdate" value="<?php echo $row->ServiceDate; ?>"
+                                                            name="serdate" class="form-control">
+                                                        <span id="serdate-error" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row ">
                                                     <label class="col-form-label col-md-4">Event Time:</label>
                                                     <div class="col-md-12">
-                                                        <input type="time" value="<?php echo $row->ServiceTime; ?>" name="sertime"
-                                                            required="true" class="form-control">
+                                                        <input type="time" id="sertime" value="<?php echo $row->ServiceTime; ?>"
+                                                            name="sertime" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row ">
                                                     <label class="col-form-label col-md-4">Event Location:</label>
                                                     <div class="col-md-12">
-                                                        <input type="text" value="<?php echo $row->Location; ?>" name="location"
-                                                            required="true" class="form-control">
+                                                        <input type="text" id="location" value="<?php echo $row->Location; ?>"
+                                                            name="location" class="form-control" minlength="3"
+                                                            pattern="[A-Za-z\s]+">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -163,6 +207,60 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
     <script src="assets/js/core/jquery.appear.min.js"></script>
     <script src="assets/js/core/jquery.countTo.min.js"></script>
     <script src="assets/js/core/js.cookie.min.js"></script>
+    <!-- Add the validation script -->
+    // Add the validation script
+    <script>
+        $(document).ready(function () {
+            // Handle form submission
+            $('form').on('submit', function (e) {
+                if (!validateForm()) {
+                    e.preventDefault(); // Prevent form submission if validation fails
+                }
+            });
+
+            function validateForm() {
+                var sername = $("#sername").val();
+                var serprice = $("#serprice").val();
+                var serdate = $("#serdate").val();
+                var sertime = $("#sertime").val();
+
+                // Regular expressions for validation
+                var nameRegex = /^[A-Za-z\s]{3,}$/;
+                var priceRegex = /^[0-9]+$/;
+                var minPrice = 100;
+
+                // Validation messages
+                var errors = [];
+
+                if (!nameRegex.test(sername)) {
+                    errors.push("Event Name must be at least 3 characters and spaces only.");
+                    $("#sername-error").text("Event Name must be at least 3 characters and spaces only.");
+                } else {
+                    $("#sername-error").text("");
+                }
+
+                if (!priceRegex.test(serprice) || parseInt(serprice) < minPrice) {
+                    errors.push("Event Price must be a number not less than 100.");
+                    $("#serprice-error").text("Event Price must be a number not less than 100.");
+                } else {
+                    $("#serprice-error").text("");
+                }
+
+                var currentDate = new Date();
+                var selectedDate = new Date(serdate + 'T' + sertime);
+
+                if (selectedDate < currentDate) {
+                    errors.push("Event Date and Time cannot be in the past.");
+                    $("#serdate-error").text("Event Date and Time cannot be in the past.");
+                } else {
+                    $("#serdate-error").text("");
+                }
+
+                return errors.length === 0;
+            }
+        });
+    </script>
+
     <script src="assets/js/codebase.js"></script>
 </body>
 

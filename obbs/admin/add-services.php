@@ -128,15 +128,37 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                     document.getElementById('serpriceErr').textContent = 'Service Price should be a valid number and not less than 100.';
                 }
             }
-
             function validateServiceDate(input) {
                 // Reset error message for Service Date
                 document.getElementById('serdateErr').textContent = '';
                 // Validation for Service Date (do not accept past date)
                 var currentDate = new Date();
+                // Get the selected date from the input field
                 var inputDate = new Date(input.value);
+
+                // Set the time of the input date to the end of the day (23:59:59) to ensure it's compared to the server's current date
+                inputDate.setHours(23, 59, 59, 999);
+
                 if (inputDate < currentDate) {
                     document.getElementById('serdateErr').textContent = 'Service Date cannot be in the past.';
+                }
+            }
+
+            function validateServiceTime(input) {
+                // Reset error message for Service Time
+                document.getElementById('sertimeErr').textContent = '';
+                // Validation for Service Time (you can add your validation logic here)
+                // For example, you can check if the time is not in the past
+
+                // Convert the input time to a Date object (use a dummy date since we only care about the time)
+                var inputTime = new Date('1970-01-01 ' + input.value); // Combine with a dummy date for comparison
+
+                // Set the date of the input time to the current date to ensure it's compared to the server's current time
+                var currentTime = new Date();
+                inputTime.setFullYear(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate());
+
+                if (inputTime < currentTime) {
+                    document.getElementById('sertimeErr').textContent = 'Service Time cannot be in the past.';
                 }
             }
 
@@ -289,6 +311,8 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                                 <span id="sertimeErr" style="color: red;"></span>
                                             </div>
                                         </div>
+
+
                                         <!-- Service Location -->
                                         <div class="form-group row">
                                             <label class="col-12" for="register1-password">Service Location:</label>

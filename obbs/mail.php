@@ -2,67 +2,113 @@
 include('includes/dbconnection.php');
 session_start();
 error_reporting(0);
-if(isset($_POST['submit']))
-  {
-    $name=$_POST['name'];
-    $email=$_POST['email'];
-     $message=$_POST['message'];
-    $sql="insert into tblcontact(Name,Email,Message)values(:name,:email,:message)";
-$query=$dbh->prepare($sql);
-$query->bindParam(':name',$name,PDO::PARAM_STR);
-$query->bindParam(':email',$email,PDO::PARAM_STR);
+if (isset($_POST['submit'])) {
+	$name = $_POST['name'];
+	$email = $_POST['email'];
+	$message = $_POST['message'];
 
-$query->bindParam(':message',$message,PDO::PARAM_STR);
-$query->execute();
-   $LastInsertId=$dbh->lastInsertId();
-   if ($LastInsertId>0) {
-   echo "<script>alert('Your message was sent successfully!.');</script>";
-echo "<script>window.location.href ='mail.php'</script>";
-  }
-  else
-    {
-       echo '<script>alert("Something Went Wrong. Please try again")</script>';
-    }
+	// Server-side validation
+	if (validateForm($name, $email, $message)) {
+		$sql = "insert into tblcontact(Name,Email,Message)values(:name,:email,:message)";
+		$query = $dbh->prepare($sql);
+		$query->bindParam(':name', $name, PDO::PARAM_STR);
+		$query->bindParam(':email', $email, PDO::PARAM_STR);
+		$query->bindParam(':message', $message, PDO::PARAM_STR);
+		$query->execute();
+		$LastInsertId = $dbh->lastInsertId();
+
+		if ($LastInsertId > 0) {
+			echo "<script>alert('Your message was sent successfully!.');</script>";
+			echo "<script>window.location.href ='mail.php'</script>";
+		} else {
+			echo '<script>alert("Something Went Wrong. Please try again")</script>';
+		}
+	}
+}
+
+function validateForm($name, $email, $message)
+{
+	$isValid = true;
+
+	// Check for empty values
+	if (empty($name) || empty($email) || empty($message)) {
+		echo '<script>alert("All fields are required.");</script>';
+		$isValid = false;
+	}
+
+	// Full Name Validation (At least 3 characters, only letters and spaces)
+	if (strlen($name) < 3 || !preg_match('/^[a-zA-Z\s]+$/', $name)) {
+		echo '<script>alert("Full Name must be at least 3 characters and contain only letters and spaces.");</script>';
+		$isValid = false;
+	}
+
+	// Email Validation (Valid email format)
+	$emailRegex = '/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/';
+	if (!preg_match($emailRegex, $email)) {
+		echo '<script>alert("Enter a valid email address.");</script>';
+		$isValid = false;
+	}
+
+	// Message Validation (At least 3 characters)
+	if (strlen($message) < 3) {
+		echo '<script>alert("Message must be at least 3 characters.");</script>';
+		$isValid = false;
+	}
+
+	return $isValid;
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<title>Event Handler Platform | Mail</title>
 
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- bootstrap-css -->
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<!--// bootstrap-css -->
-<!-- css -->
-<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
-<!--// css -->
-<!-- font-awesome icons -->
-<link href="css/font-awesome.css" rel="stylesheet"> 
-<!-- //font-awesome icons -->
-<!-- font -->
-<link href="//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
-<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
-<!-- //font -->
-<script src="js/jquery-1.11.1.min.js"></script>
-<script src="js/bootstrap.js"></script>
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$(".scroll").click(function(event){		
-			event.preventDefault();
-			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+<head>
+	<title>Event Handler Platform | Mail</title>
+
+	<script
+		type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<!-- bootstrap-css -->
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<!--// bootstrap-css -->
+	<!-- css -->
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+	<!--// css -->
+	<!-- font-awesome icons -->
+	<link href="css/font-awesome.css" rel="stylesheet">
+	<!-- //font-awesome icons -->
+	<!-- font -->
+	<link href="//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i"
+		rel="stylesheet">
+	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300'
+		rel='stylesheet' type='text/css'>
+	<!-- //font -->
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function ($) {
+			$("form").submit(function (event) {
+				var name = $("input[name='name']").val();
+				var email = $("input[name='email']").val();
+				var message = $("textarea[name='message']").val();
+
+				// Check if at least one field is empty
+				if (name === "" && email === "" && message === "") {
+					alert("At least one field is required.");
+					event.preventDefault(); // Prevent form submission
+				}
+			});
 		});
-	});
-</script> 
-<!--[if lt IE 9]>
+	</script>
+
+	<!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <![endif]-->
 </head>
+
 <body>
 	<!-- banner -->
 	<div class="banner jarallax">
 		<div class="agileinfo-dot">
-			<?php include_once('includes/header.php');?>
+			<?php include_once('includes/header.php'); ?>
 			<div class="wthree-heading">
 				<h2>Contact</h2>
 			</div>
@@ -76,24 +122,34 @@ echo "<script>window.location.href ='mail.php'</script>";
 				<div class="col-md-6 contact-form-left">
 					<div class="w3layouts-contact-form-top">
 						<h3>Get in touch</h3>
-						<p>Pellentesque eget mi nec est tincidunt accumsan. Proin fermentum dignissim justo, vel euismod justo sodales vel. In non condimentum mauris. Maecenas condimentum interdum lacus, ac varius nisl dignissim ac. Vestibulum euismod est risus, quis convallis nisi tincidunt eget. Sed ultricies congue lacus at fringilla.</p>
+						<p>Pellentesque eget mi nec est tincidunt accumsan. Proin fermentum dignissim justo, vel euismod
+							justo sodales vel. In non condimentum mauris. Maecenas condimentum interdum lacus, ac varius
+							nisl dignissim ac. Vestibulum euismod est risus, quis convallis nisi tincidunt eget. Sed
+							ultricies congue lacus at fringilla.</p>
 					</div>
 					<div class="agileits-contact-address">
 						<ul>
 							<?php
-$sql="SELECT * from tblpage where PageType='contactus'";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
+							$sql = "SELECT * from tblpage where PageType='contactus'";
+							$query = $dbh->prepare($sql);
+							$query->execute();
+							$results = $query->fetchAll(PDO::FETCH_OBJ);
 
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $row)
-{               ?>
-							<li><i class="fa fa-phone" aria-hidden="true"></i> <span>+<?php  echo htmlentities($row->MobileNumber);?></span></li>
-							<li><i class="fa fa-phone fa-envelope" aria-hidden="true"></i> <span><?php  echo htmlentities($row->Email);?></span></li>
-							<li><i class="fa fa-map-marker" aria-hidden="true"></i> <span><?php  echo htmlentities($row->PageDescription);?>.</span></li><?php $cnt=$cnt+1;}} ?>
+							$cnt = 1;
+							if ($query->rowCount() > 0) {
+								foreach ($results as $row) { ?>
+									<li><i class="fa fa-phone" aria-hidden="true"></i> <span>+
+											<?php echo htmlentities($row->MobileNumber); ?>
+										</span></li>
+									<li><i class="fa fa-phone fa-envelope" aria-hidden="true"></i> <span>
+											<?php echo htmlentities($row->Email); ?>
+										</span></li>
+									<li><i class="fa fa-map-marker" aria-hidden="true"></i> <span>
+											<?php echo htmlentities($row->PageDescription); ?>.
+										</span></li>
+									<?php $cnt = $cnt + 1;
+								}
+							} ?>
 						</ul>
 					</div>
 				</div>
@@ -103,21 +159,21 @@ foreach($results as $row)
 					</div>
 					<div class="agileinfo-contact-form-grid">
 						<form action="#" method="post">
-							<input  placeholder="Full Name " name="name" type="text" required="true">
-							<input  placeholder="Email" name="email" type="email" required="true">
-							<textarea name="message" placeholder="Message" required=""></textarea>
+							<input placeholder="Full Name " name="name" type="text">
+							<input placeholder="Email" name="email" type="email">
+							<textarea name="message" placeholder="Message"></textarea>
 							<button class="btn1" name="submit">Submit</button>
 						</form>
 					</div>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
-			
+
 
 		</div>
 	</div>
 	<!-- //contact -->
-	<?php include_once('includes/footer.php');?>
+	<?php include_once('includes/footer.php'); ?>
 	<!-- jarallax -->
 	<script src="js/jarallax.js"></script>
 	<script src="js/SmoothScroll.min.js"></script>
@@ -135,7 +191,7 @@ foreach($results as $row)
 	<script type="text/javascript" src="js/easing.js"></script>
 	<!-- here stars scrolling icon -->
 	<script type="text/javascript">
-		$(document).ready(function() {
+		$(document).ready(function () {
 			/*
 				var defaults = {
 				containerID: 'toTop', // fading element id
@@ -144,13 +200,14 @@ foreach($results as $row)
 				easingType: 'linear' 
 				};
 			*/
-								
-			$().UItoTop({ easingType: 'easeOutQuart' });
-								
-			});
-	</script>
-<!-- //here ends scrolling icon -->
-<script src="js/modernizr.custom.js"></script>
 
-</body>	
+			$().UItoTop({ easingType: 'easeOutQuart' });
+
+		});
+	</script>
+	<!-- //here ends scrolling icon -->
+	<script src="js/modernizr.custom.js"></script>
+
+</body>
+
 </html>

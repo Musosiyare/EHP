@@ -43,6 +43,26 @@ include('includes/dbconnection.php');
 	<!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 	<![endif]-->
+	<style>
+		@keyframes moveIcon {
+			0% {
+				transform: translateX(0);
+			}
+
+			50% {
+				transform: translateX(20px);
+			}
+
+			100% {
+				transform: translateX(0);
+			}
+		}
+
+		/* Apply the animation to the image */
+		#animated-icon {
+			animation: moveIcon 2s infinite;
+		}
+	</style>
 </head>
 
 <body>
@@ -63,15 +83,16 @@ include('includes/dbconnection.php');
 			<div class="wthree-services-bottom-grids">
 				<div class="bs-docs-example wow fadeInUp animated" data-wow-delay=".5s">
 					<?php
-					$currentDate = date('Y-m-d');
-					$sql = "SELECT * FROM tblservice WHERE ServiceDate > '$currentDate'";
+					$currentDateTime = date('Y-m-d H:i:s'); // Get the current date and time in 'Y-m-d H:i:s' format
+					$sql = "SELECT * FROM tblservice WHERE CONCAT(ServiceDate, ' ', ServiceTime) > :currentDateTime";
 					$query = $dbh->prepare($sql);
+					$query->bindParam(':currentDateTime', $currentDateTime, PDO::PARAM_STR);
 					$query->execute();
 					$results = $query->fetchAll(PDO::FETCH_OBJ);
 
 					if ($query->rowCount() > 0) {
 						?>
-						<table class="table table-bordered">
+						<table class="table table-bordered table-striped table-vcenter js-dataTable-full-pagination">
 							<thead>
 								<tr>
 									<!-- Table headers -->
@@ -134,9 +155,11 @@ include('includes/dbconnection.php');
 						<div id="no-events"
 							style="background-color: orangered; color: white; padding: 50px; text-align: center; position: relative;">
 							No Event Posted today !!!
+							<img src="images/gif1.png" alt="Animated Icon" style="animation: moveIcon 2s infinite;">
 							<button onclick="closeNoEvents()"
 								style="position: absolute; top: 5px; right: 5px; color: black; padding: 10px;">Close</button>
 						</div>
+
 						<script>
 							function closeNoEvents() {
 								document.getElementById("no-events").style.display = "none";
