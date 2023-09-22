@@ -97,13 +97,13 @@ include('includes/dbconnection.php');
 								<tr>
 									<!-- Table headers -->
 									<th>#</th>
-									<th>Event Name</th>
-									<th>Description</th>
-									<th>Price</th>
-									<th>Date</th>
-									<th>Time</th>
-									<th>Location</th>
-									<th>Action</th>
+									<th>EVENT NAME</th>
+									<th>DESCRIPTION</th>
+									<th>PRICE</th>
+									<th>DATE</th>
+									<th>TIME</th>
+									<th>LOCATION</th>
+									<th>ACTION</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -114,32 +114,32 @@ include('includes/dbconnection.php');
 									?>
 									<!-- Table rows -->
 									<tr>
-										<td>
+										<td   style="font-weight:bold;">
 											<?php echo htmlentities($cnt); ?>
 										</td>
 										<td>
 											<?php echo htmlentities($row->ServiceName); ?>
 										</td>
-										<td>
+										<td  style="font-weight:bold;">
 											<?php echo htmlentities($row->SerDes); ?>
 										</td>
-										<td><span class="text-danger">Frw</span>
+										<td><span class="text-danger" style="font-weight:bold;">Frw</span>
 											<?php echo htmlentities($row->ServicePrice); ?>
 										</td>
-										<td>
+										<td style="color:blue;">
 											<?php echo htmlentities($row->ServiceDate); ?>
 										</td>
-										<td>
+										<td style="color:blue;">
 											<?php echo htmlentities($row->ServiceTime); ?>
 										</td>
 										<td>
 											<?php echo htmlentities($row->Location); ?>
 										</td>
 										<?php if ($_SESSION['obbsuid'] == "") { ?>
-											<td><a href="login.php" class="btn btn-primary">Book Service</a></td>
+											<td><a href="login.php" class="btn btn-primary"><span style="margin:10px;color:orange; font-size:25px;"><i class="fa fa-check mx-5"></i></span>Book Event</a></td>
 										<?php } else { ?>
 											<td><a href="book-services.php?serviceID=<?php echo $serviceID; ?>"
-													class="btn btn-danger">Book Service</a></td>
+													class="btn btn-danger"><span style="margin:10px;color:green; font-size:25px;"><i class="fa fa-check mx-5"></i></span>Book Event</a></a></td>
 										<?php } ?>
 									</tr>
 									<?php

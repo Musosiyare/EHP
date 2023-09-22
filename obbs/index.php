@@ -49,7 +49,7 @@ include('includes/dbconnection.php');
 		.notification {
 			position: fixed;
 			top: 130px;
-			right: 70px;
+			right: 180px;
 			background-color: red;
 			border-radius: 50%;
 			/* Make it a circle */
@@ -76,41 +76,20 @@ include('includes/dbconnection.php');
 			transform: translate(-50%, -50%);
 		}
 
-		.header {
-			background-color: #333;
-			/* Replace with your desired background color */
-			padding: 10px 0;
-			margin: 0;
-			/* Add padding as needed */
+		/* Style for the "Lorem ipsum" content */
+		.lorem-content {
+			background-color: white;
+			border-radius: 5px;
+			padding: 50px;
+			/* Adjust the margin as needed */
 		}
 
-		/* Style for the navigation links in the header */
-		.header .navbar-nav>li>a {
-			color: white;
-			/* Text color for the links */
+		p {
+			margin-left: 100px;
+			margin-right: 50px;
 		}
 
-		/* Style for the navigation links on hover */
-		.header .navbar-nav>li>a:hover {
-			background-color: #555;
-			/* Background color on hover */
-			color: #fff;
-			/* Text color on hover */
-		}
-
-		/* Style for the dropdown menu items */
-		.header .dropdown-menu li a {
-			color: #333;
-			/* Text color for the dropdown menu items */
-		}
-
-		/* Style for the dropdown menu items on hover */
-		.header .dropdown-menu li a:hover {
-			background-color: #555;
-			/* Background color on hover */
-			color: #fff;
-			/* Text color on hover */
-		}
+		/* You can add more styles to customize the appearance of the content */
 	</style>
 </head>
 
@@ -151,14 +130,30 @@ include('includes/dbconnection.php');
 	<div class="banner jarallax">
 		<div class="agileinfo-dot">
 			<?php include_once('includes/header.php'); ?>
-			<div class="w3layouts-banner">
-				<div class="container">
-					<div class="w3-banner-info">
-						<div class="w3l-banner-text">
-							<h2>Wedding Venue</h2>
-							<p>We create your special day</p>
-						</div>
-					</div>
+			<!-- Main Content -->
+			<div class="main-content">
+				<!-- "Lorem ipsum" content goes here -->
+				<div class="lorem-content">
+					<h3 style="margin-left:100px;font-weight:bold;">Welcome! To Event Handler Platform Ltd</h3>
+					<p>
+						<strong>At Event Handler Platform Ltd</strong> , <br>
+						we're more than just an event management system; we're a community of
+						passionate event organizers, attendees, and partners who are dedicated to creating memorable
+						experiences. We invite you to become a part of our growing family and join us on this exciting
+						journey.
+					</p>
+					<h3 style="margin-left:100px;font-weight:bold;">Join Us Today!!!</h3>
+					<p>
+						An Event Handler Platform is a software or application that helps individuals or organizations
+						plan, organize, and manage various types of events more efficiently. These systems provide a
+						range of tools and features to streamline the entire event lifecycle, from initial planning and
+						registration to execution and post-event analysis. Here are some key components and features
+						typically found in event management systems:
+					</p>
+
+					<button class="btn btn-danger" style="padding:15px; margin-left:100px;"><a href="services.php"
+							style="color:white;text-decoration:none; font-weight:bold;">GET STARTED NOW!</a></button>
+					<!-- Add more content as needed -->
 				</div>
 			</div>
 			<div class="w3ls-banner-info-bottom">
@@ -199,32 +194,6 @@ include('includes/dbconnection.php');
 		</div>
 	</div>
 	<!-- //banner -->
-	<!-- banner-bottom -->
-	<div class="banner-bottom">
-		<div class="container">
-			<div class="wthree-bottom-grids">
-				<div class="col-md-6 wthree-bottom-grid">
-					<div class="w3-agileits-bottom-left">
-						<div class="w3-agileits-bottom-left-text">
-							<h3>Planning from start to finish</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id lacus vel purus sagittis
-								convallis ut ac risus.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 wthree-bottom-grid">
-					<div class="w3-agileits-bottom-left w3-agileits-bottom-right">
-						<div class="w3-agileits-bottom-left-text">
-							<h3>LET THE EXPERTS RUN YOUR WEDDING</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id lacus vel purus sagittis
-								convallis ut ac risus.</p>
-						</div>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-		</div>
-	</div>
 	<!-- //banner-bottom -->
 
 	<?php include_once('includes/footer.php'); ?>
