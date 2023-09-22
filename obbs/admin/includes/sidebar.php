@@ -104,13 +104,13 @@ foreach($results as $row)
                               
                                 <li class="nav-main-heading"><span class="sidebar-mini-visible">UI</span><span class="sidebar-mini-hidden"></span></li>
                                 <li>
-                                    <a class="nav-submenu" data-toggle="nav-submenu"><i class="si si-puzzle"></i><span class="sidebar-mini-hide"></span>Services</a>
+                                    <a class="nav-submenu" data-toggle="nav-submenu"><i class="si si-puzzle"></i><span class="sidebar-mini-hide"></span>Events</a>
                                     <ul>
                                         <li>
-                                            <a href="add-services.php">Add Services</a>
+                                            <a href="add-services.php">Add Events</a>
                                         </li>
                                         <li>
-                                            <a href="manage-services.php">Manage Services</a>
+                                            <a href="manage-services.php">Manage Events</a>
                                         </li>
                                     </ul>
                                 </li>

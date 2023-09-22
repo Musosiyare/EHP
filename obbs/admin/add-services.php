@@ -81,7 +81,7 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
 
             $LastInsertId = $dbh->lastInsertId();
             if ($LastInsertId > 0) {
-                echo '<script>alert("Service has been added.")</script>';
+                echo '<script>alert("Event has been added.")</script>';
                 echo "<script>window.location.href ='add-services.php'</script>";
             } else {
                 echo '<script>alert("Something Went Wrong. Please try again")</script>';
@@ -197,27 +197,27 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
 
                 // Check for empty values
                 if (sernameInput.value.trim() === '') {
-                    document.getElementById('sernameErr').textContent = 'Service Name is required.';
+                    document.getElementById('sernameErr').textContent = 'Event Name is required.';
                     isValid = false;
                 }
                 if (serdesInput.value.trim() === '') {
-                    document.getElementById('serdesErr').textContent = 'Service Description is required.';
+                    document.getElementById('serdesErr').textContent = 'Event Description is required.';
                     isValid = false;
                 }
                 if (serpriceInput.value.trim() === '') {
-                    document.getElementById('serpriceErr').textContent = 'Service Price is required.';
+                    document.getElementById('serpriceErr').textContent = 'Event Price is required.';
                     isValid = false;
                 }
                 if (serdateInput.value.trim() === '') {
-                    document.getElementById('serdateErr').textContent = 'Service Date is required.';
+                    document.getElementById('serdateErr').textContent = 'Event Date is required.';
                     isValid = false;
                 }
                 if (sertimeInput.value.trim() === '') {
-                    document.getElementById('sertimeErr').textContent = 'Service Time is required.';
+                    document.getElementById('sertimeErr').textContent = 'Event Time is required.';
                     isValid = false;
                 }
                 if (serlocationInput.value.trim() === '') {
-                    document.getElementById('serlocationErr').textContent = 'Service Location is required.';
+                    document.getElementById('serlocationErr').textContent = 'Event Location is required.';
                     isValid = false;
                 }
 
@@ -238,13 +238,13 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                 <!-- Page Content -->
                 <div class="content">
                     <!-- Register Forms -->
-                    <h2 class="content-heading">Add Services</h2>
+                    <h2 class="content-heading">Add Event</h2>
                     <div class="row">
                         <div class="col-md-12">
                             <!-- Bootstrap Register -->
                             <div class="block block-themed">
                                 <div class="block-header bg-gd-emerald">
-                                    <h3 class="block-title">Add Services</h3>
+                                    <h3 class="block-title">Add Event</h3>
                                     <div class="block-options">
                                         <button type="button" class="btn-block-option" data-toggle="block-option"
                                             data-action="state_toggle" data-action-mode="demo">
@@ -266,45 +266,45 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                             </button>
                                             <?php echo $errorMessage; ?>
                                         </div>
-                                        <!-- Service Name -->
+                                        <!-- Event Name -->
                                         <div class="form-group row">
-                                            <label class="col-12" for="register1-email">Service Name:</label>
+                                            <label class="col-12" for="register1-email">Event Name:</label>
                                             <div class="col-12">
                                                 <input type="text" class="form-control" name="sername"
                                                     value="<?php echo $sername; ?>" onblur="validateServiceName(this)">
                                                 <span id="sernameErr" style="color: red;"></span>
                                             </div>
                                         </div>
-                                        <!-- Service Description -->
+                                        <!-- Event Description -->
                                         <div class="form-group row">
-                                            <label class="col-12" for="register1-email">Service Description:</label>
+                                            <label class="col-12" for="register1-email">Event Description:</label>
                                             <div class="col-12">
                                                 <textarea type="text" class="form-control" name="serdes"
                                                     onblur="validateServiceDescription(this)"><?php echo $serdes; ?></textarea>
                                                 <span id="serdesErr" style="color: red;"></span>
                                             </div>
                                         </div>
-                                        <!-- Service Price -->
+                                        <!-- Event Price -->
                                         <div class="form-group row">
-                                            <label class="col-12" for="register1-password">Service Price:</label>
+                                            <label class="col-12" for="register1-password">Event Price:</label>
                                             <div class="col-12">
                                                 <input type="text" class="form-control" name="serprice"
                                                     onblur="validateServicePrice(this)" value="<?php echo $serprice; ?>">
                                                 <span id="serpriceErr" style="color: red;"></span>
                                             </div>
                                         </div>
-                                        <!-- Service Date -->
+                                        <!-- Event Date -->
                                         <div class="form-group row">
-                                            <label class="col-12" for="register1-password">Service Date:</label>
+                                            <label class="col-12" for="register1-password">Event Date:</label>
                                             <div class="col-12">
                                                 <input type="date" class="form-control" name="serdate"
                                                     onblur="validateServiceDate(this)" value="<?php echo $serdate; ?>">
                                                 <span id="serdateErr" style="color: red;"></span>
                                             </div>
                                         </div>
-                                        <!-- Service Time -->
+                                        <!-- Event Time -->
                                         <div class="form-group row">
-                                            <label class="col-12" for="register1-password">Service Time:</label>
+                                            <label class="col-12" for="register1-password">Event Time:</label>
                                             <div class="col-12">
                                                 <input type="time" class="form-control" name="sertime"
                                                     onblur="validateServiceTime(this)" value="<?php echo $sertime; ?>">
@@ -313,9 +313,9 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                         </div>
 
 
-                                        <!-- Service Location -->
+                                        <!-- Event Location -->
                                         <div class="form-group row">
-                                            <label class="col-12" for="register1-password">Service Location:</label>
+                                            <label class="col-12" for="register1-password">Event Location:</label>
                                             <div class="col-12">
                                                 <input type="text" class="form-control" name="serlocation"
                                                     onblur="validateServiceLocation(this)"

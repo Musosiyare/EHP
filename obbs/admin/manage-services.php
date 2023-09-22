@@ -35,11 +35,11 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
             <main id="main-container">
                 <!-- Page Content -->
                 <div class="content">
-                    <h2 class="content-heading">Manage Services</h2>
+                    <h2 class="content-heading"><strong>Manage Events</strong></h2>
                     <!-- Dynamic Table Full Pagination -->
                     <div class="block">
                         <div class="block-header block-header-default">
-                            <h3 class="block-title">Manage Services</h3>
+                            <h3 class="block-title"><strong>Manage Events</strong></h3>
                         </div>
                         <div class="block-content block-content-full">
                             <!-- DataTables init on table by adding .js-dataTable-full-pagination class, functionality initialized in js/pages/be_tables_datatables.js -->
@@ -47,10 +47,10 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                 <thead>
                                     <tr>
                                         <th class="text-center"></th>
-                                        <th>Service Name</th>
-                                        <th class="d-none d-sm-table-cell">Service Price</th>
-                                        <th class="d-none d-sm-table-cell">Service Date</th>
-                                        <th class="d-none d-sm-table-cell">Service Time</th>
+                                        <th>Event Name</th>
+                                        <th class="d-none d-sm-table-cell">Event Price</th>
+                                        <th class="d-none d-sm-table-cell">Event Date</th>
+                                        <th class="d-none d-sm-table-cell">Event Time</th>
                                         <th class="d-none d-sm-table-cell">Location</th>
                                         <th class="d-none d-sm-table-cell">Creation Date</th>
                                         <th class="d-none d-sm-table-cell" style="width: 15%;">Action</th>

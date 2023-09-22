@@ -145,27 +145,7 @@
                                 <p class="mt-5">
                                     <i class="si si-wallet fa-3x text-white-op"></i>
                                 </p>
-                                <p class="font-w600 text-white">Total Services</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-6 col-md-4 col-xl-4">
-                        <a class="block text-center" href="manage-event-type.php">
-                            <div class="block-content ribbon ribbon-bookmark ribbon-crystal ribbon-left bg-gd-sea">
-                                <?php
-                                $sql = "SELECT ID from tbleventtype";
-                                $query = $dbh->prepare($sql);
-                                $query->execute();
-                                $results = $query->fetchAll(PDO::FETCH_OBJ);
-                                $totaleventtype = $query->rowCount();
-                                ?>
-                                <div class="ribbon-box">
-                                    <?php echo htmlentities($totaleventtype); ?>
-                                </div>
-                                <p class="mt-5">
-                                    <i class="si si-bubbles fa-3x text-white-op"></i>
-                                </p>
-                                <p class="font-w600 text-white">Total Event Type</p>
+                                <p class="font-w600 text-white">Total Events</p>
                             </div>
                         </a>
                     </div>
