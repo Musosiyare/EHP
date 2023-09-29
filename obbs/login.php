@@ -75,7 +75,7 @@ echo "<script>alert('Invalid Details');</script>";
 				<div class="col-md-6 contact-form-left">
 				
 					<div class="agileits-contact-address">
-				<img src="images/5.jpg" alt="" height="500" width="500">
+				<img src="images/photo34@2x.jpg" alt="" height="500" width="500">
 					</div>
 				</div>
 				<div class="col-md-6 contact-form-right">

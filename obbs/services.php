@@ -71,7 +71,7 @@ include('includes/dbconnection.php');
 		<div class="agileinfo-dot">
 			<?php include_once('includes/header.php'); ?>
 			<div class="wthree-heading">
-				<h2>Services</h2>
+				<h2>EVENTS</h2>
 			</div>
 		</div>
 	</div>
@@ -136,10 +136,10 @@ include('includes/dbconnection.php');
 											<?php echo htmlentities($row->Location); ?>
 										</td>
 										<?php if ($_SESSION['obbsuid'] == "") { ?>
-											<td><a href="login.php" class="btn btn-primary"><span style="margin:10px;color:orange; font-size:25px;"><i class="fa fa-check mx-5"></i></span>Book Event</a></td>
+											<td><a href="login.php" class="btn btn-primary"><span style="margin:10px;color:orange; font-size:25px;"><i class="fa fa-check mx-5"></i></span>BOOK NOW</a></td>
 										<?php } else { ?>
 											<td><a href="book-services.php?serviceID=<?php echo $serviceID; ?>"
-													class="btn btn-danger"><span style="margin:10px;color:green; font-size:25px;"><i class="fa fa-check mx-5"></i></span>Book Event</a></a></td>
+													class="btn btn-danger"><span style="margin:10px;color:green; font-size:25px;"><i class="fa fa-check mx-5"></i></span>BOOK NOW</a></a></td>
 										<?php } ?>
 									</tr>
 									<?php

@@ -103,9 +103,10 @@ include('includes/dbconnection.php');
 				<span class="badge badge-danger">
 
 					<?php
-					$currentDate = date('y:m:d');
-					$sql = "SELECT * from tblservice where ServiceDate > '$currentDate'";
+					$currentDateTime = date('Y-m-d H:i:s'); // Get the current date and time in 'Y-m-d H:i:s' format
+					$sql = "SELECT * FROM tblservice WHERE CONCAT(ServiceDate, ' ', ServiceTime) > :currentDateTime";
 					$query = $dbh->prepare($sql);
+					$query->bindParam(':currentDateTime', $currentDateTime, PDO::PARAM_STR);
 					$query->execute();
 					$results = $query->fetchAll(PDO::FETCH_OBJ);
 					$totalreadquery = $query->rowCount();

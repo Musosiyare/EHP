@@ -162,7 +162,10 @@ function validateForm($name, $email, $message)
 							<input placeholder="Full Name " name="name" type="text">
 							<input placeholder="Email" name="email" type="email">
 							<textarea name="message" placeholder="Message"></textarea>
-							<button class="btn1" name="submit">Submit</button>
+							<button class="btn1" name="submit">
+							<i class="fa fa-arrow-right"></i>
+							send
+							</button>
 						</form>
 					</div>
 				</div>

@@ -86,7 +86,7 @@ foreach($results as $row)
                                     </th>
                                 </tr>
                                             <tr>
-    <th>Client Name</th>
+    <th>Customer Name</th>
     <td><?php  echo $row->FullName;?></td>
      <th>Mobile Number</th>
     <td><?php  echo $row->MobileNumber;?></td>
@@ -112,14 +112,14 @@ foreach($results as $row)
  
   <tr>
     
-    <th>Event Type</th>
+    <th>Event Name</th>
     <td><?php  echo $row->EventType;?></td>
     <th>Message</th>
     <td><?php  echo $row->Message;?></td>
   </tr>
   <tr>
     
-    <th>Service Name</th>
+    <th>Event Name</th>
     <td><?php  echo $row->ServiceName;?></td>
     <th>Service Description</th>
     <td><?php  echo $row->SerDes;?></td>

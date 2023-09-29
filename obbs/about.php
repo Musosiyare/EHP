@@ -59,7 +59,7 @@ include('includes/dbconnection.php');
 		<div class="container">
 			<div class="wthree-services-bottom-grids">
 				<div class="col-md-6 wthree-services-left">
-					<img src="images/5.jpg" alt="">
+					<img src="images/photo34@2x.jpg" alt="">
 				</div>
 				<div class="col-md-6 wthree-services-right">
 					<div class="wthree-services-right-top">

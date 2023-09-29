@@ -86,7 +86,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 										</th>
 									</tr>
 									<tr>
-										<th>Client Name</th>
+										<th>Customer Name</th>
 										<td>
 											<?php echo $row->FullName; ?>
 										</td>
@@ -110,7 +110,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 									</tr>
 									<tr>
 
-										<th>Event Type</th>
+										<th>Event Name</th>
 										<td>
 											<?php echo $row->EventType; ?>
 										</td>
@@ -121,11 +121,11 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 									</tr>
 									<tr>
 
-										<th>Service Name</th>
+										<th>Event Name</th>
 										<td>
 											<?php echo $row->ServiceName; ?>
 										</td>
-										<th>Service Description</th>
+										<th>Event Description</th>
 										<td>
 											<?php echo $row->SerDes; ?>
 										</td>
@@ -157,7 +157,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 
 									</tr>
 									<tr>
-										<th>Service Price</th>
+										<th>Event Price</th>
 										<td><span class="text-danger">Frw</span>
 											<?php echo $row->PricePerEvent; ?>
 										</td>

@@ -109,7 +109,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 		<div class="agileinfo-dot">
 			<?php include_once('includes/header.php'); ?>
 			<div class="wthree-heading">
-				<h2>Book Services</h2>
+				<h2>Book Event</h2>
 			</div>
 		</div>
 	</div>
@@ -120,12 +120,12 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 			<div class="agile-contact-form">
 				<div class="col-md-6 contact-form-right">
 					<div class="contact-form-top">
-						<h3>Book Services</h3>
+						<h3>Book Event</h3>
 					</div>
 					<div class="agileinfo-contact-form-grid">
 						<form method="post">
 							<div class="form-group row">
-								<label class="col-form-label col-md-4">Type of Event:</label>
+								<label class="col-form-label col-md-4">Event Name:</label>
 								<div class="col-md-10">
 									<select type="text" class="form-control" name="eventtype" required="true">
 										<?php
@@ -176,7 +176,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 							</div>
 							<br>
 							<div class="tp">
-								<button type="submit" class="btn btn-primary" name="submit">Book</button>
+								<button type="submit" class="btn btn-primary" name="submit">BOOK NOW</button>
 							</div>
 						</form>
 					</div>

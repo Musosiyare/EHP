@@ -61,7 +61,7 @@
                             <ul class="nav navbar-nav">
                                 <li class="active"><a href="index.php">Home</a></li>
                                 <li><a href="about.php">About</a></li>
-                                <li><a href="services.php">Services</a></li>
+                                <li><a href="services.php">Events</a></li>
                                 <?php if (strlen($_SESSION['obbsuid'] != 0)) { ?>
                                     <li class=""><a href="#" class="dropdown-toggle hvr-bounce-to-bottom"
                                             data-toggle="dropdown" role="button" aria-haspopup="true"

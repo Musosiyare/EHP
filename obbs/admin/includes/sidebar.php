@@ -39,7 +39,7 @@ if (strlen($_SESSION['odmsaid']==0)) {
                                 <div class="content-header-item">
                                     <a class="link-effect font-w700" href="dashboard.php">
                                       
-                                        <span class="font-size-xl text-dual-primary-dark">OBBS</span>|<span class="font-size-xl text-primary">ADMIN</span>
+                                        <span class="font-size-xl text-dual-primary-dark">EHP</span>|<span class="font-size-xl text-primary">ADMIN</span>
                                     </a>
                                 </div>
                                 <!-- END Logo -->
