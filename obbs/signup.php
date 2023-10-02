@@ -107,14 +107,10 @@ if (isset($_POST['signup'])) {
 
 <body>
     <!-- banner -->
-    <div class="banner jarallax">
-        <div class="agileinfo-dot">
             <?php include_once('includes/header.php'); ?>
             <div class="wthree-heading">
-                <h2>Register</h2>
+                <h2 style="color:black;">Register</h2> <hr>
             </div>
-        </div>
-    </div>
     <!-- //banner -->
     <!-- contact -->
     <div class="contact">
@@ -122,7 +118,7 @@ if (isset($_POST['signup'])) {
             <div class="agile-contact-form">
                 <div class="col-md-6 contact-form-left">
 
-                    <div class="agileits-contact-address">
+                    <div class="agileits-contact-address" style="margin-top:-30px;">
                         <img src="images/photo34@2x.jpg" alt="" height="500" width="500">
                     </div>
                 </div>
@@ -132,11 +128,11 @@ if (isset($_POST['signup'])) {
                     </div>
                     <div class="agileinfo-contact-form-grid">
                         <form method="post" name="signup" onsubmit="return checkpass();">
-                            <input type="text" name="fname" placeholder="Full Name" value="<?php echo $fname; ?>">
-                            <input type="email" name="email" placeholder="E-mail" value="<?php echo $email; ?>">
-                            <input type="text" name="mobno" placeholder="Mobile Number" maxlength="10"
+                            <input type="text" name="fname" placeholder="Full Name Required" value="<?php echo $fname; ?>">
+                            <input type="email" name="email" placeholder="E-mail Required" value="<?php echo $email; ?>">
+                            <input type="text" name="mobno" placeholder="Mobile Number Required" maxlength="10"
                                 pattern="[0-9]+" value="<?php echo $mobno; ?>">
-                            <input type="password" name="password" placeholder="Password" id="password1">
+                            <input type="password" name="password" placeholder="Password Required" id="password1">
                             <br>
                             <input type="password" name="confirmpassword" placeholder="Confirm Password" id="password2">
                             <br>

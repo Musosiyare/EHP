@@ -67,21 +67,18 @@ include('includes/dbconnection.php');
 
 <body>
 	<!-- Banner -->
-	<div class="banner jarallax">
-		<div class="agileinfo-dot">
 			<?php include_once('includes/header.php'); ?>
+			
 			<div class="wthree-heading">
-				<h2>EVENTS</h2>
+				<h2 style="color:black;">Events Posted</h2> <hr>
 			</div>
-		</div>
-	</div>
 	<!-- End Banner -->
 
 	<!-- About Section -->
 	<div class="about-top">
 		<div class="container">
 			<div class="wthree-services-bottom-grids">
-				<div class="bs-docs-example wow fadeInUp animated" data-wow-delay=".5s">
+				<div class="bs-docs-example wow fadeInUp animated" data-wow-delay=".5s" style="margin-top:-50px;">
 					<?php
 					$currentDateTime = date('Y-m-d H:i:s'); // Get the current date and time in 'Y-m-d H:i:s' format
 					$sql = "SELECT * FROM tblservice WHERE CONCAT(ServiceDate, ' ', ServiceTime) > :currentDateTime";
@@ -94,6 +91,9 @@ include('includes/dbconnection.php');
 						?>
 						<table class="table table-bordered table-striped table-vcenter js-dataTable-full-pagination">
 							<thead>
+							Now You Can Select And Book Your Favourite Event <br>
+							We Serve Better <br>
+							Choice Is Yours Now !!!  <i class="fa fa-fire text-danger" style="font-size:30px;"></i>
 								<tr>
 									<!-- Table headers -->
 									<th>#</th>

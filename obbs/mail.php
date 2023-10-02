@@ -106,21 +106,17 @@ function validateForm($name, $email, $message)
 
 <body>
 	<!-- banner -->
-	<div class="banner jarallax">
-		<div class="agileinfo-dot">
 			<?php include_once('includes/header.php'); ?>
 			<div class="wthree-heading">
-				<h2>Contact</h2>
+				<h2 style="color:black;">Contact</h2> <hr>
 			</div>
-		</div>
-	</div>
 	<!-- //banner -->
 	<!-- contact -->
 	<div class="contact">
 		<div class="container">
 			<div class="agile-contact-form">
 				<div class="col-md-6 contact-form-left">
-					<div class="w3layouts-contact-form-top">
+					<div class="w3layouts-contact-form-top" style="margin-top:-50px;">
 						<h3>Get in touch</h3>
 						<p>Pellentesque eget mi nec est tincidunt accumsan. Proin fermentum dignissim justo, vel euismod
 							justo sodales vel. In non condimentum mauris. Maecenas condimentum interdum lacus, ac varius
@@ -159,9 +155,9 @@ function validateForm($name, $email, $message)
 					</div>
 					<div class="agileinfo-contact-form-grid">
 						<form action="#" method="post">
-							<input placeholder="Full Name " name="name" type="text">
-							<input placeholder="Email" name="email" type="email">
-							<textarea name="message" placeholder="Message"></textarea>
+							<input placeholder="Full Name Required " name="name" type="text">
+							<input placeholder="Email Required" name="email" type="email">
+							<textarea name="message" placeholder="Message Required"></textarea>
 							<button class="btn1" name="submit">
 							<i class="fa fa-arrow-right"></i>
 							send

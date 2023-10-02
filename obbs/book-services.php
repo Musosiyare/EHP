@@ -105,22 +105,18 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 
 <body>
 	<!-- banner -->
-	<div class="banner jarallax">
-		<div class="agileinfo-dot">
 			<?php include_once('includes/header.php'); ?>
 			<div class="wthree-heading">
-				<h2>Book Event</h2>
+				<h2 style="color:black;">Book Event</h2> <hr>
 			</div>
-		</div>
-	</div>
 	<!-- //banner -->
 	<!-- contact -->
 	<div class="contact">
 		<div class="container">
 			<div class="agile-contact-form">
 				<div class="col-md-6 contact-form-right">
-					<div class="contact-form-top">
-						<h3>Book Event</h3>
+					<div class="contact-form-top"  style="margin-top:-50px;">
+						<h3>Book Now!</h3>
 					</div>
 					<div class="agileinfo-contact-form-grid">
 						<form method="post">
@@ -154,7 +150,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-form-label col-md-4">Number of Guests:</label>
+								<label class="col-form-label col-md-4">Number of Guests: <span style="color:red;">*</span></label>
 								<div class="col-md-10">
 									<input type="text" class="form-control" style="font-size: 20px" name="nop" id="nop"
 										onblur="validateNumberOfGuests(this)">
@@ -168,7 +164,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-form-label col-md-4">Message (if any):</label>
+								<label class="col-form-label col-md-4">Message: <span style="color:red;">*</span></label>
 								<div class="col-md-10">
 									<textarea class="form-control" name="message" style="font-size: 20px"
 										onblur="validateMessage(this)"></textarea>

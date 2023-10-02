@@ -72,7 +72,7 @@ return true;
                             <!-- Bootstrap Register -->
                             <div class="block block-themed">
                                 <div class="block-header bg-gd-emerald">
-                                    <h3 class="block-title">Change Password</h3>
+                                    <h3 class="block-title">Change Password:</h3>
                                     <div class="block-options">
                                         <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
                                             <i class="si si-refresh"></i>
@@ -83,19 +83,19 @@ return true;
                                 <div class="block-content">
                                     <form method="post" onsubmit="return checkpass();" name="changepassword">
                                         <div class="form-group row">
-                                            <label class="col-12" for="register1-username">Current Password:</label>
+                                            <label class="col-12" for="register1-username">Current Password: <span style="color:red;">*</span></label>
                                             <div class="col-12">
                                                 <input type="password" class="form-control" name="currentpassword" id="currentpassword"required='true'>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-12" for="register1-email">New Password:</label>
+                                            <label class="col-12" for="register1-email">New Password: <span style="color:red;">*</span></label>
                                             <div class="col-12">
                                                  <input type="password" class="form-control" name="newpassword"  class="form-control" required="true">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-12" for="register1-password">Confirm Password:</label>
+                                            <label class="col-12" for="register1-password">Confirm Password: <span style="color:red;">*</span></label>
                                             <div class="col-12">
                                                 <input type="password" class="form-control"  name="confirmpassword" id="confirmpassword"  required='true'>
                                             </div>

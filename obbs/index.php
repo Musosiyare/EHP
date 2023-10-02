@@ -48,8 +48,8 @@ include('includes/dbconnection.php');
 		/* Style for the notification icon and text */
 		.notification {
 			position: fixed;
-			top: 130px;
-			right: 180px;
+			top: 50px;
+			right: 170px;
 			background-color: red;
 			border-radius: 50%;
 			/* Make it a circle */
@@ -119,20 +119,16 @@ include('includes/dbconnection.php');
 			</a>
 		</div>
 		<!-- End of notification icon and text -->
-		<!-- navigation -->
-		<div class="top-nav">
-			<nav class="navbar navbar-default">
-				<!-- ... (your existing navigation menu) ... -->
-			</nav>
-		</div>
 	</div>
 	<!-- //header -->
 	<!-- banner -->
-	<div class="banner jarallax">
-		<div class="agileinfo-dot">
 			<?php include_once('includes/header.php'); ?>
+			
+			<div class="wthree-heading">
+				<h2 style="color:black;">Home</h2> <hr>
+			</div>
 			<!-- Main Content -->
-			<div class="main-content">
+			<div class="main-content" style="margin-top:-20px;">
 				<!-- "Lorem ipsum" content goes here -->
 				<div class="lorem-content">
 					<h3 style="margin-left:100px;font-weight:bold;">Welcome! To Event Handler Platform Ltd</h3>
@@ -192,8 +188,6 @@ include('includes/dbconnection.php');
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
 	<!-- //banner -->
 	<!-- //banner-bottom -->
 

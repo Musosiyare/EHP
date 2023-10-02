@@ -63,14 +63,10 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 
 	<body>
 		<!-- banner -->
-		<div class="banner jarallax">
-			<div class="agileinfo-dot">
 				<?php include_once('includes/header.php'); ?>
 				<div class="wthree-heading">
-					<h2>Profile</h2>
+					<h2 style="color:black;">User Profile</h2> <hr>
 				</div>
-			</div>
-		</div>
 		<!-- //banner -->
 		<!-- contact -->
 		<div class="contact">
@@ -78,8 +74,8 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 				<div class="agile-contact-form">
 
 					<div class="col-md-6 contact-form-right">
-						<div class="contact-form-top">
-							<h3>User Profile </h3>
+						<div class="contact-form-top" style="margin-top:-50px;">
+							<h3 style="color:black;">View Profile </h3> 
 						</div>
 						<div class="agileinfo-contact-form-grid">
 							<form method="post">

@@ -2,7 +2,7 @@
     /* Add this CSS to position the users menu under the header */
     .users-menu {
         position: absolute;
-        top: 63px;
+        top: 50px;
         /* Position it just below the header */
         right: 0;
         z-index: 999;

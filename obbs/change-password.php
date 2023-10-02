@@ -81,14 +81,10 @@ return true;
 </head>
 <body>
 	<!-- banner -->
-	<div class="banner jarallax">
-		<div class="agileinfo-dot">
 			<?php include_once('includes/header.php');?>
 			<div class="wthree-heading">
-				<h2>Change Password</h2>
+				<h2 style="color:black;">Change Password</h2> <hr>
 			</div>
-		</div>
-	</div>
 	<!-- //banner -->
 	<!-- contact -->
 	<div class="contact">
@@ -96,25 +92,25 @@ return true;
 			<div class="agile-contact-form">
 				
 				<div class="col-md-6 contact-form-right">
-					<div class="contact-form-top">
+					<div class="contact-form-top" style="margin-top:-50px;">
 						<h3>User Profile </h3>
 					</div>
 					<div class="agileinfo-contact-form-grid">
 						<form method="post" onsubmit="return checkpass();" name="changepassword">
 							 <div class="form-group row">
-                                    <label class="col-form-label col-md-4">Current Password</label>
+                                    <label class="col-form-label col-md-4">Current Password: <span style="color:red;">*</span></label>
                                     <div class="col-md-10">
                                         <input type="password" class="form-control" style="font-size: 20px" required="true" name="currentpassword">
                                     </div>
                                 </div>
                                                 <div class="form-group row">
-                                    <label class="col-form-label col-md-4">New Password</label>
+                                    <label class="col-form-label col-md-4">New Password: <span style="color:red;">*</span></label>
                                     <div class="col-md-10">
                                         <input type="password" class="form-control"  required="true" name="newpassword" style="font-size: 20px">
                                     </div>
                                 </div>
                                                  <div class="form-group row">
-                                    <label class="col-form-label col-md-4">Confirm Password</label>
+                                    <label class="col-form-label col-md-4">Confirm Password: <span style="color:red;">*</span></label>
                                     <div class="col-md-10">
                                         <input type="password" class="form-control"  required="true" name="confirmpassword" style="font-size: 20px" >
                                     </div>

@@ -48,20 +48,16 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 
 	<body>
 		<!-- banner -->
-		<div class="banner jarallax">
-			<div class="agileinfo-dot">
 				<?php include_once('includes/header.php'); ?>
 				<div class="wthree-heading">
-					<h2>View Booking</h2>
+					<h2 style="color:black;">View Booking</h2> <hr>
 				</div>
-			</div>
-		</div>
 		<!-- //banner -->
 		<!-- about -->
 		<!-- about-top -->
 		<div class="about-top">
 			<div class="container">
-				<div class="wthree-services-bottom-grids">
+				<div class="wthree-services-bottom-grids" style="margin-top:-50px;">
 
 					<p class="wow fadeInUp animated" data-wow-delay=".5s">View Your Booking Details.</p>
 					<div class="bs-docs-example wow fadeInUp animated" data-wow-delay=".5s">

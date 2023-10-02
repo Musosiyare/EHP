@@ -77,14 +77,10 @@ return true;
 </head>
 <body>
     <!-- banner -->
-    <div class="banner jarallax">
-        <div class="agileinfo-dot">
             <?php include_once('includes/header.php');?>
             <div class="wthree-heading">
-                <h2>Forgot Password</h2>
+                <h2 style="color:black;">Forgot Password</h2> <hr>
             </div>
-        </div>
-    </div>
     <!-- //banner -->
     <!-- contact -->
     <div class="contact">
@@ -92,7 +88,7 @@ return true;
             <div class="agile-contact-form">
                 <div class="col-md-6 contact-form-left">
                 
-                    <div class="agileits-contact-address">
+                    <div class="agileits-contact-address" style="margin-top:-30px;">
                 <img src="images/5.jpg" alt="" height="500" width="500">
                     </div>
                 </div>
@@ -102,8 +98,8 @@ return true;
                     </div>
                     <div class="agileinfo-contact-form-grid">
                         <form action="#" method="post" name="chngpwd" onSubmit="return valid();">
-                            <input type="email" class="form-control" name="email" placeholder="E-mail" required="true">
-                            <input type="text" class="form-control" required="true" name="mobile" maxlength="10" pattern="[0-9]+" placeholder="Mobile Number">
+                            <input type="email" class="form-control" name="email" placeholder="E-mail Required" required="true">
+                            <input type="text" class="form-control" required="true" name="mobile" maxlength="10" pattern="[0-9]+" placeholder="Mobile Number Required">
                             <input type="password"class="form-control"  name="newpassword" placeholder="New Password" required="true"/>
                             <br>
                             <input type="password" name="confirmpassword" placeholder="Confirm Password" class="form-control" required="true" />

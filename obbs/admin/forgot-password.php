@@ -84,7 +84,7 @@ if (isset($_POST['submit'])) {
                                     <div class="col-12">
                                         <div class="form-material floating">
                                             <input type="email" class="form-control" required="true" name="email">
-                                            <label for="login-username">Email Address</label>
+                                            <label for="login-username">Email Address <span style="color:red;">*</span></label>
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +93,7 @@ if (isset($_POST['submit'])) {
                                         <div class="form-material floating">
                                             <input type="text" class="form-control" name="mobile" required="true"
                                                 maxlength="10" pattern="[0-9]+">
-                                            <label for="login-password">Mobile Number</label>
+                                            <label for="login-password">Mobile Number <span style="color:red;">*</span></label>
                                         </div>
                                     </div>
                                 </div>
@@ -102,7 +102,7 @@ if (isset($_POST['submit'])) {
                                         <div class="form-material floating">
                                             <input class="form-control" type="password" name="newpassword"
                                                 required="true" />
-                                            <label for="login-password">New Password</label>
+                                            <label for="login-password">New Password <span style="color:red;">*</span></label>
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +111,7 @@ if (isset($_POST['submit'])) {
                                         <div class="form-material floating">
                                             <input class="form-control" type="password" name="confirmpassword"
                                                 required="true" />
-                                            <label for="login-password">Confirm Password</label>
+                                            <label for="login-password">Confirm Password <span style="color:red;">*</span></label>
                                         </div>
                                     </div>
                                 </div>

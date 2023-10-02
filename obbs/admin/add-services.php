@@ -268,7 +268,7 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                         </div>
                                         <!-- Event Name -->
                                         <div class="form-group row">
-                                            <label class="col-12" for="register1-email">Event Name:</label>
+                                            <label class="col-12" for="register1-email">Event Name: <span style="color:red;">*</span></label>
                                             <div class="col-12">
                                                 <input type="text" class="form-control" name="sername"
                                                     value="<?php echo $sername; ?>" onblur="validateServiceName(this)">
@@ -277,7 +277,7 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                         </div>
                                         <!-- Event Description -->
                                         <div class="form-group row">
-                                            <label class="col-12" for="register1-email">Event Description:</label>
+                                            <label class="col-12" for="register1-email">Event Description: <span style="color:red;">*</span></label>
                                             <div class="col-12">
                                                 <textarea type="text" class="form-control" name="serdes"
                                                     onblur="validateServiceDescription(this)"><?php echo $serdes; ?></textarea>
@@ -286,7 +286,7 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                         </div>
                                         <!-- Event Price -->
                                         <div class="form-group row">
-                                            <label class="col-12" for="register1-password">Event Price:</label>
+                                            <label class="col-12" for="register1-password">Event Price: <span style="color:red;">*</span></label>
                                             <div class="col-12">
                                                 <input type="text" class="form-control" name="serprice"
                                                     onblur="validateServicePrice(this)" value="<?php echo $serprice; ?>">
@@ -295,7 +295,7 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                         </div>
                                         <!-- Event Date -->
                                         <div class="form-group row">
-                                            <label class="col-12" for="register1-password">Event Date:</label>
+                                            <label class="col-12" for="register1-password">Event Date: <span style="color:red;">*</span></label>
                                             <div class="col-12">
                                                 <input type="date" class="form-control" name="serdate"
                                                     onblur="validateServiceDate(this)" value="<?php echo $serdate; ?>">
@@ -304,7 +304,7 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                         </div>
                                         <!-- Event Time -->
                                         <div class="form-group row">
-                                            <label class="col-12" for="register1-password">Event Time:</label>
+                                            <label class="col-12" for="register1-password">Event Time: <span style="color:red;">*</span></label>
                                             <div class="col-12">
                                                 <input type="time" class="form-control" name="sertime"
                                                     onblur="validateServiceTime(this)" value="<?php echo $sertime; ?>">
@@ -315,7 +315,7 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
 
                                         <!-- Event Location -->
                                         <div class="form-group row">
-                                            <label class="col-12" for="register1-password">Event Location:</label>
+                                            <label class="col-12" for="register1-password">Event Location: <span style="color:red;">*</span></label>
                                             <div class="col-12">
                                                 <input type="text" class="form-control" name="serlocation"
                                                     onblur="validateServiceLocation(this)"

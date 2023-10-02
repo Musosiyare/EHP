@@ -44,21 +44,18 @@ include('includes/dbconnection.php');
 
 <body>
 	<!-- banner -->
-	<div class="banner jarallax">
-		<div class="agileinfo-dot">
 			<?php include_once('includes/header.php'); ?>
+			
 			<div class="wthree-heading">
-				<h2>About Us</h2>
+				<h2 style="color:black;">About</h2> <hr>
 			</div>
-		</div>
-	</div>
 	<!-- //banner -->
 	<!-- about -->
 	<!-- about-top -->
 	<div class="about-top">
 		<div class="container">
 			<div class="wthree-services-bottom-grids">
-				<div class="col-md-6 wthree-services-left">
+				<div class="col-md-6 wthree-services-left" style="margin-top:-30px;">
 					<img src="images/photo34@2x.jpg" alt="">
 				</div>
 				<div class="col-md-6 wthree-services-right">
