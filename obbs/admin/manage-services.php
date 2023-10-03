@@ -52,7 +52,7 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                         <th class="d-none d-sm-table-cell">Event Date</th>
                                         <th class="d-none d-sm-table-cell">Event Time</th>
                                         <th class="d-none d-sm-table-cell">Location</th>
-                                        <th class="d-none d-sm-table-cell">Creation Date</th>
+                                        <th class="d-none d-sm-table-cell">Seats</th>
                                         <th class="d-none d-sm-table-cell" style="width: 15%;">Action</th>
                                     </tr>
                                 </thead>
@@ -79,7 +79,8 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                                     <?php if ($expired)
                                                         echo ' (Expired)'; ?>
                                                 </td>
-                                                <td class="d-none d-sm-table-cell <?php echo $expired ? 'text-danger' : ''; ?>"><span class="text-danger">Frw</span>
+                                                <td class="d-none d-sm-table-cell <?php echo $expired ? 'text-danger' : ''; ?>">
+                                                    <span class="text-danger">Frw</span>
                                                     <?php echo htmlentities($row->ServicePrice); ?>
                                                 </td>
                                                 <td class="d-none d-sm-table-cell <?php echo $expired ? 'text-danger' : ''; ?>">
@@ -92,9 +93,14 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                                     <?php echo htmlentities($row->Location); ?>
                                                 </td>
                                                 <td class="d-none d-sm-table-cell">
-                                                    <span class="badge badge-primary">
-                                                        <?php echo htmlentities($row->CreationDate); ?>
-                                                    </span>
+                                                    <?php
+                                                    $seats = htmlentities($row->Seats);
+                                                    if ($seats == 0) {
+                                                        echo '<span class="badge badge-danger">No seats available</span>';
+                                                    } else {
+                                                        echo '<span class="badge badge-primary">' . $seats . '</span>';
+                                                    }
+                                                    ?>
                                                 </td>
                                                 <td class="d-none d-sm-table-cell"><a
                                                         href="manage-services.php?delid=<?php echo ($row->ID); ?>"

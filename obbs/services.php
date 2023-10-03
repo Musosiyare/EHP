@@ -3,6 +3,7 @@ session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,14 +68,13 @@ include('includes/dbconnection.php');
 
 <body>
 	<!-- Banner -->
-			<?php include_once('includes/header.php'); ?>
-			
-			<div class="wthree-heading">
-				<h2 style="color:black;">Events Posted</h2> <hr>
-			</div>
-	<!-- End Banner -->
+	<?php include_once('includes/header.php'); ?>
 
-	<!-- About Section -->
+	<div class="wthree-heading">
+		<h2 style="color:black;">Events Posted</h2>
+		<hr>
+	</div>
+
 	<div class="about-top">
 		<div class="container">
 			<div class="wthree-services-bottom-grids">
@@ -91,11 +91,10 @@ include('includes/dbconnection.php');
 						?>
 						<table class="table table-bordered table-striped table-vcenter js-dataTable-full-pagination">
 							<thead>
-							Now You Can Select And Book Your Favourite Event <br>
-							We Serve Better <br>
-							Choice Is Yours Now !!!  <i class="fa fa-fire text-danger" style="font-size:30px;"></i>
+								Now You Can Select And Book Your Favourite Event <br>
+								We Serve Better <br>
+								Choice Is Yours Now !!! <i class="fa fa-fire text-danger" style="font-size:30px;"></i>
 								<tr>
-									<!-- Table headers -->
 									<th>#</th>
 									<th>EVENT NAME</th>
 									<th>DESCRIPTION</th>
@@ -103,6 +102,7 @@ include('includes/dbconnection.php');
 									<th>DATE</th>
 									<th>TIME</th>
 									<th>LOCATION</th>
+									<th>AVAILABLE SEATS</th>
 									<th>ACTION</th>
 								</tr>
 							</thead>
@@ -111,16 +111,23 @@ include('includes/dbconnection.php');
 								$cnt = 1;
 								foreach ($results as $row) {
 									$serviceID = $row->ID;
+									$availableSeats = $row->Seats; // Get available seats for the event
+							
+									// Check if there are available seats
+									if ($availableSeats >= 1) {
+										$bookingButton = '<a href="book-services.php?serviceID=' . $serviceID . '" class="btn btn-danger"><span style="margin:10px;color:green; font-size:20px;"><i class="fa fa-check mx-5"></i></span>BOOK NOW</a>';
+									} else {
+										$bookingButton = '<button class="btn btn-danger" disabled>No available seats</button>';
+									}
 									?>
-									<!-- Table rows -->
 									<tr>
-										<td   style="font-weight:bold;">
+										<td style="font-weight:bold;">
 											<?php echo htmlentities($cnt); ?>
 										</td>
 										<td>
 											<?php echo htmlentities($row->ServiceName); ?>
 										</td>
-										<td  style="font-weight:bold;">
+										<td style="font-weight:bold;">
 											<?php echo htmlentities($row->SerDes); ?>
 										</td>
 										<td><span class="text-danger" style="font-weight:bold;">Frw</span>
@@ -135,12 +142,23 @@ include('includes/dbconnection.php');
 										<td>
 											<?php echo htmlentities($row->Location); ?>
 										</td>
-										<?php if ($_SESSION['obbsuid'] == "") { ?>
-											<td><a href="login.php" class="btn btn-primary"><span style="margin:10px;color:orange; font-size:25px;"><i class="fa fa-check mx-5"></i></span>BOOK NOW</a></td>
-										<?php } else { ?>
-											<td><a href="book-services.php?serviceID=<?php echo $serviceID; ?>"
-													class="btn btn-danger"><span style="margin:10px;color:green; font-size:25px;"><i class="fa fa-check mx-5"></i></span>BOOK NOW</a></a></td>
-										<?php } ?>
+										<td>
+											<?php
+											$availableSeats = $row->Seats; // Get available seats for the event
+									
+											// Check if there are available seats
+											if ($availableSeats >= 1) {
+												echo '<span class="badge badge-primary">' . htmlentities($availableSeats) . '</span>';
+												$bookingButton = '<a href="book-services.php?serviceID=' . $serviceID . '" class="btn btn-danger"><span style="margin:10px;color:green; "><i class="fa fa-check mx-5"></i></span>BOOK NOW</a>';
+											} else {
+												echo '<span class="badge badge-danger">No available seats</span>';
+												$bookingButton = '<button class="btn btn-danger" disabled sty=""><span style="margin:10px;color:green; "><i class="fa fa-check mx-5"></i></span>BOOK NOW</button>';
+											}
+											?>
+										</td>
+										<td>
+											<?php echo $bookingButton; ?>
+										</td>
 									</tr>
 									<?php
 									$cnt = $cnt + 1;
@@ -150,54 +168,25 @@ include('includes/dbconnection.php');
 						</table>
 						<?php
 					} else {
-						// Display a red-colored division with "No Event Posted" message and a close button
-						?>
-						<div id="no-events"
-							style="background-color: orangered; color: white; padding: 50px; text-align: center; position: relative;">
-							No Event Posted today !!!
-							<img src="images/gif1.png" alt="Animated Icon" style="animation: moveIcon 2s infinite;">
-							<button onclick="closeNoEvents()"
-								style="position: absolute; top: 5px; right: 5px; color: black; padding: 10px;">Close</button>
-						</div>
-
-						<script>
-							function closeNoEvents() {
-								document.getElementById("no-events").style.display = "none";
-							}
-						</script>
-						<?php
+						// Display a message if no events are posted
+						echo '<div id="no-events" style="background-color: orangered; color: white; padding: 50px; text-align: center; position: relative;">No Event Posted today !!!<img src="images/gif1.png" alt="Animated Icon" style="animation: moveIcon 2s infinite;"><button onclick="closeNoEvents()" style="position: absolute; top: 5px; right: 5px; color: black; padding: 10px;">Close</button></div>';
 					}
 					?>
 				</div>
-				<div class="clearfix"> </div>
+				<div class="clearfix"></div>
 			</div>
 		</div>
 	</div>
-	<!-- End About Section -->
 
 	<!-- Footer -->
 	<?php include_once('includes/footer.php'); ?>
 
-	<!-- Jarallax -->
-	<script src="js/jarallax.js"></script>
-	<script src="js/SmoothScroll.min.js"></script>
+	<!-- JavaScript -->
 	<script type="text/javascript">
-		$('.jarallax').jarallax({
-			speed: 0.5,
-			imgWidth: 1366,
-			imgHeight: 768
-		})
+		function closeNoEvents() {
+			document.getElementById("no-events").style.display = "none";
+		}
 	</script>
-	<!-- End Jarallax -->
-	<script src="js/SmoothScroll.min.js"></script>
-	<script type="text/javascript" src="js/move-top.js"></script>
-	<script type="text/javascript" src="js/easing.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function () {
-			$().UItoTop({ easingType: 'easeOutQuart' });
-		});
-	</script>
-	<script src="js/modernizr.custom.js"></script>
 </body>
 
 </html>

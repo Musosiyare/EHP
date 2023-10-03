@@ -2,11 +2,13 @@
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
+
+// Check if the user is logged in
 if (strlen($_SESSION['obbsuid'] == 0)) {
 	header('location:logout.php');
 } else {
 	if (isset($_POST['submit'])) {
-		$bid = $_GET['serviceID'];
+		$bid = $_GET['serviceID']; // Service ID of the event
 		$uid = $_SESSION['obbsuid'];
 		$ppe = $_POST['ppe'];
 		$tp = $_POST['tp'];
@@ -15,16 +17,34 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 		$message = $_POST['message'];
 		$bookingid = mt_rand(100000000, 999999999);
 
+		// Retrieve the current number of available seats from the database
+		$sqlGetAvailableSeats = "SELECT seats FROM tblservice WHERE ID = :bid";
+		$queryGetAvailableSeats = $dbh->prepare($sqlGetAvailableSeats);
+		$queryGetAvailableSeats->bindParam(':bid', $bid, PDO::PARAM_STR);
+		$queryGetAvailableSeats->execute();
+		$row = $queryGetAvailableSeats->fetch(PDO::FETCH_ASSOC);
+		$currentAvailableSeats = $row['seats'];
+
 		// Validate Number of Guests (only accept numbers and not less than 1)
-		if (!is_numeric($nop) || $nop < 1) {
-			echo '<script>alert("Number of Guests should be a valid number and not less than 1.")</script>';
+		if (!is_numeric($nop) || $nop < 1 || $nop > $currentAvailableSeats) {
+			echo '<script>alert("Enter a valid number not greater than available seats and not less than 1")</script>';
 		} else {
-			// Validate Message (only characters, special characters, and spaces with minimum length of 3)
+			// Validate Message (only characters, special characters, and spaces with a minimum length of 3)
 			if (!preg_match("/^[a-zA-Z\s\W]{3,}$/", $message)) {
 				echo '<script>alert("Message should only contain characters, special characters, and spaces (minimum 3 characters).")</script>';
 			} else {
+				// Calculate the updated available seats after booking
+				$updatedAvailableSeats = $currentAvailableSeats - $nop;
+
+				// Update the 'seats' column in the database with the new available seat count
+				$sqlUpdateAvailableSeats = "UPDATE tblservice SET seats = :updatedAvailableSeats WHERE ID = :bid";
+				$queryUpdateAvailableSeats = $dbh->prepare($sqlUpdateAvailableSeats);
+				$queryUpdateAvailableSeats->bindParam(':updatedAvailableSeats', $updatedAvailableSeats, PDO::PARAM_INT);
+				$queryUpdateAvailableSeats->bindParam(':bid', $bid, PDO::PARAM_STR);
+				$queryUpdateAvailableSeats->execute();
+
 				// Proceed with inserting the booking record
-				$sql = "insert into tblbooking(BookingID,ServiceID,UserID,PricePerEvent,TotalPrice,EventType,Numberofguest,Message)values(:bookingid,:bid,:uid,:ppe,:tp,:eventtype,:nop,:message)";
+				$sql = "INSERT INTO tblbooking (BookingID, ServiceID, UserID, PricePerEvent, TotalPrice, EventType, Numberofguest, Message) VALUES (:bookingid, :bid, :uid, :ppe, :tp, :eventtype, :nop, :message)";
 				$query = $dbh->prepare($sql);
 				$query->bindParam(':bookingid', $bookingid, PDO::PARAM_STR);
 				$query->bindParam(':bid', $bid, PDO::PARAM_STR);
@@ -95,27 +115,48 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 			});
 
 			// Set the initial total price
-			var initialPPE = parseFloat($("#ppe").val()) || 0;
-			var initialNOP = parseInt($("#nop").val()) || 0;
+			var initialPPE = parseFloat($("#ppe").val()) || 1 ;
+			var initialNOP = parseInt($("#nop").val()) || 1;
 			var initialTotal = initialPPE * initialNOP;
-			$("#tp").val(initialTotal.toFixed(2));
+			$("#tp").val(initialTotal.toFixed(2) + "Frw");
 		});
 	</script>
+	<style>
+		.agile-contact-form {
+			background-color: #f0f0f0;
+			/* Grayish white background color */
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		.agileinfo-contact-form-grid input[type="text"],
+		.agileinfo-contact-form-grid textarea {
+			background-color: white;
+			/* White background for input fields and textareas */
+			border: 1px solid #ccc;
+			padding: 10px;
+			width: 100%;
+			margin-bottom: 20px;
+			border-radius: 3px;
+			font-size: 20px;
+		}
+	</style>
 </head>
 
 <body>
 	<!-- banner -->
-			<?php include_once('includes/header.php'); ?>
-			<div class="wthree-heading">
-				<h2 style="color:black;">Book Event</h2> <hr>
-			</div>
+	<?php include_once('includes/header.php'); ?>
+	<div class="wthree-heading">
+		<h2 style="color:black;">Book Event</h2>
+		<hr>
+	</div>
 	<!-- //banner -->
 	<!-- contact -->
 	<div class="contact">
 		<div class="container">
-			<div class="agile-contact-form">
+			<div class="agile-contact-form" style="margin-top:-50px;">
 				<div class="col-md-6 contact-form-right">
-					<div class="contact-form-top"  style="margin-top:-50px;">
+					<div class="contact-form-top">
 						<h3>Book Now!</h3>
 					</div>
 					<div class="agileinfo-contact-form-grid">
@@ -123,7 +164,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 							<div class="form-group row">
 								<label class="col-form-label col-md-4">Event Name:</label>
 								<div class="col-md-10">
-									<select type="text" class="form-control" name="eventtype" required="true">
+									<select type="text" class="form-control" name="eventtype" required="true" readonly>
 										<?php
 										if (isset($_GET['serviceID'])) {
 											$serviceID = $_GET['serviceID'];
@@ -146,13 +187,21 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 								<label class="col-form-label col-md-4">Price/Event:</label>
 								<div class="col-md-10">
 									<input type="text" class="form-control" style="font-size: 20px" required="true"
-										name="ppe" value="<?php echo $row->ServicePrice; ?>" id="ppe" readonly>
+										name="ppe" value="<?php echo $row->ServicePrice; ?> Frw" id="ppe" readonly>
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-form-label col-md-4">Number of Guests: <span style="color:red;">*</span></label>
+								<div class="col-md-10">
+									<input type="hidden" class="form-control" style="font-size: 20px" required="true"
+										name="seats" value="<?php echo $row->Seats; ?>" id="seats" readonly>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-form-label col-md-4">Number of Guests: <span
+										style="color:red;">*</span></label>
 								<div class="col-md-10">
 									<input type="text" class="form-control" style="font-size: 20px" name="nop" id="nop"
+										placeholder="Maximum is <?php echo $row->Seats; ?> Seat(s)"
 										onblur="validateNumberOfGuests(this)">
 								</div>
 							</div>
@@ -164,7 +213,8 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-form-label col-md-4">Message: <span style="color:red;">*</span></label>
+								<label class="col-form-label col-md-4">Message: <span
+										style="color:red;">*</span></label>
 								<div class="col-md-10">
 									<textarea class="form-control" name="message" style="font-size: 20px"
 										onblur="validateMessage(this)"></textarea>
@@ -202,7 +252,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 		function validateNumberOfGuests(input) {
 			var nop = parseInt(input.value);
 			if (isNaN(nop) || nop < 1) {
-				alert("Number of Guests should be a valid number and not less than 1.");
+				alert("Number of Guests should be a valid number not less than 1");
 				input.value = ''; // Clear the input
 			}
 		}

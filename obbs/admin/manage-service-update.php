@@ -13,18 +13,20 @@ if (strlen($_SESSION['odmsaid']) == 0) {
         $serDate = $_POST['serdate'];
         $serTime = $_POST['sertime'];
         $Location = $_POST['location'];
+        $serSeats = $_POST['serseats'];
 
         // Server-side validation
-        $errors = serverSideValidation($serName, $serPrice, $serDate, $serTime);
+        $errors = serverSideValidation($serName, $serPrice, $serDate, $serTime, $serSeats);
 
         if (empty($errors)) {
-            $sql = "UPDATE tblservice SET ServiceName=:sername, ServicePrice=:serprice, ServiceDate=:serdate, ServiceTime=:sertime, Location=:location WHERE ID=:upid";
+            $sql = "UPDATE tblservice SET ServiceName=:sername, ServicePrice=:serprice, ServiceDate=:serdate, ServiceTime=:sertime, Location=:location,Seats=:serseats WHERE ID=:upid";
             $query = $dbh->prepare($sql);
             $query->bindParam(':sername', $serName, PDO::PARAM_STR);
             $query->bindParam(':serprice', $serPrice, PDO::PARAM_STR);
             $query->bindParam(':serdate', $serDate, PDO::PARAM_STR);
             $query->bindParam(':sertime', $serTime, PDO::PARAM_STR);
             $query->bindParam(':location', $Location, PDO::PARAM_STR);
+            $query->bindParam(':serseats', $serSeats, PDO::PARAM_STR);
             $query->bindParam(':upid', $upid, PDO::PARAM_STR);
             $query->execute();
 
@@ -39,11 +41,13 @@ if (strlen($_SESSION['odmsaid']) == 0) {
     }
 }
 
-function serverSideValidation($serName, $serPrice, $serDate, $serTime)
+function serverSideValidation($serName, $serPrice, $serDate, $serTime,$serSeats)
 {
     $nameRegex = '/^[A-Za-z\s]{3,}$/';
     $priceRegex = '/^[0-9]+$/';
+    $seatsRegex = '/^[0-9]+$/';
     $minPrice = 100;
+    $minSeats = 1;
 
     $errors = [];
 
@@ -53,6 +57,9 @@ function serverSideValidation($serName, $serPrice, $serDate, $serTime)
 
     if (!preg_match($priceRegex, $serPrice) || $serPrice < $minPrice) {
         $errors['serprice'] = "Event Price must be a number not less than 100.";
+    }
+    if (!preg_match($seatsRegex, $serSeats) || $serSeats < $minSeats) {
+        $errors['serprice'] = "Event Seats must be a number not less than 1.";
     }
 
     $currentDate = date('Y-m-d');
@@ -164,6 +171,15 @@ function serverSideValidation($serName, $serPrice, $serDate, $serTime)
                                                         <input type="text" id="location" value="<?php echo $row->Location; ?>"
                                                             name="location" class="form-control" minlength="3"
                                                             pattern="[A-Za-z\s]+">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-form-label col-md-4">Event Seats</label>
+                                                    <div class="col-md-12">
+                                                        <input type="text" id="serseats" name="serseats" class="form-control"
+                                                            pattern="[0-9]+" min="1"
+                                                            value="<?php echo $row->Seats; ?>">
+                                                        <span id="serprice-error" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
