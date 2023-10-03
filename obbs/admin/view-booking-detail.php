@@ -49,13 +49,13 @@ $query->bindParam(':eid',$eid,PDO::PARAM_STR);
                 <div class="content">
                 
                     <!-- Register Forms -->
-                    <h2 class="content-heading">View Booking</h2>
+                    <h2 class="content-heading"><strong>View Booking</strong> </h2>
                     <div class="row">
                         <div class="col-md-12">
                             <!-- Bootstrap Register -->
                             <div class="block block-themed">
                                 <div class="block-header bg-gd-emerald">
-                                    <h3 class="block-title">View Booking</h3>
+                                    <h3 class="block-title"><strong>View Booking</strong></h3>
                                     <div class="block-options">
                                         <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
                                             <i class="si si-refresh"></i>
@@ -81,24 +81,24 @@ foreach($results as $row)
 {               ?>
                             <table border="1" class="table table-bordered table-striped table-vcenter js-dataTable-full-pagination">
                                 <tr>
-                                    <th colspan="5" style="text-align: center;font-size: 20px;color: blue;">Booking Number: <?php  echo $row->BookingID;?>
+                                    <th colspan="5" style="text-align: center;font-size: 20px;color: blue;">Booking Code: <?php  echo $row->BookingID;?>
                                         
                                     </th>
                                 </tr>
                                             <tr>
     <th>Customer Name</th>
-    <td><?php  echo $row->FullName;?></td>
+    <td style="color:orange;font-weight:bold;font-size:15px;"><?php  echo $row->FullName;?></td>
      <th>Mobile Number</th>
-    <td><?php  echo $row->MobileNumber;?></td>
+    <td style="color:orange;font-weight:bold;font-size:15px;">(+250) <?php  echo $row->MobileNumber;?></td>
   </tr>
   
 
   <tr>
     
    <th>Email</th>
-    <td><?php  echo $row->Email;?></td>
-    <th>Number of Guest</th>
-    <td><?php  echo $row->Numberofguest;?></td>
+    <td style="color:blue;font-weight:bold;font-size:15px;"><?php  echo $row->Email;?></td>
+    <th>Number of Seats</th>
+    <td style="color:orange;font-weight:bold;font-size:15px;"><?php  echo $row->Numberofguest;?> Seat(s)</td>
   </tr>
   <tr>
     
@@ -145,7 +145,7 @@ foreach($results as $row)
     
      <th>Order Final Status</th>
 
-    <td> <?php  $status=$row->Status;
+    <td style="color:orange;font-weight:bold;font-size:15px;"> <?php  $status=$row->Status;
     
 if($row->Status=="Approved")
 {
@@ -168,7 +168,7 @@ if($row->Status=="")
      <th >Admin Remark</th>
     <?php if($row->Status==""){ ?>
 
-                     <td><?php echo "Not Updated Yet"; ?></td>
+                     <td style="color:orange;font-weight:bold;font-size:15px;"><?php echo "Not Updated Yet"; ?></td>
 <?php } else { ?>                  <td><?php  echo htmlentities($row->Remark);?>
                   </td>
                   <?php } ?>

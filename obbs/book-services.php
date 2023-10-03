@@ -108,14 +108,14 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 
 			// Calculate total price live
 			$("#nop").on("input", function () {
-				var ppe = parseFloat($("#ppe").val()) || 0;
-				var nop = parseInt($(this).val()) || 0;
+				var ppe = parseFloat($("#ppe").val()) || 1;
+				var nop = parseInt($(this).val()) || 1;
 				var total = ppe * nop;
 				$("#tp").val(total.toFixed(2));
 			});
 
 			// Set the initial total price
-			var initialPPE = parseFloat($("#ppe").val()) || 1 ;
+			var initialPPE = parseFloat($("#ppe").val()) || 1;
 			var initialNOP = parseInt($("#nop").val()) || 1;
 			var initialTotal = initialPPE * initialNOP;
 			$("#tp").val(initialTotal.toFixed(2) + "Frw");
@@ -163,41 +163,38 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 						<form method="post">
 							<div class="form-group row">
 								<label class="col-form-label col-md-4">Event Name:</label>
-								<div class="col-md-10">
-									<select type="text" class="form-control" name="eventtype" required="true" readonly>
-										<?php
-										if (isset($_GET['serviceID'])) {
-											$serviceID = $_GET['serviceID'];
-											$sql2 = "SELECT * from tblservice where ID='$serviceID' ";
-											$query2 = $dbh->prepare($sql2);
-											$query2->execute();
-											$result2 = $query2->fetchAll(PDO::FETCH_OBJ);
+								<div class="col-md-10" style="font-size: 20px;color:orange;font-weight:bold;">
+									<?php
+									if (isset($_GET['serviceID'])) {
+										$serviceID = $_GET['serviceID'];
+										$sql2 = "SELECT * from tblservice where ID='$serviceID' ";
+										$query2 = $dbh->prepare($sql2);
+										$query2->execute();
+										$result2 = $query2->fetchAll(PDO::FETCH_OBJ);
 
-											foreach ($result2 as $row) {
-												?>
-												<option value="<?php echo htmlentities($row->ServiceName); ?>">
-													<?php echo htmlentities($row->ServiceName); ?>
-												</option>
-											<?php }
-										} ?>
-									</select>
+										foreach ($result2 as $row) {
+											?>
+											<?php echo htmlentities($row->ServiceName); ?>
+										<?php }
+									} ?>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-form-label col-md-4">Price/Event:</label>
 								<div class="col-md-10">
-									<input type="text" class="form-control" style="font-size: 20px" required="true"
+									<input type="text" class="form-control"
+										style="font-size: 18px;color:orange;font-weight:bold;" required="true"
 										name="ppe" value="<?php echo $row->ServicePrice; ?> Frw" id="ppe" readonly>
 								</div>
 							</div>
 							<div class="form-group row">
 								<div class="col-md-10">
-									<input type="hidden" class="form-control" style="font-size: 20px" required="true"
+									<input type="hidden" class="form-control" style="font-size: 18px" required="true"
 										name="seats" value="<?php echo $row->Seats; ?>" id="seats" readonly>
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-form-label col-md-4">Number of Guests: <span
+								<label class="col-form-label col-md-4">Number of Seats: <span
 										style="color:red;">*</span></label>
 								<div class="col-md-10">
 									<input type="text" class="form-control" style="font-size: 20px" name="nop" id="nop"
@@ -208,7 +205,8 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 							<div class="form-group row">
 								<label class="col-form-label col-md-4">Total Price:</label>
 								<div class="col-md-10">
-									<input type="text" class="form-control" style="font-size: 20px" name="tp" id="tp"
+									<input type="text" class="form-control"
+										style="font-size: 18px;color:orange;font-weight:bold;" name="tp" id="tp"
 										readonly>
 								</div>
 							</div>
@@ -216,7 +214,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 								<label class="col-form-label col-md-4">Message: <span
 										style="color:red;">*</span></label>
 								<div class="col-md-10">
-									<textarea class="form-control" name="message" style="font-size: 20px"
+									<textarea class="form-control" name="message" placeholder="Messahe Goes Here!"
 										onblur="validateMessage(this)"></textarea>
 								</div>
 							</div>
