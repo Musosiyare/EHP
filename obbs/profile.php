@@ -57,25 +57,45 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 				});
 			});
 		</script>
+		<style>
+			.agile-contact-form {
+				background-color: #f0f0f0;
+				/* Grayish white background color */
+				padding: 30px;
+				border-radius: 5px;
+			}
 
+			.agileinfo-contact-form-grid input[type="text"],
+			.agileinfo-contact-form-grid textarea {
+				background-color: white;
+				/* White background for input fields and textareas */
+				border: 1px solid #ccc;
+				padding: 10px;
+				width: 100%;
+				margin-bottom: 20px;
+				border-radius: 3px;
+				font-size: 20px;
+			}
+		</style>
 
 	</head>
 
 	<body>
 		<!-- banner -->
-				<?php include_once('includes/header.php'); ?>
-				<div class="wthree-heading">
-					<h2 style="color:black;">User Profile</h2> <hr>
-				</div>
+		<?php include_once('includes/header.php'); ?>
+		<div class="wthree-heading">
+			<h2 style="color:black;">User Profile</h2>
+			<hr>
+		</div>
 		<!-- //banner -->
 		<!-- contact -->
 		<div class="contact">
 			<div class="container">
-				<div class="agile-contact-form">
+				<div class="agile-contact-form" style="margin-top:-50px;">
 
 					<div class="col-md-6 contact-form-right">
-						<div class="contact-form-top" style="margin-top:-50px;">
-							<h3 style="color:black;">View Profile </h3> 
+						<div class="contact-form-top">
+							<h3 style="color:orange;">View Profile </h3>
 						</div>
 						<div class="agileinfo-contact-form-grid">
 							<form method="post">
@@ -90,31 +110,31 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 								if ($query->rowCount() > 0) {
 									foreach ($results as $row) { ?>
 										<div class="form-group row">
-											<label class="col-form-label col-md-4">Full Name:</label>
+											<label class="col-form-label col-md-4">Full Name</label>
 											<div class="col-md-12">
 												<input type="text" value="<?php echo $row->FullName; ?>" name="fname"
-													required="true" class="form-control">
+													required="true" class="form-control"
+													style="font-size: 18px;color:orange;font-weight:bold;">
 											</div>
 										</div>
 										<div class="form-group row">
 											<label class="col-form-label col-md-4">Mobile Number</label>
 											<div class="col-md-12">
 												<input type="text" name="mobno" class="form-control" required="true" maxlength="10"
-													pattern="[0-9]+" value="<?php echo $row->MobileNumber; ?>">
+													pattern="[0-9]+" value="<?php echo $row->MobileNumber; ?>"
+													style="font-size: 18px;color:orange;font-weight:bold;">
 											</div>
 										</div>
 										<div class="form-group row">
 											<label class="col-form-label col-md-4">Email Address</label>
-											<div class="col-md-12">
-												<input type="email" class="form-control" value="<?php echo $row->Email; ?>"
-													name="email" required="true" readonly title="Email can't be edit">
+											<div class="col-md-12" style="font-size: 18px;color:blue;font-weight:bold;">
+												<?php echo $row->Email; ?>
 											</div>
 										</div>
 										<div class="form-group row">
 											<label class="col-form-label col-md-4">Registration Date</label>
-											<div class="col-md-12">
-												<input type="text" value="<?php echo $row->RegDate; ?>" class="form-control"
-													name="password" readonly="true">
+											<div class="col-md-12" style="font-size: 18px;color:orange;font-weight:bold;">
+												<?php echo $row->RegDate; ?>
 											</div>
 										</div>
 										<?php $cnt = $cnt + 1;
@@ -123,7 +143,9 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 								<br>
 								<div class="tp">
 
-									<button type="submit" class="btn btn-primary" name="submit">Update</button>
+									<button type="submit" class="btn btn-primary" name="submit">
+										<i class="fa fa-save mr-5"></i> Save
+									</button>
 								</div>
 							</form>
 

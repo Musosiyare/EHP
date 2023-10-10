@@ -81,7 +81,7 @@ include('includes/dbconnection.php');
 				<div class="bs-docs-example wow fadeInUp animated" data-wow-delay=".5s" style="margin-top:-50px;">
 					<?php
 					$currentDateTime = date('Y-m-d H:i:s'); // Get the current date and time in 'Y-m-d H:i:s' format
-					$sql = "SELECT * FROM tblservice WHERE CONCAT(ServiceDate, ' ', ServiceTime) > :currentDateTime";
+					$sql = "SELECT * FROM tblevents WHERE CONCAT(ServiceDate, ' ', ServiceTime) > :currentDateTime";
 					$query = $dbh->prepare($sql);
 					$query->bindParam(':currentDateTime', $currentDateTime, PDO::PARAM_STR);
 					$query->execute();
@@ -94,7 +94,7 @@ include('includes/dbconnection.php');
 								Now You Can Select And Book Your Favourite Event <br>
 								We Serve Better <br>
 								Choice Is Yours Now !!! <i class="fa fa-fire text-danger" style="font-size:30px;"></i>
-								<tr>
+								<tr style="background-color:skyblue;">
 									<th>#</th>
 									<th>EVENT NAME</th>
 									<th>DESCRIPTION</th>
@@ -121,7 +121,7 @@ include('includes/dbconnection.php');
 									}
 									?>
 									<tr>
-										<td style="font-weight:bold;">
+										<td>
 											<?php echo htmlentities($cnt); ?>
 										</td>
 										<td>
@@ -149,10 +149,10 @@ include('includes/dbconnection.php');
 											// Check if there are available seats
 											if ($availableSeats >= 1) {
 												echo '<span class="badge badge-primary">' . htmlentities($availableSeats) . '</span>';
-												$bookingButton = '<a href="book-services.php?serviceID=' . $serviceID . '" class="btn btn-danger"><span style="margin:10px;color:green; "><i class="fa fa-check mx-5"></i></span>BOOK NOW</a>';
+												$bookingButton = '<a href="book-services.php?serviceID=' . $serviceID . '" class="btn btn-danger"><span style="margin:10px;color:skyblue; "><i class="fa fa-book mx-5"></i></span>BOOK NOW</a>';
 											} else {
-												echo '<span class="badge badge-danger">No available seats</span>';
-												$bookingButton = '<button class="btn btn-danger" disabled sty=""><span style="margin:10px;color:green; "><i class="fa fa-check mx-5"></i></span>BOOK NOW</button>';
+												echo '<span class="badge badge-danger">No seats available </span>';
+												$bookingButton = '<button class="btn btn-danger" disabled sty=""><span style="margin:10px;color:yellow; "><i class="fa fa-warning mx-5"></i></span>NO BOOKING</button>';
 											}
 											?>
 										</td>

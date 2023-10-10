@@ -32,24 +32,25 @@ if (strlen($_SESSION['odmsaid']==0)) {
             <main id="main-container">
                 <!-- Page Content -->
                 <div class="content">
-                    <h2 class="content-heading">Search Booking</h2>
+                    <h2 class="content-heading"><strong>Search Booking</strong></h2>
 
                    
 
                     <!-- Dynamic Table Full Pagination -->
                     <div class="block">
                         <div class="block-header block-header-default">
-                            <h3 class="block-title">Search Booking</h3>
+                            <h3 class="block-title"><strong>Search Booking</strong></h3>
                         </div>
                         <div class="block-content block-content-full">
                             <!-- DataTables init on table by adding .js-dataTable-full-pagination class, functionality initialized in js/pages/be_tables_datatables.js -->
                             <form id="basic-form" method="post">
                                 <div class="form-group">
-                                    <label>Search by Booking No./Name/Mobile No.</label>
-                                    <input id="searchdata" type="text" name="searchdata" required="true" class="form-control" placeholder="Booking No./Name/Mobile No."></div>
+                                    <input id="searchdata" type="text" name="searchdata" required="true" class="form-control" placeholder="By Booking No./Name/Mobile No."></div>
                                 
                                 <br>
-                                <button type="submit" class="btn btn-primary" name="search" id="submit">Search</button>
+                                <button type="submit" class="btn btn-primary" name="search" id="submit">
+                                <i class="fa fa-search mr-1" style="color:orange;font-size:15px;font-weight:bold;"></i> Search
+                                </button>
                             </form>
                             <?php
 if(isset($_POST['search']))
@@ -57,7 +58,7 @@ if(isset($_POST['search']))
 
 $sdata=$_POST['searchdata'];
   ?>
-  <h4 align="center">Result against "<?php echo $sdata;?>" keyword </h4>
+  <h4 align="center">Result against <span style="color:red;"><?php echo $sdata;?></span> keyword </h4>
                             <table class="table table-bordered table-striped table-vcenter js-dataTable-full-pagination">
                                 <thead>
                                     <tr>
@@ -86,9 +87,9 @@ foreach($results as $row)
                                     <tr>
                                         <td class="text-center"><?php echo htmlentities($cnt);?></td>
                                         <td class="font-w600"><?php  echo htmlentities($row->BookingID);?></td>
-                                        <td class="font-w600"><?php  echo htmlentities($row->FullName);?></td>
+                                        <td class="font-w600" style="color:orange;font-size:15px;font-weight:bold;"><?php  echo htmlentities($row->FullName);?></td>
                                         <td class="font-w600"><?php  echo htmlentities($row->MobileNumber);?></td>
-                                        <td class="font-w600"><?php  echo htmlentities($row->Email);?></td>
+                                        <td class="font-w600" style="color:blue;font-size:15px;font-weight:bold;"><?php  echo htmlentities($row->Email);?></td>
                                         <td class="font-w600">
                                             <span class="badge badge-primary"><?php  echo htmlentities($row->BookingDate);?></span>
                                         </td>

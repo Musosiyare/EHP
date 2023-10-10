@@ -9,7 +9,7 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
     // Code for deleting product from cart
     if (isset($_GET['delid'])) {
         $rid = intval($_GET['delid']);
-        $sql = "delete from tblservice where ID=:rid";
+        $sql = "delete from tblevents where ID=:rid";
         $query = $dbh->prepare($sql);
         $query->bindParam(':rid', $rid, PDO::PARAM_STR);
         $query->execute();
@@ -59,7 +59,7 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                 <tbody>
                                     <?php
                                     $currentDateTime = date("Y-m-d H:i:s"); // Get the current date and time
-                                    $sql = "SELECT * from tblservice";
+                                    $sql = "SELECT * from tblevents";
                                     $query = $dbh->prepare($sql);
                                     $query->execute();
                                     $results = $query->fetchAll(PDO::FETCH_OBJ);

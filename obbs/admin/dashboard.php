@@ -133,7 +133,7 @@
                         <a class="block text-center" href="manage-services.php">
                             <div class="block-content ribbon ribbon-bookmark ribbon-crystal ribbon-left bg-gd-dusk">
                                 <?php
-                                $sql = "SELECT ID from tblservice";
+                                $sql = "SELECT ID from tblevents";
                                 $query = $dbh->prepare($sql);
                                 $query->execute();
                                 $results = $query->fetchAll(PDO::FETCH_OBJ);

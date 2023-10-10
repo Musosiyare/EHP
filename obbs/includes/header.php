@@ -72,7 +72,7 @@
                                                     History</a></li><hr>
                                             <li><a class="hvr-bounce-to-bottom" href="change-password.php">Change
                                                     Password</a></li><hr>
-                                            <li><a class="hvr-bounce-to-bottom" href="logout.php">Logout</a></li>
+                                            <li><a class="hvr-bounce-to-bottom" href="logout.php"><i class="fa fa-sign-out mr-5"></i>  Logout</a></li>
                                         </ul>
                                     </li>
                                 <?php } ?>

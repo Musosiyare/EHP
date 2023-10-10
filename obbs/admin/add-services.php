@@ -76,9 +76,26 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
             $serpriceErr = "Service Seats should be a valid number and not less than 1";
             $isValid = false;
         }
+        // Validation for Service Date (do not accept past date)
+        $currentDate = new DateTime();
+        $inputDate = new DateTime($serdate);
+
+        if ($inputDate < $currentDate) {
+            $serdateErr = "Service Date cannot be in the past.";
+            $isValid = false;
+        }
+
+        // Validation for Service Time (you can add your validation logic here)
+        // For example, you can check if the time is not in the past
+        $currentTime = new DateTime();
+        $inputTime = new DateTime($sertime);
+        if ($inputTime < $currentTime) {
+            $sertimeErr = "Service Time cannot be in the past.";
+            $isValid = false;
+        }
 
         if ($isValid) {
-            $sql = "INSERT INTO tblservice(ServiceName,SerDes,ServicePrice,ServiceDate,ServiceTime,Location,Seats) VALUES(:sername,:serdes,:serprice,:serdate,:sertime,:serlocation,:serseats)";
+            $sql = "INSERT INTO tblevents(ServiceName,SerDes,ServicePrice,ServiceDate,ServiceTime,Location,Seats) VALUES(:sername,:serdes,:serprice,:serdate,:sertime,:serlocation,:serseats)";
             $query = $dbh->prepare($sql);
             $query->bindParam(':sername', $sername, PDO::PARAM_STR);
             $query->bindParam(':serdes', $serdes, PDO::PARAM_STR);

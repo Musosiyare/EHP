@@ -82,8 +82,8 @@ if (isset($_POST['signup'])) {
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
     <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            $(".scroll").click(function(event) {
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
                 event.preventDefault();
                 $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
             });
@@ -105,20 +105,43 @@ if (isset($_POST['signup'])) {
     </script>
 </head>
 
+<style>
+    .agileinfo-contact-form-grid {
+        background-color: #f0f0f0;
+        /* Grayish white background color */
+        padding: 30px;
+        border-radius: 5px;
+    }
+
+    .agileinfo-contact-form-grid input[type="password"],
+    .agileinfo-contact-form-grid input[type="text"],
+    .agileinfo-contact-form-grid input[type="email"] {
+        background-color: white;
+        /* White background for input fields and textareas */
+        border: 1px solid #ccc;
+        padding: 10px;
+        width: 100%;
+        margin-bottom: 20px;
+        border-radius: 3px;
+        font-size: 15px;
+    }
+</style>
+
 <body>
     <!-- banner -->
-            <?php include_once('includes/header.php'); ?>
-            <div class="wthree-heading">
-                <h2 style="color:black;">Register</h2> <hr>
-            </div>
+    <?php include_once('includes/header.php'); ?>
+    <div class="wthree-heading">
+        <h2 style="color:black;">Register</h2>
+        <hr>
+    </div>
     <!-- //banner -->
     <!-- contact -->
     <div class="contact">
         <div class="container">
-            <div class="agile-contact-form">
+            <div class="agile-contact-form" style="margin-top:-50px;">
                 <div class="col-md-6 contact-form-left">
 
-                    <div class="agileits-contact-address" style="margin-top:-30px;">
+                    <div class="agileits-contact-address" style="margin-top:0px;">
                         <img src="images/photo34@2x.jpg" alt="" height="500" width="500">
                     </div>
                 </div>
@@ -128,8 +151,10 @@ if (isset($_POST['signup'])) {
                     </div>
                     <div class="agileinfo-contact-form-grid">
                         <form method="post" name="signup" onsubmit="return checkpass();">
-                            <input type="text" name="fname" placeholder="Full Name Required" value="<?php echo $fname; ?>">
-                            <input type="email" name="email" placeholder="E-mail Required" value="<?php echo $email; ?>">
+                            <input type="text" name="fname" placeholder="Full Name Required"
+                                value="<?php echo $fname; ?>">
+                            <input type="email" name="email" placeholder="E-mail Required"
+                                value="<?php echo $email; ?>">
                             <input type="text" name="mobno" placeholder="Mobile Number Required" maxlength="10"
                                 pattern="[0-9]+" value="<?php echo $mobno; ?>">
                             <input type="password" name="password" placeholder="Password Required" id="password1">
@@ -137,7 +162,9 @@ if (isset($_POST['signup'])) {
                             <input type="password" name="confirmpassword" placeholder="Confirm Password" id="password2">
                             <br>
                             <div class="tp">
-                                <button class="btn1" name="signup">Register NOW</button>
+                                <button class="btn1" name="signup">
+                                <i class="fa fa-plus mr-5"></i> Save
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -171,7 +198,7 @@ if (isset($_POST['signup'])) {
     <script type="text/javascript" src="js/easing.js"></script>
     <!-- here stars scrolling icon -->
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             $().UItoTop({ easingType: 'easeOutQuart' });
         });
     </script>

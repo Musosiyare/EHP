@@ -102,21 +102,44 @@ function validateForm($name, $email, $message)
 	<!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <![endif]-->
+
+	<style>
+		.agileinfo-contact-form-grid {
+			background-color: #f0f0f0;
+			/* Grayish white background color */
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		.agileinfo-contact-form-grid input[type="text"],
+		.agileinfo-contact-form-grid input[type="email"],
+		.agileinfo-contact-form-grid textarea {
+			background-color: white;
+			/* White background for input fields and textareas */
+			border: 1px solid #ccc;
+			padding: 10px;
+			width: 100%;
+			margin-bottom: 20px;
+			border-radius: 3px;
+			font-size: 15px;
+		}
+	</style>
 </head>
 
 <body>
 	<!-- banner -->
-			<?php include_once('includes/header.php'); ?>
-			<div class="wthree-heading">
-				<h2 style="color:black;">Contact</h2> <hr>
-			</div>
+	<?php include_once('includes/header.php'); ?>
+	<div class="wthree-heading">
+		<h2 style="color:black;">Contact</h2>
+		<hr>
+	</div>
 	<!-- //banner -->
 	<!-- contact -->
 	<div class="contact">
 		<div class="container">
-			<div class="agile-contact-form">
+			<div class="agile-contact-form" style="margin-top:-50px;">
 				<div class="col-md-6 contact-form-left">
-					<div class="w3layouts-contact-form-top" style="margin-top:-50px;">
+					<div class="w3layouts-contact-form-top">
 						<h3>Get in touch</h3>
 						<p>Pellentesque eget mi nec est tincidunt accumsan. Proin fermentum dignissim justo, vel euismod
 							justo sodales vel. In non condimentum mauris. Maecenas condimentum interdum lacus, ac varius
@@ -158,9 +181,9 @@ function validateForm($name, $email, $message)
 							<input placeholder="Full Name Required " name="name" type="text">
 							<input placeholder="Email Required" name="email" type="email">
 							<textarea name="message" placeholder="Message Required"></textarea>
-							<button class="btn1" name="submit">
-							<i class="fa fa-arrow-right"></i>
-							send
+							<button class="btn1" name="submit" style="">
+								<i class="fa fa-send" style="font-size:20px;"></i>
+								<strong>Send</strong>
 							</button>
 						</form>
 					</div>

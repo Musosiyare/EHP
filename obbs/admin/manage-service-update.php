@@ -19,7 +19,7 @@ if (strlen($_SESSION['odmsaid']) == 0) {
         $errors = serverSideValidation($serName, $serPrice, $serDate, $serTime, $serSeats);
 
         if (empty($errors)) {
-            $sql = "UPDATE tblservice SET ServiceName=:sername, ServicePrice=:serprice, ServiceDate=:serdate, ServiceTime=:sertime, Location=:location,Seats=:serseats WHERE ID=:upid";
+            $sql = "UPDATE tblevents SET ServiceName=:sername, ServicePrice=:serprice, ServiceDate=:serdate, ServiceTime=:sertime, Location=:location,Seats=:serseats WHERE ID=:upid";
             $query = $dbh->prepare($sql);
             $query->bindParam(':sername', $serName, PDO::PARAM_STR);
             $query->bindParam(':serprice', $serPrice, PDO::PARAM_STR);
@@ -120,7 +120,7 @@ function serverSideValidation($serName, $serPrice, $serDate, $serTime,$serSeats)
                                     <?php
                                     if (isset($_GET['upid'])) {
                                         $upid = $_GET['upid'];
-                                        $sql = "SELECT * from  tblservice where ID=:upid";
+                                        $sql = "SELECT * from  tblevents where ID=:upid";
                                         $query = $dbh->prepare($sql);
                                         $query->bindParam(':upid', $upid, PDO::PARAM_STR);
                                         $query->execute();
@@ -201,7 +201,9 @@ function serverSideValidation($serName, $serPrice, $serDate, $serTime,$serSeats)
                                     } ?>
                                     <br>
                                     <div class="tp">
-                                        <button type="submit" class="btn btn-primary" name="submit">Update</button>
+                                        <button type="submit" class="btn btn-primary" name="submit" style="margin-bottom:20px;">
+                                        <i class="fa fa-plus mr-5"></i> Save
+                                        </button>
                                     </div>
                                 </div>
                             </form>

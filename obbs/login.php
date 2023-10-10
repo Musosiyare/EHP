@@ -90,6 +90,27 @@ if (isset($_POST['login'])) {
 <![endif]-->
 </head>
 
+<style>
+    .agileinfo-contact-form-grid {
+        background-color: #f0f0f0;
+        /* Grayish white background color */
+        padding: 30px;
+        border-radius: 5px;
+    }
+
+    .agileinfo-contact-form-grid input[type="password"],
+    .agileinfo-contact-form-grid input[type="email"] {
+        background-color: white;
+        /* White background for input fields and textareas */
+        border: 1px solid #ccc;
+        padding: 10px;
+        width: 100%;
+        margin-bottom: 20px;
+        border-radius: 3px;
+        font-size: 15px;
+    }
+</style>
+
 <body>
     <!-- banner -->
     <?php include_once('includes/header.php'); ?>
@@ -101,10 +122,10 @@ if (isset($_POST['login'])) {
     <!-- contact -->
     <div class="contact">
         <div class="container">
-            <div class="agile-contact-form">
+            <div class="agile-contact-form" style="margin-top:-50px;">
                 <div class="col-md-6 contact-form-left">
 
-                    <div class="agileits-contact-address" style="margin-top:-50px;">
+                    <div class="agileits-contact-address" style="margin-top:0px;">
                         <img src="images/photo34@2x.jpg" alt="" height="500" width="500">
                     </div>
                 </div>
@@ -114,7 +135,7 @@ if (isset($_POST['login'])) {
                     </div>
                     <div class="agileinfo-contact-form-grid">
                         <form action="#" method="post" name="login">
-                            <input type="email" name="email" placeholder="E-mail Required"required
+                            <input type="email" name="email" placeholder="E-mail Required" required
                                 value="<?php echo $email; ?>">
                             <span style="color: red;">
                                 <?php echo $emailError; ?>
@@ -128,7 +149,9 @@ if (isset($_POST['login'])) {
                                 <a href="forgot-password.php">Forgot Password?</a>
                             </div>
                             <br>
-                            <button class="btn1" name="login">LOGIN NOW</button>
+                            <button class="btn1" name="login">
+                            <i class="fa fa-sign-in mr-5"></i> Go
+                            </button>
                         </form>
                     </div>
                 </div>

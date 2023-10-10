@@ -53,10 +53,10 @@ include('includes/dbconnection.php');
 	<!-- about -->
 	<!-- about-top -->
 	<div class="about-top">
-		<div class="container">
+		<div class="container" style="margin-top:-50px;">
 			<div class="wthree-services-bottom-grids">
-				<div class="col-md-6 wthree-services-left" style="margin-top:-30px;">
-					<img src="images/photo34@2x.jpg" alt="">
+				<div class="col-md-6 wthree-services-left" style="margin-top:0px;">
+					<img src="images/photo34@2x.jpg" alt="" height="500" width="500">
 				</div>
 				<div class="col-md-6 wthree-services-right">
 					<div class="wthree-services-right-top">

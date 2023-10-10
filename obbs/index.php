@@ -80,7 +80,8 @@ include('includes/dbconnection.php');
 		.lorem-content {
 			background-color: white;
 			border-radius: 5px;
-			padding: 50px;
+			padding: 90px;
+			margin-top: -20px;
 			/* Adjust the margin as needed */
 		}
 
@@ -104,7 +105,7 @@ include('includes/dbconnection.php');
 
 					<?php
 					$currentDateTime = date('Y-m-d H:i:s'); // Get the current date and time in 'Y-m-d H:i:s' format
-					$sql = "SELECT * FROM tblservice WHERE CONCAT(ServiceDate, ' ', ServiceTime) > :currentDateTime";
+					$sql = "SELECT * FROM tblevents WHERE CONCAT(ServiceDate, ' ', ServiceTime) > :currentDateTime";
 					$query = $dbh->prepare($sql);
 					$query->bindParam(':currentDateTime', $currentDateTime, PDO::PARAM_STR);
 					$query->execute();
@@ -113,6 +114,7 @@ include('includes/dbconnection.php');
 					?>
 					<div class="ribbon-box">
 						<?php echo htmlentities($totalreadquery); ?>
+						<span style="font-size:10px;">Events</span>
 					</div>
 
 				</span> <!-- You can update the badge count as needed -->
@@ -122,73 +124,43 @@ include('includes/dbconnection.php');
 	</div>
 	<!-- //header -->
 	<!-- banner -->
-			<?php include_once('includes/header.php'); ?>
-			
-			<div class="wthree-heading">
-				<h2 style="color:black;">Home</h2> <hr>
-			</div>
-			<!-- Main Content -->
-			<div class="main-content" style="margin-top:-20px;">
-				<!-- "Lorem ipsum" content goes here -->
-				<div class="lorem-content">
-					<h3 style="margin-left:100px;font-weight:bold;">Welcome! To Event Handler Platform Ltd</h3>
-					<p>
-						<strong>At Event Handler Platform Ltd</strong> , <br>
-						we're more than just an event management system; we're a community of
-						passionate event organizers, attendees, and partners who are dedicated to creating memorable
-						experiences. We invite you to become a part of our growing family and join us on this exciting
-						journey.
-					</p>
-					<h3 style="margin-left:100px;font-weight:bold;">Join Us Today!!!</h3>
-					<p>
-						An Event Handler Platform is a software or application that helps individuals or organizations
-						plan, organize, and manage various types of events more efficiently. These systems provide a
-						range of tools and features to streamline the entire event lifecycle, from initial planning and
-						registration to execution and post-event analysis. Here are some key components and features
-						typically found in event management systems:
-					</p>
+	<?php include_once('includes/header.php'); ?>
 
-					<button class="btn btn-danger" style="padding:15px; margin-left:100px;"><a href="services.php"
-							style="color:white;text-decoration:none; font-weight:bold;">GET STARTED NOW!</a></button>
-					<!-- Add more content as needed -->
-				</div>
+	<div class="wthree-heading">
+		<h2 style="color:black;">Home</h2>
+		<hr>
+	</div>
+	<!-- Main Content -->
+	<div class="main-content" style="margin-top:-20px;">
+		<!-- "Lorem ipsum" content goes here -->
+		<div class="lorem-content">
+			<div style="margin-top:-80px;">
+				<h3 style="margin-left:100px;font-weight:bold;">Welcome! To Event Handler Platform Ltd</h3>
+				<p>
+					<strong>At Event Handler Platform Ltd</strong> , <br>
+					we're more than just an event management system; we're a community of
+					passionate event organizers, attendees, and partners who are dedicated to creating memorable
+					experiences. We invite you to become a part of our growing family and join us on this exciting
+					journey.
+				</p>
+				<h3 style="margin-left:100px;font-weight:bold;">Join Us Today!</h3>
+				<p>
+					An Event Handler Platform is a software or application that helps individuals or organizations
+					plan, organize, and manage various types of events more efficiently. These systems provide a
+					range of tools and features to streamline the entire event lifecycle, from initial planning and
+					registration to execution and post-event analysis. Here are some key components and features
+					typically found in event management systems:
+				</p>
+				<a href="services.php">
+					<button
+						style="padding:15px; margin-left:100px;background-color:skyblue; color:white;font-weight:bold; border:none;">
+						<i class="fa fa-send"></i> Go Now
+					</button>
+				</a>
 			</div>
-			<div class="w3ls-banner-info-bottom">
-				<div class="container">
-					<div class="banner-address">
-						<?php
-						$sql = "SELECT * from tblpage where PageType='contactus'";
-						$query = $dbh->prepare($sql);
-						$query->execute();
-						$results = $query->fetchAll(PDO::FETCH_OBJ);
-
-						$cnt = 1;
-						if ($query->rowCount() > 0) {
-							foreach ($results as $row) { ?>
-								<div class="col-md-4 banner-address-left">
-									<p><i class="fa fa-map-marker" aria-hidden="true"></i>
-										<?php echo htmlentities($row->PageDescription); ?>
-										.
-									</p>
-								</div>
-								<div class="col-md-4 banner-address-left">
-									<p><i class="fa fa-envelope" aria-hidden="true"></i>
-										<?php echo htmlentities($row->Email); ?>
-									</p>
-								</div>
-								<div class="col-md-4 banner-address-left">
-									<p><i class="fa fa-phone" aria-hidden="true"></i> +
-										<?php echo htmlentities($row->MobileNumber); ?>
-									</p>
-								</div>
-								<div class="clearfix"></div>
-								<?php $cnt = $cnt + 1;
-							}
-						} ?>
-					</div>
-				</div>
-			</div>
-	<!-- //banner -->
+			<!-- Add more content as needed -->
+		</div>
+	</div>
 	<!-- //banner-bottom -->
 
 	<?php include_once('includes/footer.php'); ?>

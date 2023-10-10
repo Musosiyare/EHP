@@ -86,7 +86,7 @@ if (isset($_POST['login'])) {
                                                 value="<?php if (isset($_COOKIE["user_login"])) {
                                                     echo $_COOKIE["user_login"];
                                                 } ?>">
-                                            <label for="login-username">Username <span style="color:red;">*</span></label>
+                                            <label for="login-username">Username</label>
                                         </div>
                                     </div>
                                 </div>
@@ -97,7 +97,7 @@ if (isset($_POST['login'])) {
                                                 value="<?php if (isset($_COOKIE["userpassword"])) {
                                                     echo $_COOKIE["userpassword"];
                                                 } ?>">
-                                            <label for="login-password">Password <span style="color:red;">*</span></label>
+                                            <label for="login-password">Password</label>
                                         </div>
                                     </div>
                                 </div>

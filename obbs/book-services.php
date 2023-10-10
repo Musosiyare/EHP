@@ -18,7 +18,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 		$bookingid = mt_rand(100000000, 999999999);
 
 		// Retrieve the current number of available seats from the database
-		$sqlGetAvailableSeats = "SELECT seats FROM tblservice WHERE ID = :bid";
+		$sqlGetAvailableSeats = "SELECT seats FROM tblevents WHERE ID = :bid";
 		$queryGetAvailableSeats = $dbh->prepare($sqlGetAvailableSeats);
 		$queryGetAvailableSeats->bindParam(':bid', $bid, PDO::PARAM_STR);
 		$queryGetAvailableSeats->execute();
@@ -37,7 +37,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 				$updatedAvailableSeats = $currentAvailableSeats - $nop;
 
 				// Update the 'seats' column in the database with the new available seat count
-				$sqlUpdateAvailableSeats = "UPDATE tblservice SET seats = :updatedAvailableSeats WHERE ID = :bid";
+				$sqlUpdateAvailableSeats = "UPDATE tblevents SET seats = :updatedAvailableSeats WHERE ID = :bid";
 				$queryUpdateAvailableSeats = $dbh->prepare($sqlUpdateAvailableSeats);
 				$queryUpdateAvailableSeats->bindParam(':updatedAvailableSeats', $updatedAvailableSeats, PDO::PARAM_INT);
 				$queryUpdateAvailableSeats->bindParam(':bid', $bid, PDO::PARAM_STR);
@@ -58,7 +58,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 				$query->execute();
 				$LastInsertId = $dbh->lastInsertId();
 				if ($LastInsertId > 0) {
-					echo '<script>alert("Your Booking Request Has Been Sent. We Will Contact You Soon")</script>';
+					echo '<script>alert("Booked successfully click ok to pay")</script>';
 					echo "<script>window.location.href ='services.php'</script>";
 				} else {
 					echo '<script>alert("Something Went Wrong. Please try again")</script>';
@@ -162,12 +162,12 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 					<div class="agileinfo-contact-form-grid">
 						<form method="post">
 							<div class="form-group row">
-								<label class="col-form-label col-md-4">Event Name:</label>
+								<label class="col-form-label col-md-4">Event Name</label>
 								<div class="col-md-10" style="font-size: 20px;color:orange;font-weight:bold;">
 									<?php
 									if (isset($_GET['serviceID'])) {
 										$serviceID = $_GET['serviceID'];
-										$sql2 = "SELECT * from tblservice where ID='$serviceID' ";
+										$sql2 = "SELECT * from tblevents where ID='$serviceID' ";
 										$query2 = $dbh->prepare($sql2);
 										$query2->execute();
 										$result2 = $query2->fetchAll(PDO::FETCH_OBJ);
@@ -180,7 +180,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-form-label col-md-4">Price/Event:</label>
+								<label class="col-form-label col-md-4">Price/Event</label>
 								<div class="col-md-10">
 									<input type="text" class="form-control"
 										style="font-size: 18px;color:orange;font-weight:bold;" required="true"
@@ -194,7 +194,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-form-label col-md-4">Number of Seats: <span
+								<label class="col-form-label col-md-4">Number of Seats <span
 										style="color:red;">*</span></label>
 								<div class="col-md-10">
 									<input type="text" class="form-control" style="font-size: 20px" name="nop" id="nop"
@@ -203,7 +203,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-form-label col-md-4">Total Price:</label>
+								<label class="col-form-label col-md-4">Total Price</label>
 								<div class="col-md-10">
 									<input type="text" class="form-control"
 										style="font-size: 18px;color:orange;font-weight:bold;" name="tp" id="tp"
@@ -211,16 +211,18 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-form-label col-md-4">Message: <span
+								<label class="col-form-label col-md-4">Message <span
 										style="color:red;">*</span></label>
 								<div class="col-md-10">
-									<textarea class="form-control" name="message" placeholder="Messahe Goes Here!"
+									<textarea class="form-control" name="message" placeholder="Message Goes Here!"
 										onblur="validateMessage(this)"></textarea>
 								</div>
 							</div>
 							<br>
 							<div class="tp">
-								<button type="submit" class="btn btn-primary" name="submit">BOOK NOW</button>
+								<button type="submit" class="btn btn-primary" name="submit">
+								<i class="fa fa-book"></i>	Book Now
+								</button>
 							</div>
 						</form>
 					</div>

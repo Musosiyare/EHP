@@ -54,12 +54,12 @@ if (strlen($_SESSION['obbsuid']==0)) {
 		<div class="container">
 			<div class="wthree-services-bottom-grids" style="margin-top:-50px;">
 				
-				<p class="wow fadeInUp animated" data-wow-delay=".5s">List of booking.</p>
+				<p class="wow fadeInUp animated" data-wow-delay=".5s" style="color:orange;">List of booking.</p>
 					<div class="bs-docs-example wow fadeInUp animated" data-wow-delay=".5s">
 						<table class="table table-bordered table-striped table-vcenter js-dataTable-full-pagination">
                                 <thead>
                                     <tr>
-                                        <th class="text-center"></th>
+                                        <th class="text-center">#</th>
                                         <th>Booking ID</th>
                                         <th class="d-none d-sm-table-cell">Cutomer Name</th>
                                         <th class="d-none d-sm-table-cell">Mobile Number</th>
@@ -83,11 +83,11 @@ if($query->rowCount() > 0)
 foreach($results as $row)
 {               ?>
                                     <tr>
-                                        <td class="text-center"><?php echo htmlentities($cnt);?></td>
+                                        <td class="text-center" style="font-weight:bold;"><?php echo htmlentities($cnt);?></td>
                                         <td class="font-w600"><?php  echo htmlentities($row->BookingID);?></td>
-                                        <td class="font-w600"><?php  echo htmlentities($row->FullName);?></td>
+                                        <td class="font-w600" style="color:orange;font-weight:bold;font-size:16px;"><?php  echo htmlentities($row->FullName);?></td>
                                         <td class="font-w600"><?php  echo htmlentities($row->MobileNumber);?></td>
-                                        <td class="font-w600"><?php  echo htmlentities($row->Email);?></td>
+                                        <td class="font-w600" style="color:blue;font-weight:bold;font-size:16px;"><?php  echo htmlentities($row->Email);?></td>
                                         <td class="font-w600">
                                             <span class="badge badge-primary"><?php  echo htmlentities($row->BookingDate);?></span>
                                         </td>
