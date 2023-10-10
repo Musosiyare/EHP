@@ -12,7 +12,7 @@ How to run the Event Handler Platform Project using PHP and MySQL
 
 Admin Credential
 Username: admin
-Password: Test@123
+Password: admin
 
 Credential for User panel :
 Username: akj@gmail.com
