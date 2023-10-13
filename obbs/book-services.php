@@ -211,8 +211,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-form-label col-md-4">Message <span
-										style="color:red;">*</span></label>
+								<label class="col-form-label col-md-4">Message <span style="color:red;">*</span></label>
 								<div class="col-md-10">
 									<textarea class="form-control" name="message" placeholder="Message Goes Here!"
 										onblur="validateMessage(this)"></textarea>
@@ -221,7 +220,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 							<br>
 							<div class="tp">
 								<button type="submit" class="btn btn-primary" name="submit">
-								<i class="fa fa-book"></i>	Book Now
+									<i class="fa fa-cart-plus"></i> Book Now
 								</button>
 							</div>
 						</form>

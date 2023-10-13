@@ -41,7 +41,7 @@ if (strlen($_SESSION['odmsaid']) == 0) {
     }
 }
 
-function serverSideValidation($serName, $serPrice, $serDate, $serTime,$serSeats)
+function serverSideValidation($serName, $serPrice, $serDate, $serTime, $serSeats)
 {
     $nameRegex = '/^[A-Za-z\s]{3,}$/';
     $priceRegex = '/^[0-9]+$/';
@@ -100,12 +100,12 @@ function serverSideValidation($serName, $serPrice, $serDate, $serTime,$serSeats)
         <main id="main-container">
             <!-- Page Content -->
             <div class="content">
-                <h2 class="content-heading">Admin Profile</h2>
+                <h2 class="content-heading"><strong>Admin Profile</strong></h2>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="block block-themed">
                             <div class="block-header bg-gd-emerald">
-                                <h3 class="block-title">Admin Profile</h3>
+                                <h3 class="block-title"><strong>Admin Profile</strong></h3>
                                 <div class="block-options">
                                     <button type="button" class="btn-block-option" data-toggle="block-option"
                                         data-action="state_toggle" data-action-mode="demo">
@@ -142,7 +142,7 @@ function serverSideValidation($serName, $serPrice, $serDate, $serTime,$serSeats)
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-form-label col-md-4">Event price</label>
+                                                    <label class="col-form-label col-md-4">Event price:</label>
                                                     <div class="col-md-12">
                                                         <input type="text" id="serprice" name="serprice" class="form-control"
                                                             maxlength="10" pattern="[0-9]+" min="100"
@@ -174,11 +174,10 @@ function serverSideValidation($serName, $serPrice, $serDate, $serTime,$serSeats)
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-form-label col-md-4">Event Seats</label>
+                                                    <label class="col-form-label col-md-4">Event Seats:</label>
                                                     <div class="col-md-12">
                                                         <input type="text" id="serseats" name="serseats" class="form-control"
-                                                            pattern="[0-9]+" min="1"
-                                                            value="<?php echo $row->Seats; ?>">
+                                                            pattern="[0-9]+" min="1" value="<?php echo $row->Seats; ?>">
                                                         <span id="serprice-error" class="text-danger"></span>
                                                     </div>
                                                 </div>
@@ -201,8 +200,9 @@ function serverSideValidation($serName, $serPrice, $serDate, $serTime,$serSeats)
                                     } ?>
                                     <br>
                                     <div class="tp">
-                                        <button type="submit" class="btn btn-primary" name="submit" style="margin-bottom:20px;">
-                                        <i class="fa fa-plus mr-5"></i> Save
+                                        <button type="submit" class="btn btn-primary" name="submit"
+                                            style="margin-bottom:20px;">
+                                            <i class="fa fa-save mr-5"></i> Save
                                         </button>
                                     </div>
                                 </div>

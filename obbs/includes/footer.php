@@ -1,5 +1,5 @@
 <!-- copyright -->
-<div class="agileits-w3layouts">
+<div class="agileits-w3layouts" style="background-color:#131212;">
     <div class="container">
         <p>© 2023 <span><a href="index.php" style="color:skyblue;font-weight:bold;font-size:20px;">EHP</a></span>. All
             rights reserved | <a href="login.php"><span style="color:orange;font-size:15px;font-weight:bold;">User

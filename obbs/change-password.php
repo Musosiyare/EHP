@@ -104,7 +104,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 		<!-- banner -->
 		<?php include_once('includes/header.php'); ?>
 		<div class="wthree-heading">
-			<h2 style="color:black;">Change Password</h2>
+			<h2 style="color:black;">Change Password <a href="change-password.php"><i class="fa fa-key"></i></a></h2>
 			<hr>
 		</div>
 		<!-- //banner -->
@@ -145,7 +145,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 								<div class="tp">
 
 									<button type="submit" class="btn btn-primary" name="submit">
-									<i class="fa fa-save mr-5"></i> Save
+										<i class="fa fa-save mr-5"></i> Save
 									</button>
 								</div>
 							</form>

@@ -84,7 +84,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 		<!-- banner -->
 		<?php include_once('includes/header.php'); ?>
 		<div class="wthree-heading">
-			<h2 style="color:black;">User Profile</h2>
+			<h2 style="color:black;">User Profile <a href="profile.php"><i class="fa fa-user"></i></a></h2>
 			<hr>
 		</div>
 		<!-- //banner -->

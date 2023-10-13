@@ -192,7 +192,7 @@ if (strlen($_SESSION['obbsuid']) == 0) {
 									</table>
 								</div>
 								<button id="<?php echo $buttonId; ?>" class="btn btn-primary print-button">
-									<i class="fa fa-save mx-5"></i> Get Proof
+									<i class="fa fa-check-square-o mx-5"></i> Get Proof
 								</button>
 								<script>
 									document.getElementById('<?php echo $buttonId; ?>').addEventListener('click', function () {

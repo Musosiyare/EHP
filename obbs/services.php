@@ -71,7 +71,7 @@ include('includes/dbconnection.php');
 	<?php include_once('includes/header.php'); ?>
 
 	<div class="wthree-heading">
-		<h2 style="color:black;">Events Posted</h2>
+		<h2 style="color:black;">Events Posted <a href="services.php"><i class="fa fa-calendar"></i></a></h2>
 		<hr>
 	</div>
 
@@ -91,10 +91,12 @@ include('includes/dbconnection.php');
 						?>
 						<table class="table table-bordered table-striped table-vcenter js-dataTable-full-pagination">
 							<thead>
-								Now You Can Select And Book Your Favourite Event <br>
-								We Serve Better <br>
-								Choice Is Yours Now !!! <i class="fa fa-fire text-danger" style="font-size:30px;"></i>
-								<tr style="background-color:skyblue;">
+								<div style="color:gray;">
+									<i class="fa fa-bell" style="color:orange; font-size:20px;"></i>
+									Now You Can Select And Book Your Favourite Event. <br>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We Serve Better!
+								</div>
+								<tr>
 									<th>#</th>
 									<th>EVENT NAME</th>
 									<th>DESCRIPTION</th>
@@ -133,10 +135,10 @@ include('includes/dbconnection.php');
 										<td><span class="text-danger" style="font-weight:bold;">Frw</span>
 											<?php echo htmlentities($row->ServicePrice); ?>
 										</td>
-										<td style="color:blue;">
+										<td style="color:skyblue;font-weight:bold;">
 											<?php echo htmlentities($row->ServiceDate); ?>
 										</td>
-										<td style="color:blue;">
+										<td style="color:skyblue;font-weight:bold;">
 											<?php echo htmlentities($row->ServiceTime); ?>
 										</td>
 										<td>
@@ -149,7 +151,7 @@ include('includes/dbconnection.php');
 											// Check if there are available seats
 											if ($availableSeats >= 1) {
 												echo '<span class="badge badge-primary">' . htmlentities($availableSeats) . '</span>';
-												$bookingButton = '<a href="book-services.php?serviceID=' . $serviceID . '" class="btn btn-danger"><span style="margin:10px;color:skyblue; "><i class="fa fa-book mx-5"></i></span>BOOK NOW</a>';
+												$bookingButton = '<a href="book-services.php?serviceID=' . $serviceID . '" class="btn btn-primary"><span style="margin:10px; "><i class="fa fa-cart-plus mx-5"></i></span>Book Now</a>';
 											} else {
 												echo '<span class="badge badge-danger">No seats available </span>';
 												$bookingButton = '<button class="btn btn-danger" disabled sty=""><span style="margin:10px;color:yellow; "><i class="fa fa-warning mx-5"></i></span>NO BOOKING</button>';

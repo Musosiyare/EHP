@@ -44,11 +44,12 @@ include('includes/dbconnection.php');
 
 <body>
 	<!-- banner -->
-			<?php include_once('includes/header.php'); ?>
-			
-			<div class="wthree-heading">
-				<h2 style="color:black;">About</h2> <hr>
-			</div>
+	<?php include_once('includes/header.php'); ?>
+
+	<div class="wthree-heading">
+		<h2 style="color:black;">About Our Events Platform <a href="about.php"><i class="fa fa-info-circle"></i></a></h2>
+		<hr>
+	</div>
 	<!-- //banner -->
 	<!-- about -->
 	<!-- about-top -->
@@ -56,7 +57,7 @@ include('includes/dbconnection.php');
 		<div class="container" style="margin-top:-50px;">
 			<div class="wthree-services-bottom-grids">
 				<div class="col-md-6 wthree-services-left" style="margin-top:0px;">
-					<img src="images/photo34@2x.jpg" alt="" height="500" width="500">
+					<img src="images/event4.jpg" alt="" height="500" width="500">
 				</div>
 				<div class="col-md-6 wthree-services-right">
 					<div class="wthree-services-right-top">
@@ -69,9 +70,9 @@ include('includes/dbconnection.php');
 						$cnt = 1;
 						if ($query->rowCount() > 0) {
 							foreach ($results as $row) { ?>
-								<h4>
+								<h2>
 									<?php echo htmlentities($row->PageTitle); ?>
-								</h4>
+								</h2>
 								<p>
 									<?php echo $row->PageDescription; ?>
 								</p>

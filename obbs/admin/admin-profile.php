@@ -83,7 +83,8 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-12" for="register1-email" style="font-weight:bold;font-size:17px;">User Name</label>
+                                                    <label class="col-12" for="register1-email"
+                                                        style="font-weight:bold;font-size:17px;">User Name</label>
                                                     <div class="col-12">
                                                         <input type="text" class="form-control" name="username"
                                                             value="<?php echo $row->UserName; ?>" readonly="true"
@@ -91,7 +92,8 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-12" for="register1-password" style="font-weight:bold;font-size:17px;">Email</label>
+                                                    <label class="col-12" for="register1-password"
+                                                        style="font-weight:bold;font-size:17px;">Email</label>
                                                     <div class="col-12">
                                                         <input type="email" class="form-control" name="email"
                                                             value="<?php echo $row->Email; ?>" required='true'
@@ -99,7 +101,8 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-12" for="register1-password" style="font-weight:bold;font-size:17px;">Contact Number</label>
+                                                    <label class="col-12" for="register1-password"
+                                                        style="font-weight:bold;font-size:17px;">Contact Number</label>
                                                     <div class="col-12">
                                                         <input type="text" class="form-control" name="mobilenumber"
                                                             value="<?php echo $row->MobileNumber; ?>" required='true' maxlength='10'
@@ -107,7 +110,8 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-12" for="register1-password"  style="font-weight:bold;font-size:17px;">Admin Registration Date</label>
+                                                    <label class="col-12" for="register1-password"
+                                                        style="font-weight:bold;font-size:17px;">Admin Registration Date</label>
                                                     <div class="col-12">
                                                         <input type="text" class="form-control" id="email2" name=""
                                                             value="<?php echo $row->AdminRegdate; ?>" readonly="true"
@@ -120,7 +124,7 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                         <div class="form-group row">
                                             <div class="col-12">
                                                 <button type="submit" class="btn btn-alt-success" name="submit">
-                                                    <i class="fa fa-plus mr-5"></i> Save
+                                                    <i class="fa fa-save mr-5"></i> Save
                                                 </button>
                                             </div>
                                         </div>

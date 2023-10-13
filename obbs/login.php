@@ -92,7 +92,7 @@ if (isset($_POST['login'])) {
 
 <style>
     .agileinfo-contact-form-grid {
-        background-color: #f0f0f0;
+        background-color: #383636;
         /* Grayish white background color */
         padding: 30px;
         border-radius: 5px;
@@ -115,7 +115,7 @@ if (isset($_POST['login'])) {
     <!-- banner -->
     <?php include_once('includes/header.php'); ?>
     <div class="wthree-heading">
-        <h2 style="color:black;">Login</h2>
+        <h2 style="color:black;">Login <a href="login.php"><i class="fa fa-sign-in"></i></a></h2>
         <hr>
     </div>
     <!-- //banner -->
@@ -126,7 +126,7 @@ if (isset($_POST['login'])) {
                 <div class="col-md-6 contact-form-left">
 
                     <div class="agileits-contact-address" style="margin-top:0px;">
-                        <img src="images/photo34@2x.jpg" alt="" height="500" width="500">
+                        <img src="images/lg11.png" alt="" height="400" width="500">
                     </div>
                 </div>
                 <div class="col-md-6 contact-form-right">

@@ -182,6 +182,19 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
 
                         </li>
 
+                        <li>
+
+                            <a class="" href="logout.php">
+                                Sign Out <i class="si si-logout"></i>
+                            </a>
+                        </li>
+                        <li>
+
+                            <a class="" href="change-password.php">
+                                <i class="si si-wrench mr-5"></i> Settings
+                            </a>
+                        </li>
+
                     </ul>
                 </div>
                 <!-- END Side Navigation -->

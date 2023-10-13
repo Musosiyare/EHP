@@ -9,7 +9,7 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
 
 
     ?>
-    <header id="page-header">
+    <header id="page-header" style="background-color:grajjjy;">
         <!-- Header Content -->
         <div class="content-header">
             <!-- Left Section -->
@@ -18,13 +18,13 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                 <!-- Layout API, functionality initialized in Codebase() -> uiApiLayout() -->
                 <button type="button" class="btn btn-circle btn-dual-secondary" data-toggle="layout"
                     data-action="sidebar_toggle">
-                    <i class="fa fa-navicon"></i>
+                    <i class="fa fa-navicon" style="font-size:18px;"></i>
                 </button>
 
                 <div class="btn-group" role="group">
                     <button type="button" class="btn btn-circle btn-dual-secondary" id="page-header-options-dropdown"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-wrench"></i>
+                        <i class="fa fa-wrench" style="font-size:18px;"></i>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="page-header-options-dropdown">
                         <h6 class="dropdown-header">Header</h6>
@@ -48,7 +48,7 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                 <div class="btn-group" role="group">
                     <button type="button" class="btn btn-circle btn-dual-secondary" id="page-header-themes-dropdown"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-paint-brush"></i>
+                        <i class="fa fa-paint-brush" style="font-size:18px;"></i>
                     </button>
                     <div class="dropdown-menu min-width-150" aria-labelledby="page-header-themes-dropdown">
                         <h6 class="dropdown-header text-center">Color Themes</h6>
@@ -104,9 +104,6 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
             <div class="content-header-section">
                 <!-- User Dropdown -->
                 <div class="btn-group" role="group">
-                    <div class="" style="font-size:25px;">
-                        <i class="fa fa-user" style="color:blue;"></i>
-                    </div>
                     <?php
                     $aid = $_SESSION['odmsaid'];
                     $sql = "SELECT AdminName from  tbladmin where ID=:aid";
@@ -119,7 +116,9 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                         foreach ($results as $row) { ?>
                             <button type="button" class="btn btn-rounded btn-dual-secondary" id="page-header-user-dropdown"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <?php echo $row->AdminName; ?><i class="fa fa-angle-down ml-5"></i>
+
+                                <i class="fa fa-user" style="color:#69abe6;font-size: 18px;"></i>
+                                <?php echo $row->AdminName; ?><i class="fa fa-caret-square-o-down ml-5" style="font-size: 18px;"></i>
                             </button>
                             <?php $cnt = $cnt + 1;
                         }

@@ -105,7 +105,7 @@ function validateForm($name, $email, $message)
 
 	<style>
 		.agileinfo-contact-form-grid {
-			background-color: #f0f0f0;
+			background-color: #383636;
 			/* Grayish white background color */
 			padding: 30px;
 			border-radius: 5px;
@@ -130,7 +130,11 @@ function validateForm($name, $email, $message)
 	<!-- banner -->
 	<?php include_once('includes/header.php'); ?>
 	<div class="wthree-heading">
-		<h2 style="color:black;">Contact</h2>
+		<h2 style="color:black;">Contact page 
+		<a href="mail.php"><i class="fa fa-phone"></i></a>
+		<a href="mail.php"><i class="fa fa-commenting-o"></i></a>
+		<a href="mail.php"><i class="fa fa-envelope"></i></a>
+	</h2>
 		<hr>
 	</div>
 	<!-- //banner -->
@@ -141,10 +145,12 @@ function validateForm($name, $email, $message)
 				<div class="col-md-6 contact-form-left">
 					<div class="w3layouts-contact-form-top">
 						<h3>Get in touch</h3>
-						<p>Pellentesque eget mi nec est tincidunt accumsan. Proin fermentum dignissim justo, vel euismod
-							justo sodales vel. In non condimentum mauris. Maecenas condimentum interdum lacus, ac varius
-							nisl dignissim ac. Vestibulum euismod est risus, quis convallis nisi tincidunt eget. Sed
-							ultricies congue lacus at fringilla.</p>
+						<p>
+							Welcome to Our Help Page, 
+
+							We're delighted to assist you. Whether you have questions, feedback, or need support, this
+							is the right place. Please feel free to contact us, and our team is here to help you.
+						</p>
 					</div>
 					<div class="agileits-contact-address">
 						<ul>
@@ -174,7 +180,7 @@ function validateForm($name, $email, $message)
 				</div>
 				<div class="col-md-6 contact-form-right">
 					<div class="contact-form-top">
-						<h3>Send us a message</h3>
+						<h3>Send us a message </h3>
 					</div>
 					<div class="agileinfo-contact-form-grid">
 						<form action="#" method="post">

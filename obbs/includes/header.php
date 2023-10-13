@@ -2,7 +2,7 @@
     /* Add this CSS to position the users menu under the header */
     .users-menu {
         position: absolute;
-        top: 50px;
+        top: 40px;
         /* Position it just below the header */
         right: 0;
         z-index: 999;
@@ -17,26 +17,26 @@
     }
 
     .users-menu li {
-        padding:0;
+        padding: 0;
         text-align: center;
         color: blue;
         margin-left: 5px;
-        
+
     }
 
     .users-menu li a {
-        
+
         color: orange;
         /* Menu item text color */
         text-decoration: none;
     }
 
     .users-menu li a:hover {
-        color:orange;
+        color: orange;
         font-size: 15px;
     }
 </style>
-<div class="header">
+<div class="header" style="background-color:#131212; margin-top: 3px;">
     <div class="container">
         <div class="header-top-grids">
             <div class="agileits-logo">
@@ -67,12 +67,16 @@
                                             data-toggle="dropdown" role="button" aria-haspopup="true"
                                             aria-expanded="false">My Account<span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            <li><a class="hvr-bounce-to-bottom" href="profile.php">Profile</a></li><hr>
+                                            <li><a class="hvr-bounce-to-bottom" href="profile.php">Profile</a></li>
+                                            <hr>
                                             <li><a class="hvr-bounce-to-bottom" href="booking-history.php">Booking
-                                                    History</a></li><hr>
+                                                    History</a></li>
+                                            <hr>
                                             <li><a class="hvr-bounce-to-bottom" href="change-password.php">Change
-                                                    Password</a></li><hr>
-                                            <li><a class="hvr-bounce-to-bottom" href="logout.php"><i class="fa fa-sign-out mr-5"></i>  Logout</a></li>
+                                                    Password</a></li>
+                                            <hr>
+                                            <li><a class="hvr-bounce-to-bottom" href="logout.php"><i
+                                                        class="fa fa-sign-out mr-5"></i> Logout</a></li>
                                         </ul>
                                     </li>
                                 <?php } ?>
@@ -92,10 +96,15 @@
                         <!-- Add your User-related menu items here -->
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle hvr-bounce-to-bottom" data-toggle="dropdown" role="button"
-                                aria-haspopup="true" aria-expanded="false"><strong>Users</strong><span class="caret"></span></a>
+                                aria-haspopup="true" aria-expanded="false">
+                                <strong>
+                                    <i class="fa fa-user" style="color:#69abe6; font-size:20px;"></i> Users</strong>
+                                <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="hvr-bounce-to-bottom" href="login.php">Login</a></li><hr>
-                                <li><a class="hvr-bounce-to-bottom" href="signup.php">Register</a></li><hr>
+                                <li><a class="hvr-bounce-to-bottom" href="login.php">Login</a></li>
+                                <hr>
+                                <li><a class="hvr-bounce-to-bottom" href="signup.php">Register</a></li>
+                                <hr>
                                 <li><a class="hvr-bounce-to-bottom" href="admin/login.php">Admin</a>
                                 </li>
                             </ul>

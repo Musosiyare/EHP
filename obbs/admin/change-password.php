@@ -110,7 +110,7 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                         <div class="form-group row">
                                             <div class="col-12">
                                                 <button type="submit" class="btn btn-alt-success" name="submit">
-                                                    <i class="fa fa-plus mr-5"></i> Save
+                                                    <i class="fa fa-save mr-5"></i> Save
                                                 </button>
                                             </div>
                                         </div>

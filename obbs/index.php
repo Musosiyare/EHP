@@ -48,8 +48,8 @@ include('includes/dbconnection.php');
 		/* Style for the notification icon and text */
 		.notification {
 			position: fixed;
-			top: 50px;
-			right: 170px;
+			top: 40px;
+			right: 180px;
 			background-color: red;
 			border-radius: 50%;
 			/* Make it a circle */
@@ -98,8 +98,8 @@ include('includes/dbconnection.php');
 	<!-- header -->
 	<div class="container">
 		<!-- Add the notification icon and text below -->
-		<div class="notification">
-			<a class="block text-center" href="services.php" style="color:white;">
+		<a class="block text-center" href="services.php" style="color:white;">
+			<div class="notification">
 				<span class="glyphicon glyphicon-bell"></span>
 				<span class="badge badge-danger">
 
@@ -118,8 +118,8 @@ include('includes/dbconnection.php');
 					</div>
 
 				</span> <!-- You can update the badge count as needed -->
-			</a>
-		</div>
+			</div>
+		</a>
 		<!-- End of notification icon and text -->
 	</div>
 	<!-- //header -->
@@ -127,21 +127,21 @@ include('includes/dbconnection.php');
 	<?php include_once('includes/header.php'); ?>
 
 	<div class="wthree-heading">
-		<h2 style="color:black;">Home</h2>
+		<h2 style="color:black;">Welcome Page <a href="index.php"><i class="fa fa-home"></i></a></h2>
 		<hr>
 	</div>
 	<!-- Main Content -->
 	<div class="main-content" style="margin-top:-20px;">
 		<!-- "Lorem ipsum" content goes here -->
 		<div class="lorem-content">
-			<div style="margin-top:-80px;">
+			<div style="margin-top:-80px; margin-bottom:-70px;">
 				<h3 style="margin-left:100px;font-weight:bold;">Welcome! To Event Handler Platform Ltd</h3>
 				<p>
 					<strong>At Event Handler Platform Ltd</strong> , <br>
 					we're more than just an event management system; we're a community of
 					passionate event organizers, attendees, and partners who are dedicated to creating memorable
 					experiences. We invite you to become a part of our growing family and join us on this exciting
-					journey.
+					journey. 
 				</p>
 				<h3 style="margin-left:100px;font-weight:bold;">Join Us Today!</h3>
 				<p>
