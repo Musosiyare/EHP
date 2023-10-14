@@ -42,7 +42,24 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 				$queryUpdateAvailableSeats->bindParam(':updatedAvailableSeats', $updatedAvailableSeats, PDO::PARAM_INT);
 				$queryUpdateAvailableSeats->bindParam(':bid', $bid, PDO::PARAM_STR);
 				$queryUpdateAvailableSeats->execute();
+				//booking payment
+				include "pay.php";
 
+				$phone = $_POST["phone"];
+				$amount = $_POST["tp"];
+
+				//generate unique transaction reference without using payment class
+				$transaction_ref = "PAYMENT-" . rand(100000, 999999);
+
+				//REQUEST PAYMENT 
+				$pay = hdev_payment::pay($phone, $amount, $transaction_ref, "");
+				// check if payment is successful
+				if ($pay->status != "success") {
+					echo "<script>alert('" . $pay->message . "')</script>";
+					return;
+				}
+
+				// end payment
 				// Proceed with inserting the booking record
 				$sql = "INSERT INTO tblbooking (BookingID, ServiceID, UserID, PricePerEvent, TotalPrice, EventType, Numberofguest, Message) VALUES (:bookingid, :bid, :uid, :ppe, :tp, :eventtype, :nop, :message)";
 				$query = $dbh->prepare($sql);
@@ -58,8 +75,8 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 				$query->execute();
 				$LastInsertId = $dbh->lastInsertId();
 				if ($LastInsertId > 0) {
-					echo '<script>alert("Booked successfully click ok to pay")</script>';
-					echo "<script>window.location.href ='services.php'</script>";
+					echo "<script>alert('Booking request initiated wait for confirmation, Approve Payment on your phone, For MTN dial: *182*7*1#')</script>";
+					echo "<script>window.location.href='booking-history.php'</script>";
 				} else {
 					echo '<script>alert("Something Went Wrong. Please try again")</script>';
 				}
@@ -211,6 +228,14 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 								</div>
 							</div>
 							<div class="form-group row">
+								<label class="col-form-label col-md-4">Phone to use in payment <span
+										style="color:red;">*</span></label>
+								<div class="col-md-10">
+									<input type="number" class="form-control" name="phone"
+										placeholder="Eg: 078***"></input>
+								</div>
+							</div>
+							<div class="form-group row">
 								<label class="col-form-label col-md-4">Message <span style="color:red;">*</span></label>
 								<div class="col-md-10">
 									<textarea class="form-control" name="message" placeholder="Message Goes Here!"
@@ -220,7 +245,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 							<br>
 							<div class="tp">
 								<button type="submit" class="btn btn-primary" name="submit">
-									<i class="fa fa-cart-plus"></i> Book Now
+									<i class="fa fa-book"></i> Book Now
 								</button>
 							</div>
 						</form>

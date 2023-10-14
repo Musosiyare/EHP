@@ -131,7 +131,8 @@ if (isset($_POST['login'])) {
                 </div>
                 <div class="col-md-6 contact-form-right">
                     <div class="contact-form-top">
-                        <h3>Login to User Panel</h3>
+                        <h3>Login to User Panel <a href="login.php"><i class="fa fa-user"
+                                    style="color:skyblue;"></i></a></h3>
                     </div>
                     <div class="agileinfo-contact-form-grid">
                         <form action="#" method="post" name="login">
@@ -150,7 +151,7 @@ if (isset($_POST['login'])) {
                             </div>
                             <br>
                             <button class="btn1" name="login">
-                            <i class="fa fa-sign-in mr-5"></i> Go
+                                <i class="fa fa-sign-in mr-5"></i> Go
                             </button>
                         </form>
                     </div>

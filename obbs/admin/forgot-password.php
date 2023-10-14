@@ -123,10 +123,10 @@ if (isset($_POST['submit'])) {
                                     <div class="mt-30">
 
                                         <a class="link-effect text-muted mr-10 mb-5 d-inline-block" href="login.php">
-                                            <i class="fa fa-user text-muted mr-5"></i> Sign In
+                                            <i class="fa fa-user text-muted mr-5"></i> <strong>Sign In</strong>
                                         </a>
                                     </div>
-                                    <a href="../index.php">Back Home!!</a>
+                                    <a href="../index.php"><strong>Back Home!!</strong></a>
                                 </div>
                             </form>
                             <!-- END Sign In Form -->

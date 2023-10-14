@@ -74,6 +74,7 @@ if (isset($_POST['login'])) {
                                     <i class="si si-fire"></i>
                                     <span class="font-size-xl">EHP</span>
                                 </a>
+                                <h4 style="color:orange;">Admin Panel <a href="./login.php"><i class="fa fa-user" style="color:skyblue;"></i></a> </h4>
                                 <h1 class="h3 font-w700 mt-30 mb-10">Welcome to Your Dashboard</h1>
                                 <h2 class="h5 font-w400 text-muted mb-0">Please sign in</h2>
                             </div>
@@ -115,9 +116,9 @@ if (isset($_POST['login'])) {
 
                                         <a class="link-effect text-muted mr-10 mb-5 d-inline-block"
                                             href="forgot-password.php">
-                                            <i class="fa fa-warning mr-5"></i> Forgot Password
+                                            <i class="fa fa-warning mr-5"></i> <strong>Forgot Password</strong>
                                         </a>
-                                        <a href="../index.php">Back Home!!</a>
+                                        <a href="../index.php"><strong>Back Home!!</strong></a>
                                     </div>
                                 </div>
                             </form>

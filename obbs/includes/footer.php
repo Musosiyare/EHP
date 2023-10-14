@@ -2,7 +2,7 @@
 <div class="agileits-w3layouts" style="background-color:#131212;">
     <div class="container">
         <p>© 2023 <span><a href="index.php" style="color:skyblue;font-weight:bold;font-size:20px;">EHP</a></span>. All
-            rights reserved | <a href="login.php"><span style="color:orange;font-size:15px;font-weight:bold;">User
+            rights reserved | <a href="profile.php"><span style="color:orange;font-size:15px;font-weight:bold;">User
                     Panel</span></a> <i class="fa fa-user" style="color:white;font-size:25px;"></i> </p>
         <hr>
         <div class="banner-address">
