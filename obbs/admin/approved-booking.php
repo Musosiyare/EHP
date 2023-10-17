@@ -2,15 +2,16 @@
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
-if (strlen($_SESSION['odmsaid']==0)) {
-  header('location:logout.php');
-  } else{
+if (strlen($_SESSION['odmsaid'] == 0)) {
+    header('location:logout.php');
+} else {
 
 
 
-  ?>
-<!doctype html>
-<html lang="en" class="no-focus"> <!--<![endif]-->
+    ?>
+    <!doctype html>
+    <html lang="en" class="no-focus"> <!--<![endif]-->
+
     <head>
         <title>Event Handler Platform - Approved Booking</title>
 
@@ -19,13 +20,14 @@ if (strlen($_SESSION['odmsaid']==0)) {
         <link rel="stylesheet" id="css-main" href="assets/css/codebase.min.css">
 
     </head>
-    <body>
-        
-        <div id="page-container" class="sidebar-o sidebar-inverse side-scroll page-header-fixed main-content-narrow">
-           
-           <?php include_once('includes/sidebar.php');?>
 
-          <?php include_once('includes/header.php');?>
+    <body>
+
+        <div id="page-container" class="sidebar-o sidebar-inverse side-scroll page-header-fixed main-content-narrow">
+
+            <?php include_once('includes/sidebar.php'); ?>
+
+            <?php include_once('includes/header.php'); ?>
 
 
             <!-- Main Container -->
@@ -34,7 +36,7 @@ if (strlen($_SESSION['odmsaid']==0)) {
                 <div class="content">
                     <h2 class="content-heading">Approved Booking</h2>
 
-                   
+
 
                     <!-- Dynamic Table Full Pagination -->
                     <div class="block">
@@ -54,43 +56,60 @@ if (strlen($_SESSION['odmsaid']==0)) {
                                         <th class="d-none d-sm-table-cell">Booking Date</th>
                                         <th class="d-none d-sm-table-cell">Status</th>
                                         <th class="d-none d-sm-table-cell" style="width: 15%;">Action</th>
-                                       </tr>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-$sql="SELECT tbluser.FullName,tbluser.MobileNumber,tbluser.Email,tblbooking.ID as bid,tblbooking.BookingID,tblbooking.BookingDate,tblbooking.Status,tblbooking.ID from tblbooking join tbluser on tbluser.ID=tblbooking.UserID where tblbooking.Status='Approved'";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
+                                    $sql = "SELECT tbluser.FullName,tbluser.MobileNumber,tbluser.Email,tblbooking.ID as bid,tblbooking.BookingID,tblbooking.BookingDate,tblbooking.Status,tblbooking.ID from tblbooking join tbluser on tbluser.ID=tblbooking.UserID where tblbooking.Status='Approved'";
+                                    $query = $dbh->prepare($sql);
+                                    $query->execute();
+                                    $results = $query->fetchAll(PDO::FETCH_OBJ);
 
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $row)
-{               ?>
-                                    <tr>
-                                        <td class="text-center"><?php echo htmlentities($cnt);?></td>
-                                        <td class="font-w600"><?php  echo htmlentities($row->BookingID);?></td>
-                                        <td class="font-w600"><?php  echo htmlentities($row->FullName);?></td>
-                                        <td class="font-w600"><?php  echo htmlentities($row->MobileNumber);?></td>
-                                        <td class="font-w600"><?php  echo htmlentities($row->Email);?></td>
-                                        <td class="font-w600">
-                                            <span class="badge badge-primary"><?php  echo htmlentities($row->BookingDate);?></span>
-                                        </td>
-                                        <?php if($row->Status==""){ ?>
+                                    $cnt = 1;
+                                    if ($query->rowCount() > 0) {
+                                        foreach ($results as $row) { ?>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <?php echo htmlentities($cnt); ?>
+                                                </td>
+                                                <td class="font-w600">
+                                                    <?php echo htmlentities($row->BookingID); ?>
+                                                </td>
+                                                <td class="font-w600">
+                                                    <?php echo htmlentities($row->FullName); ?>
+                                                </td>
+                                                <td class="font-w600">
+                                                    <?php echo htmlentities($row->MobileNumber); ?>
+                                                </td>
+                                                <td class="font-w600">
+                                                    <?php echo htmlentities($row->Email); ?>
+                                                </td>
+                                                <td class="font-w600">
+                                                    <span class="badge badge-primary">
+                                                        <?php echo htmlentities($row->BookingDate); ?>
+                                                    </span>
+                                                </td>
+                                                <td class="d-none d-sm-table-cell">
+                                                    <?php
+                                                    if ($row->Status == "Approved") {
+                                                        echo '<span class="badge badge-success">Booked done <i class="fa fa-check" style="color:green;"></i></span>';
+                                                    } elseif ($row->Status == "Cancelled") {
+                                                        echo '<span class="badge badge-danger">Request Cancelled <i class="fa fa-close"></i></span>';
+                                                    } else {
+                                                        echo '<span class="badge badge-warning">Need Response <i class="fa fa-spinner" style="color:blue;"></i></span>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="d-none d-sm-table-cell"><a
+                                                        href="view-booking-detail.php?editid=<?php echo htmlentities($row->ID); ?>"><i
+                                                            class="fa fa-eye" aria-hidden="true"></i></a></td>
+                                            </tr>
+                                            <?php $cnt = $cnt + 1;
+                                        }
+                                    } ?>
 
-                     <td class="font-w600"><?php echo "Not Updated Yet"; ?></td>
-<?php } else { ?>
-                                        <td class="d-none d-sm-table-cell">
-                                            <span class="badge badge-primary"><?php  echo htmlentities($row->Status);?></span>
-                                        </td>
-<?php } ?> 
-                                         <td class="d-none d-sm-table-cell"><a href="view-booking-detail.php?editid=<?php echo htmlentities ($row->ID);?>"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
-                                    </tr>
-                                    <?php $cnt=$cnt+1;}} ?> 
-                                
-                                
-                                  
+
+
                                 </tbody>
                             </table>
                         </div>
@@ -103,7 +122,7 @@ foreach($results as $row)
             </main>
             <!-- END Main Container -->
 
-           <?php include_once('includes/footer.php');?>
+            <?php include_once('includes/footer.php'); ?>
         </div>
         <!-- END Page Container -->
 
@@ -125,5 +144,6 @@ foreach($results as $row)
         <!-- Page JS Code -->
         <script src="assets/js/pages/be_tables_datatables.js"></script>
     </body>
-</html>
-<?php }  ?>
+
+    </html>
+<?php } ?>

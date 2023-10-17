@@ -1,8 +1,8 @@
 <?php
 session_start();
 error_reporting(0);
+include "pay.php";
 include('includes/dbconnection.php');
-
 // Check if the user is logged in
 if (strlen($_SESSION['obbsuid'] == 0)) {
 	header('location:logout.php');
@@ -16,7 +16,8 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 		$nop = $_POST['nop'];
 		$message = $_POST['message'];
 		$bookingid = mt_rand(100000000, 999999999);
-
+		$phone = $_POST["phone"];
+		$amount = $_POST["tp"];
 		// Retrieve the current number of available seats from the database
 		$sqlGetAvailableSeats = "SELECT seats FROM tblevents WHERE ID = :bid";
 		$queryGetAvailableSeats = $dbh->prepare($sqlGetAvailableSeats);
@@ -42,43 +43,37 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 				$queryUpdateAvailableSeats->bindParam(':updatedAvailableSeats', $updatedAvailableSeats, PDO::PARAM_INT);
 				$queryUpdateAvailableSeats->bindParam(':bid', $bid, PDO::PARAM_STR);
 				$queryUpdateAvailableSeats->execute();
-				//booking payment
-				include "pay.php";
-
-				$phone = $_POST["phone"];
-				$amount = $_POST["tp"];
-
 				//generate unique transaction reference without using payment class
 				$transaction_ref = "PAYMENT-" . rand(100000, 999999);
-
 				//REQUEST PAYMENT 
 				$pay = hdev_payment::pay($phone, $amount, $transaction_ref, "");
 				// check if payment is successful
 				if ($pay->status != "success") {
 					echo "<script>alert('" . $pay->message . "')</script>";
 					return;
-				}
-
-				// end payment
-				// Proceed with inserting the booking record
-				$sql = "INSERT INTO tblbooking (BookingID, ServiceID, UserID, PricePerEvent, TotalPrice, EventType, Numberofguest, Message) VALUES (:bookingid, :bid, :uid, :ppe, :tp, :eventtype, :nop, :message)";
-				$query = $dbh->prepare($sql);
-				$query->bindParam(':bookingid', $bookingid, PDO::PARAM_STR);
-				$query->bindParam(':bid', $bid, PDO::PARAM_STR);
-				$query->bindParam(':uid', $uid, PDO::PARAM_STR);
-				$query->bindParam(':ppe', $ppe, PDO::PARAM_STR);
-				$query->bindParam(':tp', $tp, PDO::PARAM_STR);
-				$query->bindParam(':eventtype', $eventtype, PDO::PARAM_STR);
-				$query->bindParam(':nop', $nop, PDO::PARAM_STR);
-				$query->bindParam(':message', $message, PDO::PARAM_STR);
-
-				$query->execute();
-				$LastInsertId = $dbh->lastInsertId();
-				if ($LastInsertId > 0) {
-					echo "<script>alert('Booking request initiated wait for confirmation, Approve Payment on your phone, For MTN dial: *182*7*1#')</script>";
-					echo "<script>window.location.href='booking-history.php'</script>";
 				} else {
-					echo '<script>alert("Something Went Wrong. Please try again")</script>';
+					// end payment
+					// Proceed with inserting the booking record
+					// Proceed with inserting the booking record
+					$sql = "INSERT INTO tblbooking (BookingID, ServiceID, UserID, PricePerEvent, TotalPrice, EventType, Numberofguest, Message) VALUES (:bookingid, :bid, :uid, :ppe, :tp, :eventtype, :nop, :message)";
+					$query = $dbh->prepare($sql);
+					$query->bindParam(':bookingid', $bookingid, PDO::PARAM_STR);
+					$query->bindParam(':bid', $bid, PDO::PARAM_STR);
+					$query->bindParam(':uid', $uid, PDO::PARAM_STR);
+					$query->bindParam(':ppe', $ppe, PDO::PARAM_STR);
+					$query->bindParam(':tp', $tp, PDO::PARAM_STR);
+					$query->bindParam(':eventtype', $eventtype, PDO::PARAM_STR);
+					$query->bindParam(':nop', $nop, PDO::PARAM_STR);
+					$query->bindParam(':message', $message, PDO::PARAM_STR);
+
+					$query->execute();
+					$LastInsertId = $dbh->lastInsertId();
+					if ($LastInsertId > 0) {
+						echo "<script>alert('payment initiated wait for confirmation')</script>";
+						echo "<script>window.location.href='wait.php?pay_ref=" . $transaction_ref . "'</script>";
+					} else {
+						echo '<script>alert("Something Went Wrong. Please try again")</script>';
+					}
 				}
 			}
 		}
@@ -228,11 +223,12 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 								</div>
 							</div>
 							<div class="form-group row">
-								<label class="col-form-label col-md-4">Phone to use in payment <span
+								<label class="col-form-label col-md-4">Phone To Pay On <span
 										style="color:red;">*</span></label>
 								<div class="col-md-10">
-									<input type="number" class="form-control" name="phone"
-										placeholder="Eg: 078***"></input>
+									<input type="text" class="form-control"
+										style="font-size: 18px;color:orange;font-weight:bold;" name="phone" id="phone"
+										placeholder="Eg:078..." pattern="[0-9]{10}" required>
 								</div>
 							</div>
 							<div class="form-group row">
@@ -245,7 +241,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 							<br>
 							<div class="tp">
 								<button type="submit" class="btn btn-primary" name="submit">
-									<i class="fa fa-book"></i> Book Now
+									<i class="fa fa-cart-plus"></i> Book Now
 								</button>
 							</div>
 						</form>

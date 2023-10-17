@@ -89,18 +89,17 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                                                         <?php echo htmlentities($row->BookingDate); ?>
                                                     </span>
                                                 </td>
-                                                <?php if ($row->Status == "") { ?>
-
-                                                    <td class="font-w600">
-                                                        <?php echo "Not Updated Yet"; ?>
-                                                    </td>
-                                                <?php } else { ?>
-                                                    <td class="d-none d-sm-table-cell">
-                                                        <span class="badge badge-primary">
-                                                            <?php echo htmlentities($row->Status); ?>
-                                                        </span>
-                                                    </td>
-                                                <?php } ?>
+                                                <td class="d-none d-sm-table-cell">
+                                                    <?php
+                                                    if ($row->Status == "Approved") {
+                                                        echo '<span class="badge badge-success">Booked done <i class="fa fa-check" style="color:green;"></i></span>';
+                                                    } elseif ($row->Status == "Cancelled") {
+                                                        echo '<span class="badge badge-danger">Request Cancelled <i class="fa fa-close"></i></span>';
+                                                    } else {
+                                                        echo '<span class="badge badge-warning">Need Response <i class="fa fa-spinner" style="color:blue;"></i></span>';
+                                                    }
+                                                    ?>
+                                                </td>
                                                 <td class="d-none d-sm-table-cell"><a
                                                         href="view-booking-detail.php?editid=<?php echo htmlentities($row->ID); ?>&&bookingid=<?php echo htmlentities($row->BookingID); ?>"><i
                                                             class="fa fa-eye" aria-hidden="true"></i></a></td>

@@ -6,6 +6,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 	header('location:logout.php');
 } else {
 	?>
+
 	<!DOCTYPE html>
 	<html lang="en">
 
@@ -42,31 +43,34 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 		<div class="about-top">
 			<div class="container">
 				<div class="wthree-services-bottom-grids" style="margin-top: -50px;">
-					<p class="wow fadeInUp animated" data-wow-delay=".5s" style="color: orange;">List of booking.</p>
-					<div class="bs-docs-example wow fadeInUp animated" data-wow-delay=".5s">
-						<table class="table table-bordered table-striped table-vcenter js-dataTable-full-pagination">
-							<thead>
-								<tr>
-									<th class="text-center">#</th>
-									<th>Booking ID</th>
-									<th class="d-none d-sm-table-cell">Customer Name</th>
-									<th class="d-none d-sm-table-cell">Mobile Number</th>
-									<th class="d-none d-sm-table-cell">Email</th>
-									<th class="d-none d-sm-table-cell">Booking Date</th>
-									<th class="d-none d-sm-table-cell">Process</th>
-									<th class="d-none d-sm-table-cell">Action</th> <!-- New column for Process -->
-								</tr>
-							</thead>
-							<tbody>
-								<?php
-								$uid = $_SESSION['obbsuid'];
-								$sql = "SELECT tbluser.FullName, tbluser.MobileNumber, tbluser.Email, tblbooking.BookingID, tblbooking.BookingDate, tblbooking.Status, tblbooking.ID from tblbooking join tbluser on tbluser.ID=tblbooking.UserID where tblbooking.UserID='$uid'";
-								$query = $dbh->prepare($sql);
-								$query->execute();
-								$results = $query->fetchAll(PDO::FETCH_OBJ);
+					<p class="wow fadeInUp animated" data-wow-delay=".5s" style="color: black;font-weight:bold;">List of booking.</p>
 
-								$cnt = 1;
-								if ($query->rowCount() > 0) {
+					<?php
+					$uid = $_SESSION['obbsuid'];
+					$sql = "SELECT tbluser.FullName, tbluser.MobileNumber, tbluser.Email, tblbooking.BookingID, tblbooking.BookingDate, tblbooking.Status, tblbooking.ID from tblbooking join tbluser on tbluser.ID=tblbooking.UserID where tblbooking.UserID='$uid'";
+					$query = $dbh->prepare($sql);
+					$query->execute();
+					$results = $query->fetchAll(PDO::FETCH_OBJ);
+
+					$cnt = 1;
+					if ($query->rowCount() > 0) {
+						?>
+						<div class="bs-docs-example wow fadeInUp animated" data-wow-delay=".5s">
+							<table class="table table-bordered table-striped table-vcenter js-dataTable-full-pagination">
+								<thead>
+									<tr>
+										<th class="text-center">#</th>
+										<th>Booking ID</th>
+										<th class="d-none d-sm-table-cell">Customer Name</th>
+										<th class="d-none d-sm-table-cell">Mobile Number</th>
+										<th class="d-none d-sm-table-cell">Email</th>
+										<th class="d-none d-sm-table-cell">Booking Date</th>
+										<th class="d-none d-sm-table-cell">Process</th>
+										<th class="d-none d-sm-table-cell">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
 									foreach ($results as $row) { ?>
 										<tr>
 											<td class="text-center" style="font-weight: bold;">
@@ -92,11 +96,11 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 											<td class="d-none d-sm-table-cell">
 												<?php
 												if ($row->Status == "Approved") {
-													echo '<span class="badge badge-success">Booked <i class="fa fa-check"></i></span>';
+													echo '<span class="badge badge-success">Booked done <i class="fa fa-check" style="color:green;"></i></span>';
 												} elseif ($row->Status == "Cancelled") {
 													echo '<span class="badge badge-danger">Request Cancelled <i class="fa fa-close"></i></span>';
 												} else {
-													echo '<span class="badge badge-warning">Request Pending</span>';
+													echo '<span class="badge badge-warning">Request Pending <i class="fa fa-spinner" style="color:blue;"></i></span>';
 												}
 												?>
 											</td>
@@ -108,35 +112,35 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 										</tr>
 										<?php $cnt = $cnt + 1;
 									}
-								} ?>
-							</tbody>
-						</table>
-					</div>
+									?>
+								</tbody>
+							</table>
+						</div>
+						<?php
+					} else {
+						?>
+						<div class="alert alert-danger" style="padding:20px;">
+							<button type="button" class="close" data-dismiss="alert"
+								style="color:red; font-size:30px;margin-top:-20px;">&times;</button>
+							<i class="fa fa-warning" style="font-size:32px;color:orange;"></i>
+							&nbsp;&nbsp;&nbsp;&nbsp; <strong
+								style="font-size:18px;">Sorry! &nbsp;&nbsp;</strong> <span style="color:gray; font-size:15px;">You have not
+								booked any events.</span>
+						</div>
+						<?php
+					}
+					?>
 					<div class="clearfix"></div>
 				</div>
 			</div>
 		</div>
 		<?php include_once('includes/footer.php'); ?>
-		<script src="js/jarallax.js"></script>
-		<script src="js/SmoothScroll.min.js"></script>
-		<script type="text/javascript">
-			/* init Jarallax */
-			$('.jarallax').jarallax({
-				speed: 0.5,
-				imgWidth: 1366,
-				imgHeight: 768
-			})
-		</script>
-		<script src="js/SmoothScroll.min.js"></script>
-		<script type="text/javascript" src="js/move-top.js"></script>
-		<script type="text/javascript" src="js/easing.js"></script>
-		<script type="text/javascript">
-			$(document).ready(function () {
-				$().UItoTop({ easingType: 'easeOutQuart' });
-			});
-		</script>
-		<script src="js/modernizr.custom.js"></script>
+
+		<!-- Your JavaScript includes and scripts here -->
+
 	</body>
 
 	</html>
-<?php } ?>
+	<?php
+}
+?>

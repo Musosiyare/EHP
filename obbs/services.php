@@ -44,26 +44,7 @@ include('includes/dbconnection.php');
 	<!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 	<![endif]-->
-	<style>
-		@keyframes moveIcon {
-			0% {
-				transform: translateX(0);
-			}
 
-			50% {
-				transform: translateX(20px);
-			}
-
-			100% {
-				transform: translateX(0);
-			}
-		}
-
-		/* Apply the animation to the image */
-		#animated-icon {
-			animation: moveIcon 2s infinite;
-		}
-	</style>
 </head>
 
 <body>
@@ -154,7 +135,7 @@ include('includes/dbconnection.php');
 												$bookingButton = '<a href="book-services.php?serviceID=' . $serviceID . '" class="btn btn-primary"><span style="margin:10px; "><i class="fa fa-cart-plus mx-5"></i></span>Book Now</a>';
 											} else {
 												echo '<span class="badge badge-danger">No seats available </span>';
-												$bookingButton = '<button class="btn btn-danger" disabled sty=""><span style="margin:10px;color:yellow; "><i class="fa fa-warning mx-5"></i></span>NO BOOKING</button>';
+												$bookingButton = '<button class="btn btn-danger" disabled sty=""><span style="margin:10px;color:yellow; "><i class="fa fa-warning mx-5"></i></span>Not Available</button>';
 											}
 											?>
 										</td>
@@ -170,8 +151,17 @@ include('includes/dbconnection.php');
 						</table>
 						<?php
 					} else {
-						// Display a message if no events are posted
-						echo '<div id="no-events" style="background-color: orangered; color: white; padding: 50px; text-align: center; position: relative;">No Event Posted today !!!<img src="images/gif1.png" alt="Animated Icon" style="animation: moveIcon 2s infinite;"><button onclick="closeNoEvents()" style="position: absolute; top: 5px; right: 5px; color: black; padding: 10px;">Close</button></div>';
+						// Display a message if no events are posted 
+						?>
+						<div class="alert alert-danger" style="padding:20px;">
+							<button type="button" class="close" data-dismiss="alert"
+								style="color:red; font-size:30px;margin-top:-20px;">&times;</button>
+							<i class="fa fa-warning" style="font-size:32px;color:orange;"></i>
+							&nbsp;&nbsp;&nbsp;&nbsp; <strong
+								style="font-size:18px;">Sorry! &nbsp;&nbsp;</strong> <span style="color:gray; font-size:15px;">No event
+								posted today.</span>
+						</div>
+						<?php
 					}
 					?>
 				</div>

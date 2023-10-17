@@ -157,6 +157,10 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                             </ul>
                         </li>
                         <li>
+                        <li>
+                            <a class="" href="https://payment.hdev.rw/login"><i class="fa fa-usd"></i>Transaction</a>
+                        </li>
+                        <li>
                             <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-user"></i><span
                                     class="sidebar-mini-hide">Contact Us Queries</span></a>
                             <ul>
