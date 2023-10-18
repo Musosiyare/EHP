@@ -14,7 +14,6 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 		$tp = $_POST['tp'];
 		$eventtype = $_POST['eventtype'];
 		$nop = $_POST['nop'];
-		$message = $_POST['message'];
 		$bookingid = mt_rand(100000000, 999999999);
 		$phone = $_POST["phone"];
 		$amount = $_POST["tp"];
@@ -30,50 +29,44 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 		if (!is_numeric($nop) || $nop < 1 || $nop > $currentAvailableSeats) {
 			echo '<script>alert("Enter a valid number not greater than available seats and not less than 1")</script>';
 		} else {
-			// Validate Message (only characters, special characters, and spaces with a minimum length of 3)
-			if (!preg_match("/^[a-zA-Z\s\W]{3,}$/", $message)) {
-				echo '<script>alert("Message should only contain characters, special characters, and spaces (minimum 3 characters).")</script>';
+			// Calculate the updated available seats after booking
+			$updatedAvailableSeats = $currentAvailableSeats - $nop;
+
+			// Update the 'seats' column in the database with the new available seat count
+			$sqlUpdateAvailableSeats = "UPDATE tblevents SET seats = :updatedAvailableSeats WHERE ID = :bid";
+			$queryUpdateAvailableSeats = $dbh->prepare($sqlUpdateAvailableSeats);
+			$queryUpdateAvailableSeats->bindParam(':updatedAvailableSeats', $updatedAvailableSeats, PDO::PARAM_INT);
+			$queryUpdateAvailableSeats->bindParam(':bid', $bid, PDO::PARAM_STR);
+			$queryUpdateAvailableSeats->execute();
+			//generate unique transaction reference without using payment class
+			$transaction_ref = "PAYMENT-" . rand(100000, 999999);
+			//REQUEST PAYMENT 
+			$pay = hdev_payment::pay($phone, $amount, $transaction_ref, "");
+			// check if payment is successful
+			if ($pay->status != "success") {
+				echo "<script>alert('" . $pay->message . "')</script>";
+				return;
 			} else {
-				// Calculate the updated available seats after booking
-				$updatedAvailableSeats = $currentAvailableSeats - $nop;
+				// end payment
+				// Proceed with inserting the booking record
+				$sql = "INSERT INTO tblbooking (BookingID, ServiceID, UserID, PricePerEvent, TotalPrice, EventType, Numberofguest,PhonePayedOn) VALUES (:bookingid, :bid, :uid, :ppe, :tp, :eventtype, :nop,:phone)";
+				$query = $dbh->prepare($sql);
+				$query->bindParam(':bookingid', $bookingid, PDO::PARAM_STR);
+				$query->bindParam(':bid', $bid, PDO::PARAM_STR);
+				$query->bindParam(':uid', $uid, PDO::PARAM_STR);
+				$query->bindParam(':ppe', $ppe, PDO::PARAM_STR);
+				$query->bindParam(':tp', $tp, PDO::PARAM_STR);
+				$query->bindParam(':eventtype', $eventtype, PDO::PARAM_STR);
+				$query->bindParam(':nop', $nop, PDO::PARAM_STR);
+				$query->bindParam(':phone', $phone, PDO::PARAM_STR);
 
-				// Update the 'seats' column in the database with the new available seat count
-				$sqlUpdateAvailableSeats = "UPDATE tblevents SET seats = :updatedAvailableSeats WHERE ID = :bid";
-				$queryUpdateAvailableSeats = $dbh->prepare($sqlUpdateAvailableSeats);
-				$queryUpdateAvailableSeats->bindParam(':updatedAvailableSeats', $updatedAvailableSeats, PDO::PARAM_INT);
-				$queryUpdateAvailableSeats->bindParam(':bid', $bid, PDO::PARAM_STR);
-				$queryUpdateAvailableSeats->execute();
-				//generate unique transaction reference without using payment class
-				$transaction_ref = "PAYMENT-" . rand(100000, 999999);
-				//REQUEST PAYMENT 
-				$pay = hdev_payment::pay($phone, $amount, $transaction_ref, "");
-				// check if payment is successful
-				if ($pay->status != "success") {
-					echo "<script>alert('" . $pay->message . "')</script>";
-					return;
+				$query->execute();
+				$LastInsertId = $dbh->lastInsertId();
+				if ($LastInsertId > 0) {
+					echo "<script>alert('payment initiated wait for confirmation')</script>";
+					echo "<script>window.location.href='wait.php?pay_ref=" . $transaction_ref . "'</script>";
 				} else {
-					// end payment
-					// Proceed with inserting the booking record
-					// Proceed with inserting the booking record
-					$sql = "INSERT INTO tblbooking (BookingID, ServiceID, UserID, PricePerEvent, TotalPrice, EventType, Numberofguest, Message) VALUES (:bookingid, :bid, :uid, :ppe, :tp, :eventtype, :nop, :message)";
-					$query = $dbh->prepare($sql);
-					$query->bindParam(':bookingid', $bookingid, PDO::PARAM_STR);
-					$query->bindParam(':bid', $bid, PDO::PARAM_STR);
-					$query->bindParam(':uid', $uid, PDO::PARAM_STR);
-					$query->bindParam(':ppe', $ppe, PDO::PARAM_STR);
-					$query->bindParam(':tp', $tp, PDO::PARAM_STR);
-					$query->bindParam(':eventtype', $eventtype, PDO::PARAM_STR);
-					$query->bindParam(':nop', $nop, PDO::PARAM_STR);
-					$query->bindParam(':message', $message, PDO::PARAM_STR);
-
-					$query->execute();
-					$LastInsertId = $dbh->lastInsertId();
-					if ($LastInsertId > 0) {
-						echo "<script>alert('payment initiated wait for confirmation')</script>";
-						echo "<script>window.location.href='wait.php?pay_ref=" . $transaction_ref . "'</script>";
-					} else {
-						echo '<script>alert("Something Went Wrong. Please try again")</script>';
-					}
+					echo '<script>alert("Something Went Wrong. Please try again")</script>';
 				}
 			}
 		}
@@ -228,14 +221,7 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 								<div class="col-md-10">
 									<input type="text" class="form-control"
 										style="font-size: 18px;color:orange;font-weight:bold;" name="phone" id="phone"
-										placeholder="Eg:078..." pattern="[0-9]{10}" required>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-form-label col-md-4">Message <span style="color:red;">*</span></label>
-								<div class="col-md-10">
-									<textarea class="form-control" name="message" placeholder="Message Goes Here!"
-										onblur="validateMessage(this)"></textarea>
+										placeholder="Eg:078..." pattern="[0-9]{10}" required title="phone number must be 10 digits">
 								</div>
 							</div>
 							<br>
@@ -273,15 +259,6 @@ if (strlen($_SESSION['obbsuid'] == 0)) {
 			var nop = parseInt(input.value);
 			if (isNaN(nop) || nop < 1) {
 				alert("Number of Guests should be a valid number not less than 1");
-				input.value = ''; // Clear the input
-			}
-		}
-
-		function validateMessage(input) {
-			// Regular expression to match characters, special characters, and spaces but not numbers
-			var regex = /^[a-zA-Z\s\W]*$/;
-			if (!regex.test(input.value)) {
-				alert("Message should contain only characters, special characters, and spaces.");
 				input.value = ''; // Clear the input
 			}
 		}

@@ -71,7 +71,7 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                   <?php
                   $eid = $_GET['editid'];
 
-                  $sql = "SELECT tbluser.FullName,tbluser.MobileNumber,tbluser.Email,tblbooking.BookingID,tblbooking.BookingDate,tblbooking.PricePerEvent,tblbooking.TotalPrice,tblbooking.EventType,tblbooking.Numberofguest,tblbooking.Message, tblbooking.Remark,tblbooking.Status,tblbooking.UpdationDate,tblevents.ServiceName,tblevents.SerDes,tblevents.ServicePrice,tblevents.Location,tblevents.ServiceDate,tblevents.ServiceTime from tblbooking join tblevents on tblbooking.ServiceID=tblevents.ID join tbluser on tbluser.ID=tblbooking.UserID  where tblbooking.ID=:eid";
+                  $sql = "SELECT tbluser.FullName,tbluser.MobileNumber,tbluser.Email,tblbooking.BookingID,tblbooking.BookingDate,tblbooking.PricePerEvent,tblbooking.TotalPrice,tblbooking.EventType,tblbooking.Numberofguest,tblbooking.Remark,tblbooking.Status,tblbooking.UpdationDate,tblbooking.PhonePayedOn,tblevents.ServiceName,tblevents.SerDes,tblevents.ServicePrice,tblevents.Location,tblevents.ServiceDate,tblevents.ServiceTime from tblbooking join tblevents on tblbooking.ServiceID=tblevents.ID join tbluser on tbluser.ID=tblbooking.UserID  where tblbooking.ID=:eid";
                   $query = $dbh->prepare($sql);
                   $query->bindParam(':eid', $eid, PDO::PARAM_STR);
                   $query->execute();
@@ -122,19 +122,6 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                           </td>
                         </tr>
                         <tr>
-
-                          <th>Event Name</th>
-                          <td>
-                            <?php echo $row->ServiceName; ?>
-                          </td>
-                          <th>Event Description</th>
-                          <td>
-                            <?php echo $row->SerDes; ?>
-                          </td>
-                        </tr>
-                        <tr>
-
-
                           <th>Event Location</th>
                           <td>
                             <?php echo $row->Location; ?>
@@ -152,6 +139,18 @@ if (strlen($_SESSION['odmsaid'] == 0)) {
                           <th>Total price</th>
                           <td><span class="text-danger">Frw</span>
                             <?php echo $row->TotalPrice; ?>
+                          </td>
+                        </tr>
+
+                        <tr>
+
+                          <th>Event Name</th>
+                          <td>
+                            <?php echo $row->ServiceName; ?>
+                          </td>
+                          <th>Phone Used In Payment</th>
+                          <td>+250 
+                            <?php echo $row->PhonePayedOn; ?>
                           </td>
                         </tr>
 

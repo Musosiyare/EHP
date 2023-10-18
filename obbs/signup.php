@@ -44,7 +44,7 @@ if (isset($_POST['signup'])) {
             echo "<script>alert('Something went wrong. Please try again.');</script>";
         }
     } else {
-        echo "<script>alert('Email-id already exists. Please try again.');</script>";
+        echo "<script>alert('Email already exists. Please try again.');</script>";
     }
 }
 ?>
@@ -157,13 +157,17 @@ if (isset($_POST['signup'])) {
                                 value="<?php echo $email; ?>">
                             <input type="text" name="mobno" placeholder="Mobile Number Required" maxlength="10"
                                 pattern="[0-9]+" value="<?php echo $mobno; ?>">
-                            <input type="password" name="password" placeholder="Password Required" id="password1">
+                            <input type="password" name="password" placeholder="Password Required" id="password1"
+                                pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$"
+                                title="Password must contain at least 6 characters with a combination of text, numbers, symbols, lowercase, and uppercase letters"
+                                required>
+
                             <br>
                             <input type="password" name="confirmpassword" placeholder="Confirm Password" id="password2">
                             <br>
                             <div class="tp">
                                 <button class="btn1" name="signup">
-                                <i class="fa fa-save mr-5"></i> Save
+                                    <i class="fa fa-save mr-5"></i> Save
                                 </button>
                             </div>
                         </form>

@@ -86,7 +86,7 @@ if (strlen($_SESSION['obbsuid']) == 0) {
 						<?php
 						$uid = $_SESSION['obbsuid'];
 
-						$sql = "SELECT tbluser.FullName, tbluser.MobileNumber, tbluser.Email, tblbooking.BookingID, tblbooking.BookingDate, tblbooking.PricePerEvent, tblbooking.TotalPrice, tblbooking.EventType, tblbooking.Numberofguest, tblbooking.Message, tblbooking.Remark, tblbooking.Status, tblbooking.UpdationDate, tblevents.ServiceName, tblevents.SerDes, tblevents.ServiceDate, tblevents.ServiceTime, tblevents.Location, Remark from tblbooking join tblevents on tblbooking.ServiceID = tblevents.ID join tbluser on tbluser.ID = tblbooking.UserID  where tblbooking.UserID=:uid";
+						$sql = "SELECT tbluser.FullName, tbluser.MobileNumber, tbluser.Email, tblbooking.BookingID, tblbooking.BookingDate, tblbooking.PricePerEvent, tblbooking.TotalPrice, tblbooking.EventType, tblbooking.Numberofguest, tblbooking.Remark, tblbooking.Status, tblbooking.UpdationDate,tblbooking.PhonePayedOn, tblevents.ServiceName, tblevents.SerDes, tblevents.ServiceDate, tblevents.ServiceTime, tblevents.Location, Remark from tblbooking join tblevents on tblbooking.ServiceID = tblevents.ID join tbluser on tbluser.ID = tblbooking.UserID  where tblbooking.UserID=:uid";
 						$query = $dbh->prepare($sql);
 						$query->bindParam(':uid', $uid, PDO::PARAM_STR);
 						$query->execute();
@@ -126,16 +126,6 @@ if (strlen($_SESSION['obbsuid']) == 0) {
 											</td>
 										</tr>
 										<tr>
-											<th>Event Name</th>
-											<td>
-												<?php echo $row->ServiceName; ?>
-											</td>
-											<th>Event Description</th>
-											<td>
-												<?php echo $row->SerDes; ?>
-											</td>
-										</tr>
-										<tr>
 											<th>Event Date</th>
 											<td>
 												<?php echo $row->ServiceDate; ?>
@@ -163,6 +153,16 @@ if (strlen($_SESSION['obbsuid']) == 0) {
 											<th>Total Price</th>
 											<td><span class="text-danger">Frw</span>
 												<?php echo $row->TotalPrice; ?>
+											</td>
+										</tr>
+										<tr>
+											<th>Event Name</th>
+											<td>
+												<?php echo $row->ServiceName; ?>
+											</td>
+											<th>Phone Used In Payment</th>
+											<td>+250
+												<?php echo $row->PhonePayedOn; ?>
 											</td>
 										</tr>
 										<tr>

@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'GET') {
 }
 $pay_ref = $_GET['ref'];
 $result = hdev_payment::get_pay($pay_ref);
-if($result == null) {
+if ($result == null) {
     header('location: booking-history.php');
 } else {
     $sql = "UPDATE `tblbooking` SET `payment_status`='" . $result->status . "' WHERE `transactionId` = '$pay_ref'";
@@ -37,20 +37,20 @@ if($result == null) {
             <?php echo $result->status; ?>
         </h1>
         <?php
-        if ($result->status == "pending"){ ?>
+        if ($result->status == "pending") { ?>
             <p class="mb-3">Please confirm your payment...</p>
             <p>Approve Payment on your phone, For MTN dial: *182*7*1#</p>
             <div class="spinner-border text-primary" role="status">
                 <i class="fa fa-spinner fa-spin fa-5x"></i>
             </div>
             <?php
-            }else {
-                ?>
-                <div class="spinner-border text-primary" role="status">
+        } else {
+            ?>
+            <div class="spinner-border text-primary" role="status">
                 <i class="fa fa-check fa-5x"></i>
             </div>
-                <?php
-            }
+            <?php
+        }
         ?>
         <div class="mt-3">
             <a href="index.php" class="btn btn-primary">Go back</a>
